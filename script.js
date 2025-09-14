@@ -353,8 +353,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const createPostCard = (post) => {
         const title = post.title[currentLang] || post.title.en;
         const summary = post.summary[currentLang] || post.summary.en;
+        const isGif = post.imageUrl.toLowerCase().endsWith('.gif');
+        const blurClass = isGif ? 'no-blur' : '';
+
         return `<a href="#" data-target="post-page" data-post-id="${post.id}" class="block post-card glass-card rounded-2xl flex-grow">
-            <div class="post-card-background" style="background-image: url('${post.imageUrl}');"></div>
+            <div class="post-card-background ${blurClass}" style="background-image: url('${post.imageUrl}');"></div>
             <div class="p-8 post-card-content">
                 <p class="text-sm text-gray-400 mb-2">${post.date}</p>
                 <h3 class="text-2xl font-bold">${title}</h3>
@@ -400,8 +403,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const content = post.content[currentLang] || post.content.en;
         const postPageContainer = document.getElementById('post-page');
         postPageContainer.dataset.currentPostId = postId;
+
+        const isGif = post.imageUrl.toLowerCase().endsWith('.gif');
+        const blurClass = isGif ? 'no-blur' : '';
+
         postPageContainer.innerHTML = `<div class="relative w-full h-80 rounded-2xl overflow-hidden mb-12">
-                <img src="${post.imageUrl}" class="absolute w-full h-full object-cover post-banner-image" alt="Post banner">
+                <img src="${post.imageUrl}" class="absolute w-full h-full object-cover post-banner-image ${blurClass}" alt="Post banner">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
                 <div class="absolute bottom-0 left-0 p-8 md:p-12">
                     <p class="text-gray-300">${post.date} · ${post.readTime}</p>

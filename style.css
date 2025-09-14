@@ -219,10 +219,13 @@ button:active, .nav-link:active, .copy-btn:active {
     height: 100%;
     background-size: cover;
     background-position: center;
-    filter: blur(2px);
     transform: scale(1.05);
     transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
     z-index: 1;
+}
+
+.post-card-background:not(.no-blur) {
+    filter: blur(2px);
 }
 
 .post-card:hover .post-card-background {
@@ -269,8 +272,11 @@ button:active, .nav-link:active, .copy-btn:active {
 }
 
 .post-banner-image {
-    filter: blur(3px);
     transform: scale(1.05);
+}
+
+.post-banner-image:not(.no-blur) {
+    filter: blur(3px);
 }
 
 .admin-card-controls {
