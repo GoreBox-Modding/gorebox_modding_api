@@ -37,15 +37,18 @@ document.addEventListener('DOMContentLoaded', () => {
             toc_title: "Содержание",
             footer_copyright: `© ${new Date().getFullYear()} GoreBox Modding Api. Все права защищены.`,
             copy_docs: "Копировать всё",
-            docs_copied: "Скопировано!"
+            docs_copied: "Скопировано!",
+            copy_code: "Копировать код",
+            code_copied: "Скопировано!"
         },
         en: {
             nav_documentation: "Documentation", nav_blog: "Blog", search_placeholder: "Search...",
             blog_title: "Blog & News", view_all: "View All →",
             toc_title: "On this page",
-            footer_copyright: `© ${new Date().getFullYear()} GoreBox Modding Api. All rights reserved.`,
             copy_docs: "Copy Docs",
-            docs_copied: "Copied!"
+            docs_copied: "Copied!",
+            copy_code: "Copy Code",
+            code_copied: "Copied!"
         }
     };
     let currentLang = localStorage.getItem('lang') || 'ru';
@@ -71,6 +74,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     langToggle.addEventListener('click', () => setLanguage(currentLang === 'ru' ? 'en' : 'ru'));
+
+    // Mobile Menu Logic
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const openIcon = document.getElementById('mobile-menu-open-icon');
+    const closeIcon = document.getElementById('mobile-menu-close-icon');
+
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        openIcon.classList.toggle('hidden');
+        closeIcon.classList.toggle('hidden');
+    });
+
+    const closeMobileMenu = () => {
+        mobileMenu.classList.add('hidden');
+        openIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+    };
 
     const pages = document.querySelectorAll('.page-section');
     let currentPage = '';
@@ -105,13 +126,14 @@ document.addEventListener('DOMContentLoaded', () => {
         
         currentPage = pageId;
         
-        docsSidebar.classList.toggle('lg:block', pageId === 'home-page');
-        docsSidebar.classList.toggle('hidden', pageId !== 'home-page');
+        docsSidebar.classList.toggle('lg:block', pageId === 'home-page' || pageId === 'documentation');
+        docsSidebar.classList.toggle('hidden', pageId !== 'home-page' && pageId !== 'documentation');
         
         postTocSidebar.classList.toggle('lg:block', pageId === 'post-page');
         postTocSidebar.classList.toggle('hidden', pageId !== 'post-page');
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        closeMobileMenu();
     };
 
     document.body.addEventListener('click', (e) => {
@@ -227,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if ((index === functionsCount - 1) && (functionsCount % 2 !== 0)) {
                     classList += " md:col-span-2";
                 }
-
+                const copyTitle = translations[currentLang].copy_code;
                 return `<div id="${funcId}" class="${classList}">
                     <h3 class="text-lg font-semibold text-blue-300 font-mono">${func.name}</h3>
                     <p class="mt-2 text-gray-300">${funcDescription}</p>
@@ -235,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p class="text-sm font-semibold text-gray-400 mb-2">Example:</p>
                         <div class="relative">
                             <pre><code class="language-lua">${func.example.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>
-                            <button class="copy-btn" title="Copy Code"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg></button>
+                            <button class="copy-btn" title="${copyTitle}"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg></button>
                         </div>
                     </div>
                 </div>`;
@@ -463,10 +485,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
             setTimeout(() => {
                 copyDocsBtn.textContent = originalText;
+                 copyDocsBtn.dataset.langKey="copy_docs"
                 copyDocsBtn.classList.remove('copied');
             }, 2000);
         }).catch(err => {
             console.error('Failed to copy documentation: ', err);
+        });
+    });
+
+    // *** NEW: Event Delegation for individual code copy buttons ***
+    document.body.addEventListener('click', (e) => {
+        const copyBtn = e.target.closest('.copy-btn');
+        if (!copyBtn) return;
+
+        const codeContainer = copyBtn.previousElementSibling;
+        if (!codeContainer || !codeContainer.querySelector('code')) return;
+
+        const codeToCopy = codeContainer.querySelector('code').innerText;
+        
+        navigator.clipboard.writeText(codeToCopy).then(() => {
+            const originalIcon = copyBtn.innerHTML;
+            const originalTitle = copyBtn.title;
+            copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>`;
+            copyBtn.title = translations[currentLang].code_copied;
+            copyBtn.classList.add('copy-btn-copied');
+
+            setTimeout(() => {
+                copyBtn.innerHTML = originalIcon;
+                copyBtn.title = originalTitle;
+                copyBtn.classList.remove('copy-btn-copied');
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy code: ', err);
         });
     });
     
