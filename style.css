@@ -1,0 +1,407 @@
+:root {
+    --bg-color: #0d1117;
+    --card-bg: rgba(22, 27, 34, 0.6);
+    --header-bg: rgba(22, 27, 34, 0.7);
+    --text-color: #c9d1d9;
+    --text-color-light: #aebacd;
+    --text-color-muted: #6e7a8b;
+    --border-color: rgba(80, 150, 250, 0.2);
+    --border-color-light: rgba(80, 150, 250, 0.3);
+    --link-color: #58a6ff;
+    --link-hover-color: #80baff;
+    --highlight-color: #58a6ff;
+    --code-bg: #1f2937;
+    --aurora-color-1: rgba(80, 20, 180, 0.15);
+    --aurora-color-2: rgba(20, 120, 220, 0.15);
+    --success-color: #2ea043;
+}
+
+body.light-theme {
+    --bg-color: #f8fafc;
+    --card-bg: rgba(255, 255, 255, 0.6);
+    --header-bg: rgba(255, 255, 255, 0.7);
+    --text-color: #1e293b;
+    --text-color-light: #475569;
+    --text-color-muted: #94a3b8;
+    --border-color: rgba(59, 130, 246, 0.15);
+    --border-color-light: rgba(59, 130, 246, 0.2);
+    --link-color: #2563eb;
+    --link-hover-color: #1d4ed8;
+    --highlight-color: #2563eb;
+    --code-bg: #f1f5f9;
+    --aurora-color-1: rgba(59, 130, 246, 0.12);
+    --aurora-color-2: rgba(168, 85, 247, 0.1);
+}
+
+body.light-theme #searchInput {
+    background-color: rgba(219, 234, 254, 0.9);
+    border-color: rgba(96, 165, 250, 1);
+    color: var(--text-color);
+}
+body.light-theme #searchInput::placeholder {
+    color: rgba(59, 130, 246, 0.8);
+}
+
+body { 
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Inter', sans-serif; 
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+#background-grid { 
+    content: ''; 
+    position: fixed; 
+    top: -50%; 
+    left: -50%; 
+    width: 300%; 
+    height: 300%; 
+    background-image: linear-gradient(to right, var(--border-color) 1px, transparent 1px),
+                      linear-gradient(to bottom, var(--border-color) 1px, transparent 1px);
+    background-size: 50px 50px; 
+    z-index: -2; 
+    transition: transform 0.2s ease-out; 
+}
+
+.aurora {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: 0.8;
+    z-index: -3;
+    transition: background-color 0.8s ease;
+    will-change: background-color;
+}
+.aurora-1 {
+    width: 800px;
+    height: 800px;
+    top: -200px;
+    left: -200px;
+    background-color: var(--aurora-color-1);
+}
+.aurora-2 {
+    width: 700px;
+    height: 700px;
+    bottom: -250px;
+    right: -250px;
+    background-color: var(--aurora-color-2);
+}
+
+#header-container {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding: 1rem 0;
+    transition: padding 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+#header-background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background: var(--header-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-color-light);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    transition: opacity 0.4s ease-in-out;
+}
+
+.header-scrolled #header-container { padding: 0.75rem 0; }
+.header-scrolled #header-background { opacity: 1; }
+
+.header-subtitle {
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    max-height: 2rem;
+    overflow: hidden;
+}
+.header-scrolled .header-subtitle {
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0 !important;
+}
+
+.header-scrolled .header-title { font-size: 1.5rem; }
+
+.header-content {
+    position: relative;
+    z-index: 1;
+}
+
+.header-title {
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.glass-card { 
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color-light);
+    border-radius: 1rem; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s ease, border-color 0.4s ease; 
+}
+
+.glass-card:hover { 
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(80, 150, 250, 0.1);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.will-animate {
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform: translateY(20px);
+}
+
+.is-animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes highlight {
+    0% {
+        box-shadow: 0 0 0 0 rgba(88, 166, 255, 0.4);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 25px 8px rgba(88, 166, 255, 0.1);
+        transform: scale(1.02);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(88, 166, 255, 0);
+        transform: scale(1);
+    }
+}
+
+.highlight-item {
+    animation: highlight 1.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+button, .nav-link, .copy-btn {
+    transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.3s ease;
+}
+
+button:active, .nav-link:active, .copy-btn:active {
+    transform: scale(0.95);
+}
+
+#copy-all-docs-btn.copied {
+    background-color: var(--success-color);
+    color: white;
+    transform: scale(1.05);
+}
+
+.post-card { 
+    position: relative; 
+    overflow: hidden; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 250px; 
+}
+
+.post-card-background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(2px);
+    transform: scale(1.05);
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 1;
+}
+
+.post-card:hover .post-card-background {
+    transform: scale(1.1);
+}
+
+.post-card::before { 
+    content: ''; 
+    position: absolute; 
+    inset: 0; 
+    background: linear-gradient(to top, rgba(10, 10, 15, 0.9) 10%, transparent 75%);
+    transition: opacity 0.4s ease;
+    opacity: 1;
+    z-index: 2;
+}
+
+.post-card:hover::before {
+    opacity: 0.8;
+}
+
+.post-card-content { 
+    position: relative; 
+    z-index: 10;
+    transform: translateY(0);
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.post-card:hover .post-card-content {
+    transform: translateY(-5px);
+}
+
+.post-card h3 {
+    color: #ffffff;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.7);
+}
+.post-card p {
+    color: #e0e0e0;
+}
+
+
+.post-title-text {
+    color: #ffffff;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.post-banner-image {
+    filter: blur(3px);
+    transform: scale(1.05);
+}
+
+.admin-card-controls {
+    display: flex;
+    z-index: 11;
+    padding: 0.5rem 0.75rem;
+    gap: 0.5rem;
+}
+
+pre code.hljs { 
+    position: relative; 
+    background: var(--code-bg);
+    border-radius: 0.5rem; 
+    padding: 1rem; 
+    white-space: pre-wrap; 
+    word-break: break-word; 
+    border: 1px solid var(--border-color-light);
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.copy-btn { 
+    position: absolute; 
+    top: 0.75rem; 
+    right: 0.75rem; 
+    background-color: var(--card-bg);
+    color: var(--text-color-light);
+    border: 1px solid var(--border-color-light);
+    padding: 0.25rem 0.5rem; 
+    border-radius: 0.375rem; 
+    font-size: 0.75rem; 
+    cursor: pointer; 
+    transition: all 0.3s ease-in-out; 
+    opacity: 0.7;
+}
+
+pre:hover .copy-btn { opacity: 1; }
+.copy-btn:hover { 
+    background-color: var(--highlight-color);
+    border-color: var(--highlight-color);
+    color: white; 
+}
+.copy-btn-copied { 
+    background-color: var(--success-color);
+    color: white; 
+}
+
+.page-section { 
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+}
+.page-section:not(.active) {
+    opacity: 0;
+    transform: translateY(15px);
+}
+.page-section.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.page-section.hidden { 
+    opacity: 0; 
+    display: none; 
+}
+
+.form-input {
+    width: 100%;
+    background-color: var(--code-bg);
+    border: 1px solid var(--border-color-light);
+    color: var(--text-color);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+.form-input:focus {
+    outline: none;
+    border-color: var(--link-color);
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.3);
+}
+
+#editor-container-ru, #editor-container-en {
+    background-color: var(--code-bg);
+    color: var(--text-color);
+    height: 300px;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color-light);
+    transition: all 0.3s ease;
+}
+.ql-toolbar {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--border-color-light) !important;
+}
+.ql-container {
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+.ql-toolbar, .ql-container {
+    border-color: var(--border-color-light) !important;
+}
+.ql-snow .ql-stroke { stroke: var(--text-color-muted); }
+.ql-snow .ql-picker-label { color: var(--text-color-muted); }
+.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+    background-color: var(--bg-color);
+    border-color: var(--border-color-light) !important;
+}
+.ql-snow .ql-picker-options .ql-picker-item:hover {
+    background-color: var(--border-color);
+    color: var(--text-color);
+}
+.ql-editor.ql-blank::before {
+    color: var(--text-color-muted);
+    font-style: normal;
+}
+
+.text-white { color: var(--text-color); }
+h1, h2, h3, h4, h5, h6 { color: var(--text-color); transition: color 0.4s ease; }
+p, div, span, a, li { color: var(--text-color-light); transition: color 0.4s ease; }
+a { text-decoration: none; }
+.text-gray-300 { color: var(--text-color-light); }
+.text-blue-300 { color: var(--link-color); }
+.hover\:text-white:hover { color: var(--link-hover-color) !important; }
+.text-blue-400 { color: var(--link-color); }
+.border-blue-500\/30 { border-color: var(--border-color-light); }
+.border-b-2 { border-bottom-width: 2px; }
+.bg-gray-900\/70 { background-color: var(--card-bg); }
+.placeholder-gray-500::placeholder { color: var(--text-color-muted); }
+.border-gray-700 { border-color: var(--border-color); }
+.text-gray-500 { color: var(--text-color-muted); }
+.bg-gray-900\/80 { background-color: var(--header-bg); }
+.text-blue-200 { color: var(--link-color); }
+.hover\:bg-blue-500\/10:hover { background-color: var(--border-color); }
+.hover\:bg-blue-500\/20:hover { background-color: var(--border-color); }
+.text-gray-400 { color: var(--text-color-muted); }
+footer { border-top-color: var(--border-color); }

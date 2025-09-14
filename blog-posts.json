@@ -1,0 +1,20 @@
+[
+  {
+    "id": "new-beginning",
+    "title": {
+      "ru": "Представляем новый Lua-моддинг для GoreBox!",
+      "en": "Introducing the new Lua modding for GoreBox!"
+    },
+    "summary": {
+      "ru": "Начало чего-то грандиозного",
+      "en": "The beginning of something big"
+    },
+    "imageUrl": "https://media.discordapp.net/attachments/869354228097892443/1404348652109041716/32646668ea51baea.png?ex=68c7075a&is=68c5b5da&hm=fb5ed53a0dfb66a93fceaede39e94c8dff1977ea81b3f902528bab0ed877884e&=&format=webp&quality=lossless&width=1522&height=856",
+    "content": {
+      "ru": "<h2>Запуск Lua-моддинга и документации для GoreBox</h2><p><br></p><blockquote>Сообщаем о выходе нового моддинга на основе <strong>Lua </strong>для <strong>GoreBox</strong>. Этот инструмент позволит пользователям создавать собственные игровые элементы, включая механики и предметы</blockquote><p><br></p><h2>Техническая документация</h2><p><br></p><blockquote>Для поддержки моддеров мы подготовили техническую документацию, которая поможет в освоении скриптинга</blockquote><p><br></p><blockquote>Важно отметить, что документация будет регулярно обновляться. Мы планируем дополнять и изменять её на основе обратной связи от пользователей. Ваши предложения помогут сделать её более точной и понятной</blockquote><p><br></p><h2>Новости и обновления</h2><p><br></p><blockquote>Здесь будут публиковаться новости об изменениях в документации и улучшениях моддинга</blockquote>",
+      "en": "<h2><strong>Launch of Lua Modding and Documentation for GoreBox</strong></h2><p><br></p><blockquote>We are announcing the release of a new Lua-based modding system for GoreBox. This tool will allow users to create their own game elements, including mechanics and items</blockquote><p><br></p><h2><strong>Technical Documentation</strong></h2><p><br></p><blockquote>To support modders, we have prepared technical documentation that will help with learning the scripting process</blockquote><p><br></p><blockquote>It is important to note that the documentation will be updated regularly. We plan to supplement and change it based on user feedback. Your suggestions will help make it more accurate and understandable</blockquote><p><br></p><h2><strong>News and Updates</strong></h2><p><br></p><blockquote>News about changes to the documentation and improvements to the modding system will be published here</blockquote>"
+    },
+    "date": "2025-09-13",
+    "readTime": "1 min read"
+  }
+]
