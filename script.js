@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const body = document.body;
+    const rootEl = document.documentElement;
     const grid = document.getElementById('background-grid');
     const mainContent = document.querySelector('main');
 
@@ -16,26 +16,52 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     animate();
 
-    window.addEventListener('scroll', () => body.classList.toggle('header-scrolled', window.scrollY > 30));
+    window.addEventListener('scroll', () => document.body.classList.toggle('header-scrolled', window.scrollY > 30));
 
     const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-toggle-icon');
-    const moonIcon = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>`;
-    const sunIcon = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>`;
-    const setTheme = (isLight) => {
-        body.classList.toggle('light-theme', isLight);
-        themeIcon.innerHTML = isLight ? sunIcon : moonIcon;
-        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    const themes = ['light', 'gorebox'];
+    const themeIcons = {
+        light: document.getElementById('theme-icon-light'),
+        gorebox: document.getElementById('theme-icon-gorebox')
     };
-    themeToggle.addEventListener('click', () => setTheme(!body.classList.contains('light-theme')));
-    setTheme(localStorage.getItem('theme') === 'light');
+
+    const setTheme = (themeName) => {
+        if (!themes.includes(themeName)) {
+            themeName = 'light';
+        }
+
+        rootEl.classList.remove('light-theme', 'gorebox-theme');
+        if (themeName === 'light') {
+            rootEl.classList.add('light-theme');
+        } else if (themeName === 'gorebox') {
+            rootEl.classList.add('gorebox-theme');
+        }
+
+        Object.values(themeIcons).forEach(icon => {
+            if(icon) icon.classList.add('hidden');
+        });
+        if (themeIcons[themeName]) {
+            themeIcons[themeName].classList.remove('hidden');
+        }
+        
+        localStorage.setItem('theme', themeName);
+    };
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        const currentIndex = themes.indexOf(currentTheme);
+        const nextIndex = (currentIndex + 1) % themes.length;
+        const nextTheme = themes[nextIndex];
+        setTheme(nextTheme);
+    });
+    
+    setTheme(localStorage.getItem('theme'));
 
     const translations = {
         ru: {
             nav_documentation: "Документация", nav_blog: "Блог", search_placeholder: "Поиск...",
             blog_title: "Блог и Новости", view_all: "Смотреть все →",
             toc_title: "Содержание",
-            footer_copyright: `© ${new Date().getFullYear()} GoreBox Modding Api. Все права защищены.`,
             copy_docs: "Копировать всё",
             docs_copied: "Скопировано!",
             copy_code: "Копировать код",
@@ -75,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     langToggle.addEventListener('click', () => setLanguage(currentLang === 'ru' ? 'en' : 'ru'));
 
-    // Mobile Menu Logic
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
     const openIcon = document.getElementById('mobile-menu-open-icon');
@@ -147,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const docData = [
         { 
             category: { ru: "Глобальные функции Lua", en: "Global Lua Functions" }, 
-            icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h1a2 2 0 002-2v-1a2 2 0 012-2h1.945M7.884 5.066A9 9 0 1016.116 5.066M12 3v1m0 16v1" /></svg>`, 
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h1a2 2 0 002-2v-1a2 2 0 012-2h1.945M7.884 5.066A9 9 0 1016.116 5.066M12 3v1m0 16v1" /></svg>`, 
             functions: [ 
                 { name: "log(text)", description: { ru: "Выводит текст в консоль Unity с префиксом [Lua].", en: "Prints text to the Unity console with a [Lua] prefix." }, example: `log("Player position updated")` }, 
                 { name: "getDeltaTime()", description: { ru: "Возвращает значение Time.deltaTime.", en: "Returns the value of Time.deltaTime." }, example: `local dt = getDeltaTime()\nplayer.x = player.x + speed * dt` }, 
@@ -155,38 +180,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 
         { 
             category: {ru: "Функции Lua GUI", en: "Lua GUI Functions"}, 
-            icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" /></svg>`, 
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" /></svg>`, 
             functions: [ 
-                { name: "gui.label(text)", description: {ru: "Отображает текстовую метку.", en: "Displays a text label."}, example: `M.gui_update = function()\n    gui.label("Player Health: 100")\nend` }, 
-                { name: "gui.button(text)", description: {ru: "Отображает кнопку; возвращает true при нажатии.", en: "Displays a button; returns true if clicked."}, example: `M.gui_update = function()\n    if gui.button("Quit Game") then\n        log("Quit button pressed")\n    end\nend` },
-                { name: "gui.hSlider(value, left, right)", description: {ru: "Горизонтальный слайдер; возвращает текущее значение.", en: "A horizontal slider; returns the current value."}, example: `local volume = 0.5\nM.gui_update = function()\n    volume = gui.hSlider(volume, 0.0, 1.0)\nend` },
-                { name: "gui.toggle(value, text)", description: {ru: "Отображает переключатель; возвращает его текущий булев статус.", en: "Displays a toggle switch; returns its current boolean status."}, example: `local musicEnabled = true\nM.gui_update = function()\n    musicEnabled = gui.toggle(musicEnabled, "Music On/Off")\nend` },
+                { name: "label(text)", description: {ru: "Отображает текстовую метку.", en: "Displays a text label."}, example: `M.gui_update = function()\n    gui.label("Player Health: 100")\nend` }, 
+                { name: "button(text)", description: {ru: "Отображает кнопку; возвращает true при нажатии.", en: "Displays a button; returns true if clicked."}, example: `M.gui_update = function()\n    if gui.button("Quit Game") then\n        log("Quit button pressed")\n    end\nend` },
+                { name: "hSlider(value, left, right)", description: {ru: "Горизонтальный слайдер; возвращает текущее значение.", en: "A horizontal slider; returns the current value."}, example: `local volume = 0.5\nM.gui_update = function()\n    volume = gui.hSlider(volume, 0.0, 1.0)\nend` },
+                { name: "toggle(value, text)", description: {ru: "Отображает переключатель; возвращает его текущий булев статус.", en: "Displays a toggle switch; returns its current boolean status."}, example: `local musicEnabled = true\nM.gui_update = function()\n    musicEnabled = gui.toggle(musicEnabled, "Music On/Off")\nend` },
             ] 
         },
         { 
             category: {ru: "Функции Lua Unity", en: "Lua Unity Functions"}, 
-            icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>`, 
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>`, 
             functions: [
-                { name: "Unity.GameObject.Create(name, path, ...)", description: {ru: "Создает новый объект через PhotonNetwork.", en: "Creates a new object via PhotonNetwork."}, example: `local newCube = Unity.GameObject.Create("MyCube", "Primitives/Cube", 0, 1, 0, 1, 1, 1, 0, 0, 0)` },
-                { name: "Unity.GameObject.Find(name)", description: {ru: "Находит объект по имени; возвращает таблицу объекта.", en: "Finds an object by name; returns an object table."}, example: `local player = Unity.GameObject.Find("MainPlayer")` },
-                { name: "Unity.GameObject.AddComponent(id, typeName)", description: {ru: "Добавляет компонент к объекту по его ID.", en: "Adds a component to an object by its ID."}, example: `local player = Unity.GameObject.Find("MainPlayer")\nUnity.GameObject.AddComponent(player.id, "Rigidbody")` },
+                { name: "Create(name, path, ...)", description: {ru: "Создает новый объект через PhotonNetwork.", en: "Creates a new object via PhotonNetwork."}, example: `local newCube = Unity.GameObject.Create("MyCube", "Primitives/Cube", 0, 1, 0, 1, 1, 1, 0, 0, 0)` },
+                { name: "Find(name)", description: {ru: "Находит объект по имени; возвращает таблицу объекта.", en: "Finds an object by name; returns an object table."}, example: `local player = Unity.GameObject.Find("MainPlayer")` },
+                { name: "AddComponent(id, typeName)", description: {ru: "Добавляет компонент к объекту по его ID.", en: "Adds a component to an object by its ID."}, example: `local player = Unity.GameObject.Find("MainPlayer")\nUnity.GameObject.AddComponent(player.id, "Rigidbody")` },
             ] 
         },
         { 
             category: {ru: "Методы GameObject & Transform", en: "GameObject & Transform Methods"}, 
-            icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 7l-8.228 8.228-3.536-3.536L1 21M15 1l6 6" /></svg>`, 
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 7l-8.228 8.228-3.536-3.536L1 21M15 1l6 6" /></svg>`, 
             functions: [
-                { name: "object:GetName()", description: {ru: "Возвращает имя объекта.", en: "Returns the name of the object."}, example: `local player = Unity.GameObject.Find("MainPlayer")\nlog(player:GetName())` },
-                { name: "object:SetActive(bool)", description: {ru: "Активирует или деактивирует объект.", en: "Activates or deactivates the object."}, example: `local enemy = Unity.GameObject.Find("Enemy1")\nenemy:SetActive(false)` },
-                { name: "transform:GetPosition()", description: {ru: "Возвращает глобальную позицию (x, y, z).", en: "Returns the global position (x, y, z)."}, example: `local pos = transform:GetPosition()\nlog("x=" .. pos.x .. ", y=" .. pos.y)` },
-                { name: "transform:SetPosition(x, y, z)", description: {ru: "Устанавливает глобальную позицию.", en: "Sets the global position."}, example: `transform:SetPosition(10, 5, 20)` },
-                { name: "transform:Translate(x, y, z)", description: {ru: "Перемещает объект на указанный вектор.", en: "Moves the object by the specified vector."}, example: `transform:Translate(0, 0, 5 * getDeltaTime()) -- Move forward` },
-                { name: "transform:Rotate(x, y, z)", description: {ru: "Вращает объект на указанные углы.", en: "Rotates the object by the specified angles."}, example: `transform:Rotate(0, 45 * getDeltaTime(), 0) -- Rotate around Y axis` },
+                { name: "GetName()", description: {ru: "Возвращает имя объекта.", en: "Returns the name of the object."}, example: `local player = Unity.GameObject.Find("MainPlayer")\nlog(player:GetName())` },
+                { name: "SetActive(bool)", description: {ru: "Активирует или деактивирует объект.", en: "Activates or deactivates the object."}, example: `local enemy = Unity.GameObject.Find("Enemy1")\nenemy:SetActive(false)` },
+                { name: "GetPosition()", description: {ru: "Возвращает глобальную позицию (x, y, z).", en: "Returns the global position (x, y, z)."}, example: `local pos = transform:GetPosition()\nlog("x=" .. pos.x .. ", y=" .. pos.y)` },
+                { name: "SetPosition(x, y, z)", description: {ru: "Устанавливает глобальную позицию.", en: "Sets the global position."}, example: `transform:SetPosition(10, 5, 20)` },
+                { name: "Translate(x, y, z)", description: {ru: "Перемещает объект на указанный вектор.", en: "Moves the object by the specified vector."}, example: `transform:Translate(0, 0, 5 * getDeltaTime()) -- Move forward` },
+                { name: "Rotate(x, y, z)", description: {ru: "Вращает объект на указанные углы.", en: "Rotates the object by the specified angles."}, example: `transform:Rotate(0, 45 * getDeltaTime(), 0) -- Rotate around Y axis` },
             ] 
         },
         { 
             category: {ru: "Жизненный цикл модуля Lua", en: "Lua Module Lifecycle"}, 
-            icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5M20 20v-5h-5M4 20h5v-5M20 4h-5v5" /></svg>`, 
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5M20 20v-5h-5M4 20h5v-5M20 4h-5v5" /></svg>`, 
             functions: [
                 { name: "awake()", description: {ru: "Вызывается во время фазы Awake() в Unity.", en: "Called during Unity's Awake() phase."}, example: `M = {}\nfunction M.awake()\n    log("Module is awake!")\nend` },
                 { name: "start()", description: {ru: "Вызывается во время фазы Start() в Unity.", en: "Called during Unity's Start() phase."}, example: `M = {}\nfunction M.start()\n    log("Module has started!")\nend` },
@@ -251,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 const copyTitle = translations[currentLang].copy_code;
                 return `<div id="${funcId}" class="${classList}">
-                    <h3 class="text-lg font-semibold text-blue-300 font-mono">${func.name}</h3>
+                    <h3 class="text-lg font-semibold text-accent font-mono">${func.name}</h3>
                     <p class="mt-2 text-gray-300">${funcDescription}</p>
                     <div class="mt-4">
                         <p class="text-sm font-semibold text-gray-400 mb-2">Example:</p>
@@ -288,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const categoryLink = document.createElement('a');
             categoryLink.href = `#${categoryId}`;
             categoryLink.textContent = categoryName;
-            categoryLink.className = 'font-bold text-lg text-blue-300 hover:text-white transition-colors';
+            categoryLink.className = 'font-bold text-lg text-accent hover:text-white transition-colors';
             categoryLink.dataset.targetId = categoryId;
             categoryLi.appendChild(categoryLink);
             const subList = document.createElement('ul');
@@ -298,8 +323,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const funcLi = document.createElement('li');
                 const funcLink = document.createElement('a');
                 funcLink.href = `#${funcId}`;
-                funcLink.textContent = func.name;
-                funcLink.className = 'block text-sm text-gray-400 hover:text-blue-300 transition-colors font-mono';
+                funcLink.textContent = func.name.replace(/\(.*\)/, '').replace('(...)', '');
+                funcLink.className = 'block text-sm text-gray-400 hover:text-accent transition-colors font-mono';
                 funcLink.dataset.targetId = funcId;
                 funcLi.appendChild(funcLink);
                 subList.appendChild(funcLi);
@@ -340,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const resultItem = document.createElement('a'); 
                 resultItem.href = `#${result.id}`; 
                 resultItem.textContent = result.name; 
-                resultItem.className = 'block text-left p-2 rounded-md hover:bg-blue-500/20 transition-colors cursor-pointer text-blue-200'; 
+                resultItem.className = 'block text-left p-2 rounded-md hover:bg-blue-500/20 transition-colors cursor-pointer text-accent'; 
                 resultItem.dataset.targetId = result.id; 
                 searchResultsContainer.appendChild(resultItem); 
             }); 
@@ -397,7 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
         nav.className = 'sticky top-28';
         const title = document.createElement('h3');
         title.textContent = translations[currentLang].toc_title;
-        title.className = 'text-lg font-bold mb-4 text-blue-300';
+        title.className = 'text-lg font-bold mb-4 text-accent';
         nav.appendChild(title);
         const list = document.createElement('ul');
         list.className = 'space-y-2';
@@ -407,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const link = document.createElement('a');
             link.href = `#${id}`;
             link.textContent = heading.textContent;
-            link.className = 'block text-sm text-gray-400 hover:text-blue-300 transition-colors';
+            link.className = 'block text-sm text-gray-400 hover:text-accent transition-colors';
             if (heading.tagName === 'H3') link.classList.add('pl-4');
             const listItem = document.createElement('li');
             listItem.appendChild(link);
@@ -449,7 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const blogGridContainer = document.getElementById('blog-page-grid');
         if (!blogData || blogData.length === 0 || !previewContainer || !blogGridContainer) return;
         const sortedPosts = [...blogData].sort((a, b) => new Date(b.date) - new Date(a.date));
-        const previewTitleHtml = `<div class="flex justify-between items-center"><h2 class="text-3xl font-bold border-b-2 border-blue-500/30 pb-2 mb-8" data-lang-key="blog_title">${translations[currentLang].blog_title}</h2><a href="#" data-target="blog-page" class="nav-link text-blue-300 hover:text-white transition-colors" data-lang-key="view_all">${translations[currentLang].view_all}</a></div>`;
+        const previewTitleHtml = `<div class="flex justify-between items-center"><h2 class="text-3xl font-bold border-b-2 border-blue-500/30 pb-2 mb-8" data-lang-key="blog_title">${translations[currentLang].blog_title}</h2><a href="#" data-target="blog-page" class="nav-link text-accent hover:text-white transition-colors" data-lang-key="view_all">${translations[currentLang].view_all}</a></div>`;
         previewContainer.innerHTML = `${previewTitleHtml}<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${sortedPosts.slice(0, 3).map(createPostCard).join('')}</div>`;
         blogGridContainer.innerHTML = sortedPosts.map(createPostCard).join('');
         observeElements('#blog-preview h2, #blog-page h2');
@@ -493,7 +518,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // *** NEW: Event Delegation for individual code copy buttons ***
     document.body.addEventListener('click', (e) => {
         const copyBtn = e.target.closest('.copy-btn');
         if (!copyBtn) return;
