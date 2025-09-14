@@ -211,7 +211,15 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         { 
             category: {ru: "Жизненный цикл модуля Lua", en: "Lua Module Lifecycle"}, 
-            icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5M20 20v-5h-5M4 20h5v-5M20 4h-5v5" /></svg>`, 
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 -1 24 24">
+  <path fill="#800000" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,20a9,9,0,1,1,9-9A9,9,0,0,1,12,21Z"/>
+  <rect width="2" height="7" x="11" y="6" fill="#800000" rx="1">
+    <animateTransform attributeName="transform" dur="9s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/>
+  </rect>
+  <rect width="2" height="9" x="11" y="11" fill="#800000" rx="1">
+    <animateTransform attributeName="transform" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/>
+  </rect>
+</svg>`, 
             functions: [
                 { name: "awake()", description: {ru: "Вызывается во время фазы Awake() в Unity.", en: "Called during Unity's Awake() phase."}, example: `M = {}\nfunction M.awake()\n    log("Module is awake!")\nend` },
                 { name: "start()", description: {ru: "Вызывается во время фазы Start() в Unity.", en: "Called during Unity's Start() phase."}, example: `M = {}\nfunction M.start()\n    log("Module has started!")\nend` },
