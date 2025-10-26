@@ -1,125 +1,850 @@
 <!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoreBox Modding API</title>
-    
+    <title>GoreBox Modding API | Современная документация</title>
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_16x16.png">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
-    
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Kenyan+Coffee&family=Segoe+UI:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script>
-      (function() {
-        try {
-          var theme = localStorage.getItem('theme');
-          if (theme === 'light') {
-            document.documentElement.classList.add('light-theme');
-          } else if (theme === 'gorebox') {
-            document.documentElement.classList.add('gorebox-theme');
-          }
-        } catch (e) {}
-      })();
-    </script>
 </head>
-<body class="">
-    <div id="background-grid"></div>
-    <div class="aurora aurora-1"></div>
-    <div class="aurora aurora-2"></div>
+<body>
+    <div class="space-background" id="spaceBackground"></div>
+    <div class="blueprint-background" id="blueprintBackground"></div>
+    <div class="gorebox-background" id="goreboxBackground"></div> <div id="particles-js"></div>
 
-    <div class="relative min-h-screen flex flex-col">
-        <div id="header-container">
-            <div id="header-background"></div>
-            <div class="header-content max-w-7xl mx-auto px-4 sm:px-6 md:px-8 flex justify-between items-center">
-                <div class="cursor-pointer nav-link" data-target="home-page">
-                    <h1 class="header-title text-2xl sm:text-3xl font-bold">GoreBox Modding API</h1>
-                    <p class="header-subtitle text-accent">Lua-based modding documentation</p>
-                </div>
-                <nav class="hidden md:flex items-center space-x-2 sm:space-x-4">
-                    <a href="#" data-target="home-page" class="nav-link px-4 py-2 rounded-lg hover:bg-blue-500/10 text-accent hover:text-white transition-all duration-200" data-lang-key="nav_documentation">Documentation</a>
-                    <a href="#" data-target="blog-page" class="nav-link px-4 py-2 rounded-lg hover:bg-blue-500/10 text-accent hover:text-white transition-all duration-200" data-lang-key="nav_blog">Blog</a>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <input id="searchInput" class="w-full md:w-56 lg:w-64 bg-gray-900/70 border border-blue-500/30 rounded-lg py-2 pl-10 pr-4 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all duration-300 placeholder-gray-500" placeholder="Search..." type="text">
-                        <div id="searchResults" class="hidden absolute top-full mt-2 w-full md:w-96 max-h-80 overflow-y-auto bg-gray-900/80 backdrop-blur-md border border-blue-500/30 rounded-lg p-2 z-50"></div>
-                    </div>
-                </nav>
-                 <div class="md:hidden">
-                    <button id="mobile-menu-button" class="p-2 rounded-lg hover:bg-blue-500/10 text-accent hover:text-white transition-colors">
-                        <svg id="mobile-menu-open-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                        <svg id="mobile-menu-close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                    </button>
-                </div>
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo" id="logoLink">
+                <i class="logo-icon"><span class="logo-icon-inner"></span></i>
+                <span>GoreBox Modding API</span>
+                <span class="version-badge">v1.0</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#" class="nav-link" data-page="home"><i class="fas fa-home"></i> <span data-translate="home">Главная</span></a>
+                <a href="#" class="nav-link" data-page="documentation"><i class="fas fa-book"></i> <span data-translate="documentation">Документация</span></a>
+                <a href="#" class="nav-link" data-page="blog"><i class="fas fa-newspaper"></i> <span data-translate="blog">Блог</span></a>
+            </nav>
+
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" data-translate-placeholder="search_placeholder" placeholder="Поиск по документации...">
+                <div class="search-results" id="searchResults"></div>
             </div>
-             <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-gray-900/90 backdrop-blur-lg z-40">
-                <div class="flex flex-col items-center space-y-4 p-5">
-                    <a href="#" data-target="home-page" class="nav-link text-lg px-4 py-2 rounded-lg hover:bg-blue-500/10 text-accent hover:text-white transition-all duration-200" data-lang-key="nav_documentation">Documentation</a>
-                    <a href="#" data-target="blog-page" class="nav-link text-lg px-4 py-2 rounded-lg hover:bg-blue-500/10 text-accent hover:text-white transition-all duration-200" data-lang-key="nav_blog">Blog</a>
-                    <div class="flex items-center space-x-2 border-t border-gray-700 w-full justify-center pt-4 mt-2">
-                        <a href="https://discord.gg/q4uQ646z3P" target="_blank" rel="noopener noreferrer" title="Discord" class="p-2 rounded-lg hover:bg-blue-500/10 text-accent hover:text-white transition-colors"><svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418Z"/></svg></a>
-                        <a href="https://www.youtube.com/@F2Games" target="_blank" rel="noopener noreferrer" title="YouTube" class="p-2 rounded-lg hover:bg-blue-500/10 text-accent hover:text-white transition-colors"><svg class="w-6 h-6" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-                    </div>
-                </div>
-            </div>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
+    </header>
 
-        <main class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 flex-grow w-full">
-            <div class="lg:flex lg:gap-x-12">
-                <aside id="docs-sidebar" class="hidden lg:block lg:w-64 lg:flex-shrink-0 py-10"></aside>
-                
-                <div class="lg:flex-grow py-10 min-w-0">
-                    <section id="home-page" class="page-section active">
-                        <div id="documentation" class="space-y-12"></div>
-                        <div id="blog-preview" class="mt-20"></div>
-                    </section>
-                    
-                    <section id="blog-page" class="page-section hidden">
-                        <div class="flex justify-between items-center mb-12">
-                            <h2 class="text-4xl font-bold" data-lang-key="blog_title">Blog & News</h2>
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-content">
+
+            <div class="settings-header">
+                <nav class="settings-tabs">
+                    <button class="settings-tab-btn active" data-tab="appearance">
+                        <i class="fas fa-palette"></i>
+                        <span data-translate="tab_appearance">Оформление</span>
+                    </button>
+                    <button class="settings-tab-btn" data-tab="general">
+                        <i class="fas fa-globe"></i>
+                        <span data-translate="tab_general">Общие</span>
+                    </button>
+                    <button class="settings-tab-btn" data-tab="sound">
+                        <i class="fas fa-volume-up"></i>
+                        <span data-translate="tab_sound">Звук</span>
+                    </button>
+                </nav>
+                <button class="settings-close" id="settingsClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="settings-body">
+
+                <div class="settings-tab-panel active" id="settings-tab-appearance">
+                    <div class="setting-group">
+                        <label class="setting-label" data-translate="theme">Тема оформления</label>
+                        <div class="theme-selector">
+                            <div class="theme-option active" data-theme="default">
+                                <div class="theme-icon"><i class="fas fa-moon"></i></div>
+                                <div class="theme-name" data-translate="theme_default">Космическая</div>
+                            </div>
+                            <div class="theme-option" data-theme="gorebox">
+                                <div class="theme-icon"><i class="fas fa-skull-crossbones"></i></div>
+                                <div class="theme-name" data-translate="theme_gorebox">GoreBox</div>
+                            </div>
+                            <div class="theme-option" data-theme="programmer">
+                                <div class="theme-icon"><i class="fas fa-terminal"></i></div>
+                                <div class="theme-name" data-translate="theme_programmer">Cozy</div>
+                            </div>
                         </div>
-                        <div id="blog-page-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
-                    </section>
+                    </div>
 
-                    <section id="post-page" class="page-section hidden"></section>
+                    <div class="setting-group">
+                        <label class="setting-label" data-translate="font">Шрифт</label>
+                        <div class="font-selector">
+                            <div class="font-option active" data-font="default">
+                                <div class="font-name" data-translate="font_default">Стандартный</div>
+                            </div>
+                            <div class="font-option" data-font="kenyan_coffee">
+                                <div class="font-name" data-translate="font_kenyan_coffee">Kenyan Coffee</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <label class="setting-label" data-translate="layout">Расположение функций</label>
+                        <div class="layout-selector">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="columnToggle">
+                                <span class="slider"></span>
+                            </label>
+                            <span data-translate="two_columns">Две колонки</span>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="settings-tab-panel" id="settings-tab-general">
+                    <div class="setting-group">
+                        <label class="setting-label" data-translate="language">Язык</label>
+                        <div class="language-selector">
+                            <div class="language-option active" data-lang="ru">
+                                <div class="language-icon"><span class="flag-icon flag-ru"></span></div>
+                                <div class="language-name">Русский</div>
+                            </div>
+                            <div class="language-option" data-lang="en">
+                                <div class="language-icon"><span class="flag-icon flag-us"></span></div>
+                                <div class="language-name">English</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="settings-tab-panel" id="settings-tab-sound">
+                    <div class="setting-group">
+                        <label class="setting-label" data-translate="music">Фоновая музыка</label>
+                        <div class="music-selector-wrapper">
+                            <div class="custom-select-wrapper">
+                                <div class="custom-select">
+                                    <div class="custom-select-trigger">
+                                        <span>PPLX Radio</span>
+                                        <i class="fas fa-chevron-down arrow"></i>
+                                    </div>
+                                    <div class="custom-options">
+                                        <div class="custom-option" data-value="9XZPCAk4IYc">PPLX Radio</div>
+                                        <div class="custom-option" data-value="HuOHu5XSTSk">Frutiger Aero</div>
+                                        <div class="custom-option" data-value="UedTcufyrHc">ChillSynth</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="music-controls">
+                            <button id="musicToggle" class="music-toggle-btn">
+                                <i class="fas fa-play"></i>
+                                <span data-translate="play_music">Включить музыку</span>
+                            </button>
+                            <div class="volume-control">
+                                <i class="fas fa-volume-mute"></i>
+                                <input type="range" id="volumeSlider" min="0" max="100" value="100">
+                                <i class="fas fa-volume-up"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                
+            </div> 
+        </div>
+    </div>
+    
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <h3 class="sidebar-title"><i class="fas fa-sync-alt"></i> <span data-translate="lifecycle">Жизненный цикл</span></h3>
+                <ul class="sidebar-links">
+                    <li><a href="#awake" class="sidebar-link" data-function="awake"><i class="fas fa-eye"></i> awake</a></li>
+                    <li><a href="#start" class="sidebar-link" data-function="start"><i class="fas fa-play"></i> start</a></li>
+                    <li><a href="#update" class="sidebar-link" data-function="update"><i class="fas fa-redo"></i> update</a></li>
+                    <li><a href="#late_update" class="sidebar-link" data-function="late_update"><i class="fas fa-history"></i> late_update</a></li>
+                    <li><a href="#fixed_update" class="sidebar-link" data-function="fixed_update"><i class="fas fa-cogs"></i> fixed_update</a></li>
+                    <li><a href="#gui_update" class="sidebar-link" data-function="gui_update"><i class="fas fa-desktop"></i> gui_update</a></li>
+                    <li><a href="#onRPC" class="sidebar-link" data-function="onRPC"><i class="fas fa-network-wired"></i> onRPC</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-title"><i class="fas fa-globe"></i> <span data-translate="global_functions">Основные функции</span></h3>
+                <ul class="sidebar-links">
+                    <li><a href="#log" class="sidebar-link active" data-function="log"><i class="fas fa-terminal"></i> log</a></li>
+                    <li><a href="#getModRoot" class="sidebar-link" data-function="getModRoot"><i class="fas fa-folder"></i> getModRoot</a></li>
+                    <li><a href="#getDeltaTime" class="sidebar-link" data-function="getDeltaTime"><i class="fas fa-clock"></i> getDeltaTime</a></li>
+                    <li><a href="#getTime" class="sidebar-link" data-function="getTime"><i class="fas fa-stopwatch"></i> getTime</a></li>
+                    <li><a href="#getLocalPlayer" class="sidebar-link" data-function="getLocalPlayer"><i class="fas fa-user"></i> getLocalPlayer</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-title"><i class="fas fa-desktop"></i> <span data-translate="gui_functions">Функции GUI</span></h3>
+                <ul class="sidebar-links">
+                    <li><a href="#gui_label" class="sidebar-link" data-function="gui_label"><i class="fas fa-tag"></i> label</a></li>
+                    <li><a href="#gui_space" class="sidebar-link" data-function="gui_space"><i class="fas fa-ruler-vertical"></i> space</a></li>
+                    <li><a href="#gui_box" class="sidebar-link" data-function="gui_box"><i class="fas fa-image"></i> box</a></li>
+                    <li><a href="#gui_button" class="sidebar-link" data-function="gui_button"><i class="fas fa-hand-pointer"></i> button</a></li>
+                    <li><a href="#gui_textField" class="sidebar-link" data-function="gui_textField"><i class="fas fa-i-cursor"></i> textField</a></li>
+                    <li><a href="#gui_verticalSlider" class="sidebar-link" data-function="gui_verticalSlider"><i class="fas fa-ellipsis-vertical"></i> verticalSlider</a></li>
+                    <li><a href="#gui_horizontalSlider" class="sidebar-link" data-function="gui_horizontalSlider"><i class="fas fa-sliders"></i> horizontalSlider</a></li>
+                    <li><a href="#gui_beginVertical" class="sidebar-link" data-function="gui_beginVertical"><i class="fas fa-arrows-up-down"></i> beginVertical</a></li>
+                    <li><a href="#gui_beginHorizontal" class="sidebar-link" data-function="gui_beginHorizontal"><i class="fas fa-arrows-left-right"></i> beginHorizontal</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-title"><i class="fas fa-paint-brush"></i> <span data-translate="resources">Ресурсы</span></h3>
+                <ul class="sidebar-links">
+                    <li><a href="#texture_load" class="sidebar-link" data-function="texture_load"><i class="fas fa-image"></i> texture.load</a></li>
+                    <li><a href="#material_create" class="sidebar-link" data-function="material_create"><i class="fas fa-palette"></i> material.create</a></li>
+                    <li><a href="#material_createWithShader" class="sidebar-link" data-function="material_createWithShader"><i class="fas fa-magic"></i> material.createWithShader</a></li>
+                    <li><a href="#material_setColor" class="sidebar-link" data-function="material_setColor"><i class="fas fa-fill-drip"></i> material.setColor</a></li>
+                    <li><a href="#material_getColor" class="sidebar-link" data-function="material_getColor"><i class="fas fa-eye-dropper"></i> material.getColor</a></li>
+                    <li><a href="#model_load" class="sidebar-link" data-function="model_load"><i class="fas fa-cube"></i> model.load</a></li>
+                    <li><a href="#gameObject_createWithModel" class="sidebar-link" data-function="gameObject_createWithModel"><i class="fas fa-cubes"></i> createWithModel</a></li>
+                    <li><a href="#audioClip_load" class="sidebar-link" data-function="audioClip_load"><i class="fas fa-volume-up"></i> audioClip.load</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-title"><i class="fas fa-gamepad"></i> <span data-translate="gameobject">Объекты</span></h3>
+                <ul class="sidebar-links">
+                    <li><a href="#gameObject_create" class="sidebar-link" data-function="gameObject_create"><i class="fas fa-plus-circle"></i> create</a></li>
+                    <li><a href="#gameObject_find" class="sidebar-link" data-function="gameObject_find"><i class="fas fa-search"></i> find</a></li>
+                    <li><a href="#gameObject_destroy" class="sidebar-link" data-function="gameObject_destroy"><i class="fas fa-trash-alt"></i> destroy</a></li>
+                    <li><a href="#gameObject_getTransform" class="sidebar-link" data-function="gameObject_getTransform"><i class="fas fa-arrows-alt"></i> getTransform</a></li>
+                    <li><a href="#gameObject_setName" class="sidebar-link" data-function="gameObject_setName"><i class="fas fa-signature"></i> setName</a></li>
+                    <li><a href="#gameObject_setActive" class="sidebar-link" data-function="gameObject_setActive"><i class="fas fa-power-off"></i> setActive</a></li>
+                    <li><a href="#gameObject_instantiate" class="sidebar-link" data-function="gameObject_instantiate"><i class="fas fa-clone"></i> instantiate</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-title"><i class="fas fa-compass"></i> <span data-translate="transform">Трансформы</span></h3>
+                <ul class="sidebar-links">
+                    <li><a href="#transform_getPosition" class="sidebar-link" data-function="transform_getPosition"><i class="fas fa-map-marker-alt"></i> getPosition</a></li>
+                    <li><a href="#transform_setPosition" class="sidebar-link" data-function="transform_setPosition"><i class="fas fa-arrows-alt"></i> setPosition</a></li>
+                    <li><a href="#transform_translate" class="sidebar-link" data-function="transform_translate"><i class="fas fa-arrows-alt"></i> translate</a></li>
+                    <li><a href="#transform_rotate" class="sidebar-link" data-function="transform_rotate"><i class="fas fa-sync-alt"></i> rotate</a></li>
+                    <li><a href="#transform_lookAt" class="sidebar-link" data-function="transform_lookAt"><i class="fas fa-eye"></i> lookAt</a></li>
+                    <li><a href="#transform_getForward" class="sidebar-link" data-function="transform_getForward"><i class="fas fa-arrow-up"></i> getForward</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-title"><i class="fas fa-bowling-ball"></i> <span data-translate="physics">Физика</span></h3>
+                <ul class="sidebar-links">
+                    <li><a href="#rigidbody_setVelocity" class="sidebar-link" data-function="rigidbody_setVelocity"><i class="fas fa-forward"></i> setVelocity</a></li>
+                    <li><a href="#rigidbody_addForce" class="sidebar-link" data-function="rigidbody_addForce"><i class="fas fa-wind"></i> addForce</a></li>
+                    <li><a href="#rigidbody_setUseGravity" class="sidebar-link" data-function="rigidbody_setUseGravity"><i class="fas fa-weight-hanging"></i> setUseGravity</a></li>
+                    <li><a href="#physics_raycast" class="sidebar-link" data-function="physics_raycast"><i class="fas fa-stream"></i> raycast</a></li>
+                    <li><a href="#physics_overlapSphere" class="sidebar-link" data-function="physics_overlapSphere"><i class="fas fa-circle-notch"></i> overlapSphere</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-title"><i class="fas fa-headphones"></i> <span data-translate="audio">Аудио</span></h3>
+                <ul class="sidebar-links">
+                    <li><a href="#audioSource_play" class="sidebar-link" data-function="audioSource_play"><i class="fas fa-play-circle"></i> play</a></li>
+                    <li><a href="#audioSource_stop" class="sidebar-link" data-function="audioSource_stop"><i class="fas fa-stop-circle"></i> stop</a></li>
+                    <li><a href="#audioSource_setVolume" class="sidebar-link" data-function="audioSource_setVolume"><i class="fas fa-volume-down"></i> setVolume</a></li>
+                    <li><a href="#audioSource_isPlaying" class="sidebar-link" data-function="audioSource_isPlaying"><i class="fas fa-question-circle"></i> isPlaying</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-title"><i class="fas fa-camera"></i> <span data-translate="camera">Камера</span></h3>
+                <ul class="sidebar-links">
+                    <li><a href="#camera_setFieldOfView" class="sidebar-link" data-function="camera_setFieldOfView"><i class="fas fa-expand-arrows-alt"></i> setFieldOfView</a></li>
+                    <li><a href="#camera_worldToScreenPoint" class="sidebar-link" data-function="camera_worldToScreenPoint"><i class="fas fa-compress-arrows-alt"></i> worldToScreenPoint</a></li>
+                    <li><a href="#camera_screenToWorldPoint" class="sidebar-link" data-function="camera_screenToWorldPoint"><i class="fas fa-external-link-alt"></i> screenToWorldPoint</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-title"><i class="fas fa-keyboard"></i> <span data-translate="input">Ввод</span></h3>
+                <ul class="sidebar-links">
+                    <li><a href="#input_getKey" class="sidebar-link" data-function="input_getKey"><i class="fas fa-key"></i> getKey</a></li>
+                    <li><a href="#input_getKeyDown" class="sidebar-link" data-function="input_getKeyDown"><i class="fas fa-caret-square-down"></i> getKeyDown</a></li>
+                    <li><a href="#input_getMouse" class="sidebar-link" data-function="input_getMouse"><i class="fas fa-mouse-pointer"></i> getMouse</a></li>
+                    <li><a href="#input_getAxis" class="sidebar-link" data-function="input_getAxis"><i class="fas fa-gamepad"></i> getAxis</a></li>
+                    <li><a href="#input_setMouseLock" class="sidebar-link" data-function="input_setMouseLock"><i class="fas fa-lock"></i> setMouseLock</a></li>
+                </ul>
+            </div>
+            </aside>
+
+        <main class="main-content">
+            <div class="page active" id="home-page">
+                <div class="hero">
+                    <h1 class="hero-title">GoreBox Modding API</h1>
+                    <p class="hero-subtitle" data-translate="hero_subtitle">Полная документация по созданию модов с помощью Lua скриптов. Создавайте свои игровые механики, предметы и многое другое.</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary" data-page="documentation">
+                            <i class="fas fa-book-open"></i> <span data-translate="start_learning">Начать изучение</span>
+                        </a>
+                        <a href="#" class="btn btn-secondary" data-page="blog">
+                            <i class="fas fa-newspaper"></i> <span data-translate="read_blog">Читать блог</span>
+                        </a>
+                    </div>
                 </div>
 
-                <aside id="post-toc-sidebar" class="hidden lg:block lg:w-64 lg:flex-shrink-0 py-10"></aside>
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-icon"> <i class="fas fa-bolt"></i> </div>
+                        <h2 class="section-title" data-translate="quick_start">Быстрый старт</h2>
+                    </div>
+                    <div class="function-grid">
+                        <div class="function-card">
+                            <div class="function-header"> <h3 class="function-name"><i class="fas fa-scroll"></i> <span data-translate="first_script">Создание первого скрипта</span></h3> </div>
+                            <p class="function-description" data-translate="first_script_desc">Начните с создания простого Lua модуля для управления объектами в игре.</p>
+                            <div class="code-block">
+                                <button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> M = {}
+
+<span class="keyword">function</span> <span class="variable">M</span>.<span class="function-call">start</span>()
+    <span class="function-call">log</span>(<span class="string">"Мой первый мод загружен!"</span>)
+<span class="keyword">end</span>
+
+<span class="keyword">return</span> M</pre>
+                            </div>
+                        </div>
+                        <div class="function-card">
+                            <div class="function-header"> <h3 class="function-name"><i class="fas fa-cubes"></i> <span data-translate="working_objects">Работа с объектами</span></h3> </div>
+                            <p class="function-description" data-translate="working_objects_desc">Используйте функции для поиска и изменения игровых объектов.</p>
+                            <div class="code-block">
+                                <button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">playerID</span> = <span class="function-call">getLocalPlayer</span>()
+<span class="keyword">if</span> <span class="variable">playerID</span> <span class="keyword">then</span>
+    <span class="keyword">local</span> <span class="variable">t</span> = <span class="variable">gameObject</span>.<span class="function-call">getTransform</span>(<span class="variable">playerID</span>)
+    <span class="variable">transform</span>:<span class="function-call">setPosition</span>(<span class="variable">t</span>, <span class="number">0</span>, <span class="number">10</span>, <span class="number">0</span>)
+<span class="keyword">end</span></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-icon"> <i class="fas fa-newspaper"></i> </div>
+                        <h2 class="section-title" data-translate="latest_news">Последние новости</h2>
+                    </div>
+                    <div class="blog-grid" id="home-blog-preview"></div>
+                </div>
+            </div>
+
+            <div class="page" id="documentation-page">
+                <section class="section" id="lifecycle">
+                    <div class="section-header">
+                        <div class="section-icon"> <i class="fas fa-sync-alt"></i> </div>
+                        <h2 class="section-title" data-translate="lifecycle">Жизненный цикл Lua-скрипта</h2>
+                    </div>
+                    <div class="function-grid">
+                        <div class="function-card" id="awake">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-eye"></i> awake()</h3></div>
+                            <p class="function-description" data-translate="desc_awake">Инициализация Lua-среды перед запуском.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">function</span> <span class="variable">M</span>.<span class="function-call">awake</span>()
+    <span class="function-call">log</span>(<span class="string">"Module is awake!"</span>)
+<span class="keyword">end</span></pre></div>
+                        </div>
+                        <div class="function-card" id="start">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-play"></i> start()</h3></div>
+                            <p class="function-description" data-translate="desc_start">Вызывается при старте скрипта.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">function</span> <span class="variable">M</span>.<span class="function-call">start</span>()
+    <span class="function-call">log</span>(<span class="string">"Module has started!"</span>)
+<span class="keyword">end</span></pre></div>
+                        </div>
+                        <div class="function-card" id="update">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-redo"></i> update()</h3></div>
+                            <p class="function-description" data-translate="desc_update">Обновление каждый кадр.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">function</span> <span class="variable">M</span>.<span class="function-call">update</span>()
+    <span class="comment">--[[comment:game_logic]]</span>
+<span class="keyword">end</span></pre></div>
+                        </div>
+                        <div class="function-card" id="late_update">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-history"></i> late_update()</h3></div>
+                            <p class="function-description" data-translate="desc_late_update">Выполняется после update().</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">function</span> <span class="variable">M</span>.<span class="function-call">late_update</span>()
+    <span class="comment">--[[comment:camera_logic]]</span>
+<span class="keyword">end</span></pre></div>
+                        </div>
+                        <div class="function-card" id="fixed_update">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-cogs"></i> fixed_update()</h3></div>
+                            <p class="function-description" data-translate="desc_fixed_update">Срабатывает с фиксированным интервалом (для физики).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">function</span> <span class="variable">M</span>.<span class="function-call">fixed_update</span>()
+    <span class="comment">--[[comment:physics_logic]]</span>
+<span class="keyword">end</span></pre></div>
+                        </div>
+                        <div class="function-card" id="gui_update">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-desktop"></i> gui_update()</h3></div>
+                            <p class="function-description" data-translate="desc_gui_update">Используется для отрисовки GUI.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">function</span> <span class="variable">M</span>.<span class="function-call">gui_update</span>()
+    <span class="variable">gui</span>.<span class="function-call">label</span>(<span class="string">"Hello from GUI!"</span>)
+<span class="keyword">end</span></pre></div>
+                        </div>
+                        <div class="function-card" id="onRPC">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-network-wired"></i> onRPC(message)</h3></div>
+                            <p class="function-description" data-translate="desc_onRPC">Обрабатывает сетевые сообщения.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">function</span> <span class="variable">M</span>.<span class="function-call">onRPC</span>(<span class="variable">message</span>)
+    <span class="keyword">if</span> <span class="variable">message</span> == <span class="string">"Heal"</span> <span class="keyword">then</span>
+        <span class="function-call">log</span>(<span class="string">"Received Heal RPC"</span>)
+    <span class="keyword">end</span>
+<span class="keyword">end</span></pre></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="global-functions">
+                    <div class="section-header">
+                        <div class="section-icon"> <i class="fas fa-globe"></i> </div>
+                        <h2 class="section-title" data-translate="global_functions">Основные функции</h2>
+                    </div>
+                    <div class="function-grid">
+                        <div class="function-card" id="log">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-terminal"></i> log(message)</h3></div>
+                            <p class="function-description" data-translate="desc_log">Выводит текст в консоль Unity.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="function-call">log</span>(<span class="string">"Mod started!"</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="getModRoot">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-folder"></i> getModRoot()</h3></div>
+                            <p class="function-description" data-translate="desc_getModRoot">Возвращает путь к папке мода.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">rootPath</span> = <span class="function-call">getModRoot</span>()
+<span class="function-call">log</span>(<span class="string">"Mod path: "</span> .. <span class="variable">rootPath</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="getDeltaTime">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-clock"></i> getDeltaTime()</h3></div>
+                            <p class="function-description" data-translate="desc_getDeltaTime">Возвращает время между кадрами.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">dt</span> = <span class="function-call">getDeltaTime</span>()
+<span class="variable">transform</span>:<span class="function-call">Translate</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">5</span> * <span class="variable">dt</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="getTime">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-stopwatch"></i> time.getTime()</h3></div>
+                            <p class="function-description" data-translate="desc_getTime">Возвращает время с начала игры.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">gameTime</span> = <span class="variable">time</span>.<span class="function-call">getTime</span>()
+<span class="function-call">log</span>(<span class="string">"Game running for: "</span> .. <span class="variable">gameTime</span> .. <span class="string">"s"</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="getLocalPlayer">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-user"></i> getLocalPlayer()</h3></div>
+                            <p class="function-description" data-translate="desc_getLocalPlayer">Возвращает объект (ID) игрока.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">playerID</span> = <span class="function-call">getLocalPlayer</span>()
+<span class="keyword">local</span> <span class="variable">playerTransform</span> = <span class="variable">gameObject</span>.<span class="function-call">getTransform</span>(<span class="variable">playerID</span>)</pre></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="lua-gui">
+                    <div class="section-header">
+                        <div class="section-icon"> <i class="fas fa-desktop"></i> </div>
+                        <h2 class="section-title" data-translate="gui_functions">Функции GUI</h2>
+                    </div>
+                    <div class="function-grid">
+                        <div class="function-card" id="gui_label">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-tag"></i> gui.label(text)</h3></div>
+                            <p class="function-description" data-translate="desc_gui_label">Отображает текст.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="variable">gui</span>.<span class="function-call">label</span>(<span class="string">"Player Health: 100"</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="gui_space">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-ruler-vertical"></i> gui.space(pixels)</h3></div>
+                            <p class="function-description" data-translate="desc_gui_space">Отступ между элементами.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="variable">gui</span>.<span class="function-call">label</span>(<span class="string">"First line"</span>)
+<span class="variable">gui</span>.<span class="function-call">space</span>(<span class="number">10</span>)
+<span class="variable">gui</span>.<span class="function-call">label</span>(<span class="string">"Second line"</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="gui_box">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-image"></i> gui.box(textureId, ...)</h3></div>
+                            <p class="function-description" data-translate="desc_gui_box">Отображает изображение (текстуру).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">myTexture</span> = <span class="variable">texture</span>.<span class="function-call">load</span>(<span class="string">"images/icon.png"</span>)
+<span class="variable">gui</span>.<span class="function-call">box</span>(<span class="variable">myTexture</span>, <span class="keyword">true</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="gui_button">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-hand-pointer"></i> gui.button(text)</h3></div>
+                            <p class="function-description" data-translate="desc_gui_button">Кнопка, возвращает true, если нажата.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">if</span> <span class="variable">gui</span>.<span class="function-call">button</span>(<span class="string">"Click Me!"</span>) <span class="keyword">then</span>
+    <span class="function-call">log</span>(<span class="string">"Clicked!"</span>)
+<span class="keyword">end</span></pre></div>
+                        </div>
+                        <div class="function-card" id="gui_textField">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-i-cursor"></i> gui.textField(text)</h3></div>
+                            <p class="function-description" data-translate="desc_gui_textField">Поле ввода, возвращает измененный текст.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">inputText</span> = <span class="string">"Hello"</span>
+<span class="variable">inputText</span> = <span class="variable">gui</span>.<span class="function-call">textField</span>(<span class="variable">inputText</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="gui_verticalSlider">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-ellipsis-vertical"></i> gui.verticalSlider(value, min, max)</h3></div>
+                            <p class="function-description" data-translate="desc_gui_verticalSlider">Вертикальный слайдер.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">vSlider</span> = <span class="number">50</span>
+<span class="variable">vSlider</span> = <span class="variable">gui</span>.<span class="function-call">verticalSlider</span>(<span class="variable">vSlider</span>, <span class="number">0</span>, <span class="number">100</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="gui_horizontalSlider">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-sliders"></i> gui.horizontalSlider(value, min, max)</h3></div>
+                            <p class="function-description" data-translate="desc_gui_horizontalSlider">Горизонтальный слайдер.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">hSlider</span> = <span class="number">0.5</span>
+<span class="variable">hSlider</span> = <span class="variable">gui</span>.<span class="function-call">horizontalSlider</span>(<span class="variable">hSlider</span>, <span class="number">0.0</span>, <span class="number">1.0</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="gui_beginVertical">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-arrows-up-down"></i> gui.beginVertical() / gui.endVertical()</h3></div>
+                            <p class="function-description" data-translate="desc_gui_beginVertical">Вертикальная группа элементов.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="variable">gui</span>.<span class="function-call">beginVertical</span>()
+<span class="variable">gui</span>.<span class="function-call">label</span>(<span class="string">"Item 1"</span>)
+<span class="variable">gui</span>.<span class="function-call">label</span>(<span class="string">"Item 2"</span>)
+<span class="variable">gui</span>.<span class="function-call">endVertical</span>()</pre></div>
+                        </div>
+                        <div class="function-card" id="gui_beginHorizontal">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-arrows-left-right"></i> gui.beginHorizontal() / gui.endHorizontal()</h3></div>
+                            <p class="function-description" data-translate="desc_gui_beginHorizontal">Горизонтальная группа элементов.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="variable">gui</span>.<span class="function-call">beginHorizontal</span>()
+<span class="variable">gui</span>.<span class="function-call">label</span>(<span class="string">"Left"</span>)
+<span class="variable">gui</span>.<span class="function-call">label</span>(<span class="string">"Right"</span>)
+<span class="variable">gui</span>.<span class="function-call">endHorizontal</span>()</pre></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="resources">
+                    <div class="section-header">
+                        <div class="section-icon"> <i class="fas fa-paint-brush"></i> </div>
+                        <h2 class="section-title" data-translate="resources">Ресурсы</h2>
+                    </div>
+                    <div class="function-grid">
+                        <div class="function-card" id="texture_load">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-image"></i> texture.load(path)</h3></div>
+                            <p class="function-description" data-translate="desc_texture_load">Загружает текстуру (возвращает ID).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">texID</span> = <span class="variable">texture</span>.<span class="function-call">load</span>(<span class="string">"images/my_texture.png"</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="material_create">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-palette"></i> material.create(texturePath)</h3></div>
+                            <p class="function-description" data-translate="desc_material_create">Создает материал с текстурой (возвращает ID).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">matID</span> = <span class="variable">material</span>.<span class="function-call">create</span>(<span class="string">"images/my_texture.png"</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="material_createWithShader">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-magic"></i> material.createWithShader(texturePath, shaderName)</h3></div>
+                            <p class="function-description" data-translate="desc_material_createWithShader">Создает материал с шейдером (возвращает ID).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">glowMat</span> = <span class="variable">material</span>.<span class="function-call">createWithShader</span>(<span class="string">"tex/glow.png"</span>, <span class="string">"Legacy Shaders/Additive"</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="material_setColor">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-fill-drip"></i> material.setColor(id, prop, r, g, b, a)</h3></div>
+                            <p class="function-description" data-translate="desc_material_setColor">Изменяет цвет материала.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="comment">--[[comment:set_red]]</span>
+<span class="variable">material</span>.<span class="function-call">setColor</span>(<span class="variable">matID</span>, <span class="string">"_Color"</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="material_getColor">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-eye-dropper"></i> material.getColor(id, prop)</h3></div>
+                            <p class="function-description" data-translate="desc_material_getColor">Возвращает цвет (r, g, b, a).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">r</span>, <span class="variable">g</span>, <span class="variable">b</span>, <span class="variable">a</span> = <span class="variable">material</span>.<span class="function-call">getColor</span>(<span class="variable">matID</span>, <span class="string">"_Color"</span>)
+<span class="function-call">log</span>(<span class="string">"Red: "</span> .. <span class="variable">r</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="model_load">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-cube"></i> model.load(path)</h3></div>
+                            <p class="function-description" data-translate="desc_model_load">Загружает 3D-модель (возвращает ID).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">modelID</span> = <span class="variable">model</span>.<span class="function-call">load</span>(<span class="string">"models/my_model.obj"</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="gameObject_createWithModel">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-cubes"></i> gameObject.createWithModel(name, model, texture)</h3></div>
+                            <p class="function-description" data-translate="desc_gameObject_createWithModel">Создает объект с моделью и текстурой (возвращает ID).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">obj</span> = <span class="variable">gameObject</span>.<span class="function-call">createWithModel</span>(<span class="string">"MyObject"</span>, <span class="string">"models/car.obj"</span>, <span class="string">"tex/car.png"</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="audioClip_load">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-volume-up"></i> audioClip.load(path)</h3></div>
+                            <p class="function-description" data-translate="desc_audioClip_load">Загружает аудио (возвращает ID).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">soundID</span> = <span class="variable">audioClip</span>.<span class="function-call">load</span>(<span class="string">"sounds/shot.wav"</span>)</pre></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="gameobject">
+                    <div class="section-header">
+                        <div class="section-icon"> <i class="fas fa-gamepad"></i> </div>
+                        <h2 class="section-title" data-translate="gameobject">Объекты</h2>
+                    </div>
+                    <div class="function-grid">
+                        <div class="function-card" id="gameObject_create">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-plus-circle"></i> gameObject.create(name)</h3></div>
+                            <p class="function-description" data-translate="desc_gameObject_create">Создает новый пустой объект (возвращает ID).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">newObj</span> = <span class="variable">gameObject</span>.<span class="function-call">create</span>(<span class="string">"EmptyHolder"</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="gameObject_find">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-search"></i> gameObject.find(name)</h3></div>
+                            <p class="function-description" data-translate="desc_gameObject_find">Ищет объект по имени (возвращает ID).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">player</span> = <span class="variable">gameObject</span>.<span class="function-call">find</span>(<span class="string">"MainPlayer"</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="gameObject_destroy">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-trash-alt"></i> gameObject.destroy(id)</h3></div>
+                            <p class="function-description" data-translate="desc_gameObject_destroy">Удаляет объект.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="variable">gameObject</span>.<span class="function-call">destroy</span>(<span class="variable">newObj</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="gameObject_getTransform">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-arrows-alt"></i> gameObject.getTransform(id)</h3></div>
+                            <p class="function-description" data-translate="desc_gameObject_getTransform">Возвращает Transform (ID) объекта.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">player</span> = <span class="variable">gameObject</span>.<span class="function-call">find</span>(<span class="string">"MainPlayer"</span>)
+<span class="keyword">local</span> <span class="variable">t</span> = <span class="variable">gameObject</span>.<span class="function-call">getTransform</span>(<span class="variable">player</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="gameObject_setName">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-signature"></i> gameObject.setName(id, name)</h3></div>
+                            <p class="function-description" data-translate="desc_gameObject_setName">Задает имя объекту.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="variable">gameObject</span>.<span class="function-call">setName</span>(<span class="variable">player</span>, <span class="string">"RenamedPlayer"</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="gameObject_setActive">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-power-off"></i> gameObject.setActive(id, bool)</h3></div>
+                            <p class="function-description" data-translate="desc_gameObject_setActive">Активирует или деактивирует объект.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="comment">--[[comment:hide_player]]</span>
+<span class="variable">gameObject</span>.<span class="function-call">setActive</span>(<span class="variable">player</span>, <span class="keyword">false</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="gameObject_instantiate">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-clone"></i> gameObject.instantiate(id)</h3></div>
+                            <p class="function-description" data-translate="desc_gameObject_instantiate">Клонирует объект (возвращает ID клона).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">playerClone</span> = <span class="variable">gameObject</span>.<span class="function-call">instantiate</span>(<span class="variable">player</span>)</pre></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="transform">
+                    <div class="section-header">
+                        <div class="section-icon"> <i class="fas fa-compass"></i> </div>
+                        <h2 class="section-title" data-translate="transform">Трансформы</h2>
+                    </div>
+                    <div class="function-grid">
+                        <div class="function-card" id="transform_getPosition">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-map-marker-alt"></i> transform.getPosition(id)</h3></div>
+                            <p class="function-description" data-translate="desc_transform_getPosition">Возвращает позицию (x, y, z).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">x</span>, <span class="variable">y</span>, <span class="variable">z</span> = <span class="variable">transform</span>.<span class="function-call">getPosition</span>(<span class="variable">t</span>)
+<span class="function-call">log</span>(<span class="string">"Y position: "</span> .. <span class="variable">y</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="transform_setPosition">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-arrows-alt"></i> transform.setPosition(id, x, y, z)</h3></div>
+                            <p class="function-description" data-translate="desc_transform_setPosition">Устанавливает позицию.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="comment">--[[comment:teleport_roof]]</span>
+<span class="variable">transform</span>.<span class="function-call">setPosition</span>(<span class="variable">t</span>, <span class="number">10</span>, <span class="number">50</span>, <span class="number">20</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="transform_translate">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-arrows-alt"></i> transform.translate(id, x, y, z)</h3></div>
+                            <p class="function-description" data-translate="desc_transform_translate">Сдвигает объект (локально).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="comment">--[[comment:move_forward]]</span>
+<span class="variable">transform</span>.<span class="function-call">translate</span>(<span class="variable">t</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span> * <span class="function-call">getDeltaTime</span>())</pre></div>
+                        </div>
+                        <div class="function-card" id="transform_rotate">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-sync-alt"></i> transform.rotate(id, x, y, z)</h3></div>
+                            <p class="function-description" data-translate="desc_transform_rotate">Вращает объект.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="comment">--[[comment:rotate_y]]</span>
+<span class="variable">transform</span>.<span class="function-call">rotate</span>(<span class="variable">t</span>, <span class="number">0</span>, <span class="number">45</span> * <span class="function-call">getDeltaTime</span>(), <span class="number">0</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="transform_lookAt">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-eye"></i> transform.lookAt(id, x, y, z)</h3></div>
+                            <p class="function-description" data-translate="desc_transform_lookAt">Направляет объект на точку.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="comment">--[[comment:look_center]]</span>
+<span class="variable">transform</span>.<span class="function-call">lookAt</span>(<span class="variable">t</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="transform_getForward">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-arrow-up"></i> transform.getForward(id)</h3></div>
+                            <p class="function-description" data-translate="desc_transform_getForward">Возвращает направление "вперёд" (x, y, z).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">fwdX</span>, <span class="variable">fwdY</span>, <span class="variable">fwdZ</span> = <span class="variable">transform</span>.<span class="function-call">getForward</span>(<span class="variable">t</span>)</pre></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="physics">
+                    <div class="section-header">
+                        <div class="section-icon"> <i class="fas fa-bowling-ball"></i> </div>
+                        <h2 class="section-title" data-translate="physics">Физика</h2>
+                    </div>
+                    <div class="function-grid">
+                        <div class="function-card" id="rigidbody_setVelocity">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-forward"></i> rigidbody.setVelocity(id, x, y, z)</h3></div>
+                            <p class="function-description" data-translate="desc_rigidbody_setVelocity">Устанавливает скорость (ID объекта, не Rigidbody).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="comment">--[[comment:jump]]</span>
+<span class="variable">rigidbody</span>.<span class="function-call">setVelocity</span>(<span class="variable">player</span>, <span class="number">0</span>, <span class="number">10</span>, <span class="number">0</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="rigidbody_addForce">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-wind"></i> rigidbody.addForce(id, x, y, z)</h3></div>
+                            <p class="function-description" data-translate="desc_rigidbody_addForce">Прикладывает силу к объекту.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="comment">--[[comment:push_forward]]</span>
+<span class="variable">rigidbody</span>.<span class="function-call">addForce</span>(<span class="variable">player</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="rigidbody_setUseGravity">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-weight-hanging"></i> rigidbody.setUseGravity(id, bool)</h3></div>
+                            <p class="function-description" data-translate="desc_rigidbody_setUseGravity">Включает/выключает гравитацию.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="comment">--[[comment:fly_mode]]</span>
+<span class="variable">rigidbody</span>.<span class="function-call">setUseGravity</span>(<span class="variable">player</span>, <span class="keyword">false</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="physics_raycast">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-stream"></i> physics.raycast(x, y, z, dirX, dirY, dirZ)</h3></div>
+                            <p class="function-description" data-translate="desc_physics_raycast">Пускает луч, возвращает bool (попал или нет).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">didHit</span> = <span class="variable">physics</span>.<span class="function-call">raycast</span>(<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>)
+<span class="keyword">if</span> <span class="variable">didHit</span> <span class="keyword">then</span> <span class="function-call">log</span>(<span class="string">"Hit ground"</span>) <span class="keyword">end</span></pre></div>
+                        </div>
+                        <div class="function-card" id="physics_overlapSphere">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-circle-notch"></i> physics.overlapSphere(x, y, z, r)</h3></div>
+                            <p class="function-description" data-translate="desc_physics_overlapSphere">Возвращает таблицу ID объектов в сфере.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">targets</span> = <span class="variable">physics</span>.<span class="function-call">overlapSphere</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">10</span>)
+<span class="keyword">for</span> <span class="variable">_</span>, <span class="variable">id</span> <span class="keyword">in</span> <span class="function-call">pairs</span>(<span class="variable">targets</span>) <span class="keyword">do</span>
+    <span class="function-call">log</span>(<span class="string">"Found: "</span> .. <span class="variable">id</span>)
+<span class="keyword">end</span></pre></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="audio">
+                    <div class="section-header">
+                        <div class="section-icon"> <i class="fas fa-headphones"></i> </div>
+                        <h2 class="section-title" data-translate="audio">Аудио</h2>
+                    </div>
+                    <div class="function-grid">
+                        <div class="function-card" id="audioSource_play">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-play-circle"></i> audioSource.play(id)</h3></div>
+                            <p class="function-description" data-translate="desc_audioSource_play">Воспроизводит звук (ID объекта с AudioSource).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="variable">audioSource</span>.<span class="function-call">play</span>(<span class="variable">player</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="audioSource_stop">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-stop-circle"></i> audioSource.stop(id)</h3></div>
+                            <p class="function-description" data-translate="desc_audioSource_stop">Останавливает звук.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="variable">audioSource</span>.<span class="function-call">stop</span>(<span class="variable">player</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="audioSource_setVolume">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-volume-down"></i> audioSource.setVolume(id, v)</h3></div>
+                            <p class="function-description" data-translate="desc_audioSource_setVolume">Устанавливает громкость (0.0 - 1.0).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="variable">audioSource</span>.<span class="function-call">setVolume</span>(<span class="variable">player</span>, <span class="number">0.5</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="audioSource_isPlaying">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-question-circle"></i> audioSource.isPlaying(id)</h3></div>
+                            <p class="function-description" data-translate="desc_audioSource_isPlaying">Проверяет, воспроизводится ли звук.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">if</span> <span class="variable">audioSource</span>.<span class="function-call">isPlaying</span>(<span class="variable">player</span>) <span class="keyword">then</span>
+    <span class="function-call">log</span>(<span class="string">"Music is playing"</span>)
+<span class="keyword">end</span></pre></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="camera">
+                    <div class="section-header">
+                        <div class="section-icon"> <i class="fas fa-camera"></i> </div>
+                        <h2 class="section-title" data-translate="camera">Камера</h2>
+                    </div>
+                    <div class="function-grid">
+                        <div class="function-card" id="camera_setFieldOfView">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-expand-arrows-alt"></i> camera.setFieldOfView(id, fov)</h3></div>
+                            <p class="function-description" data-translate="desc_camera_setFieldOfView">Устанавливает угол обзора (FOV).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">cam</span> = <span class="variable">gameObject</span>.<span class="function-call">find</span>(<span class="string">"MainCamera"</span>)
+<span class="variable">camera</span>.<span class="function-call">setFieldOfView</span>(<span class="variable">cam</span>, <span class="number">90</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="camera_worldToScreenPoint">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-compress-arrows-alt"></i> camera.worldToScreenPoint(id, x, y, z)</h3></div>
+                            <p class="function-description" data-translate="desc_camera_worldToScreenPoint">Мировые → экранные координаты (возвращает x, y, z).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">x</span>, <span class="variable">y</span>, <span class="variable">z</span> = <span class="variable">camera</span>.<span class="function-call">worldToScreenPoint</span>(<span class="variable">cam</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)
+<span class="function-call">log</span>(<span class="string">"Center on screen: "</span> .. <span class="variable">x</span>)</pre></div>
+                        </div>
+                        <div class="function-card" id="camera_screenToWorldPoint">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-external-link-alt"></i> camera.screenToWorldPoint(id, x, y, z)</h3></div>
+                            <p class="function-description" data-translate="desc_camera_screenToWorldPoint">Экранные → мировые координаты (возвращает x, y, z).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="comment">--[[comment:z_depth]]</span>
+<span class="keyword">local</span> <span class="variable">worldX</span>, <span class="variable">_</span>, <span class="variable">_</span> = <span class="variable">camera</span>.<span class="function-call">screenToWorldPoint</span>(<span class="variable">cam</span>, <span class="number">100</span>, <span class="number">100</span>, <span class="number">10</span>)</pre></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="input">
+                    <div class="section-header">
+                        <div class="section-icon"> <i class="fas fa-keyboard"></i> </div>
+                        <h2 class="section-title" data-translate="input">Ввод</h2>
+                    </div>
+                    <div class="function-grid">
+                        <div class="function-card" id="input_getKey">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-key"></i> input.getKey(name)</h3></div>
+                            <p class="function-description" data-translate="desc_input_getKey">Проверка, зажата ли клавиша (bool).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">if</span> <span class="variable">input</span>.<span class="function-call">getKey</span>(<span class="string">"Space"</span>) <span class="keyword">then</span>
+    <span class="function-call">log</span>(<span class="string">"Space is held down"</span>)
+<span class="keyword">end</span></pre></div>
+                        </div>
+                        <div class="function-card" id="input_getKeyDown">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-caret-square-down"></i> input.getKeyDown(name)</h3></div>
+                            <p class="function-description" data-translate="desc_input_getKeyDown">Проверка нажатия клавиши (bool, срабатывает 1 раз).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">if</span> <span class="variable">input</span>.<span class="function-call">getKeyDown</span>(<span class="string">"F"</span>) <span class="keyword">then</span>
+    <span class="function-call">log</span>(<span class="string">"Toggled flashlight"</span>)
+<span class="keyword">end</span></pre></div>
+                        </div>
+                        <div class="function-card" id="input_getMouse">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-mouse-pointer"></i> input.getMouse(button)</h3></div>
+                            <p class="function-description" data-translate="desc_input_getMouse">Нажатие кнопки мыши (0=LMB, 1=RMB, 2=MMB).</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">if</span> <span class="variable">input</span>.<span class="function-call">getMouse</span>(<span class="number">0</span>) <span class="keyword">then</span>
+    <span class="function-call">log</span>(<span class="string">"Left mouse button pressed"</span>)
+<span class="keyword">end</span></pre></div>
+                        </div>
+                        <div class="function-card" id="input_getAxis">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-gamepad"></i> input.getAxis(name)</h3></div>
+                            <p class="function-description" data-translate="desc_input_getAxis">Возвращает значение оси (напр., "Mouse X", "Vertical").</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="keyword">local</span> <span class="variable">v</span> = <span class="variable">input</span>.<span class="function-call">getAxis</span>(<span class="string">"Vertical"</span>)
+<span class="keyword">if</span> <span class="variable">v</span> > <span class="number">0</span> <span class="keyword">then</span> <span class="function-call">log</span>(<span class="string">"Moving forward"</span>) <span class="keyword">end</span></pre></div>
+                        </div>
+                        <div class="function-card" id="input_setMouseLock">
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-lock"></i> input.setMouseLock(bool)</h3></div>
+                            <p class="function-description" data-translate="desc_input_setMouseLock">Управление блокировкой курсора.</p>
+                            <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="comment">--[[comment:show_cursor]]</span>
+<span class="variable">input</span>.<span class="function-call">setMouseLock</span>(<span class="keyword">false</span>)</pre></div>
+                        </div>
+                    </div>
+                </section>
+                <div class="clickable-card-wrapper">
+                    <div class="clickable-card" id="copyDocsBtn">
+                         <i class="fas fa-copy"></i>
+                         <i class="fas fa-check"></i>
+                         <span data-translate="copy_documentation">Скопировать всю документацию</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page" id="blog-page">
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon"> <i class="fas fa-newspaper"></i> </div>
+                        <h2 class="section-title" data-translate="blog">Блог о Lua моддинге</h2>
+                    </div>
+                    <div class="blog-grid" id="blog-grid"></div>
+                </section>
             </div>
         </main>
-        
-        <footer class="mt-auto">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-6 flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-blue-500/20">
-                <div>
-                    <button id="copy-all-docs-btn" title="Copy all documentation" class="px-3 py-2 rounded-lg hover:bg-blue-500/10 text-accent hover:text-white transition-all duration-300 text-sm font-semibold" data-lang-key="copy_docs">Copy Docs</button>
-                </div>
-                 <p class="text-sm text-center text-gray-400" data-lang-key="footer_copyright"></p>
-                <div class="flex items-center space-x-2">
-                     <button id="lang-toggle" title="Switch language" class="p-2 w-10 rounded-lg hover:bg-blue-500/10 text-accent hover:text-white transition-colors font-bold text-sm">EN</button>
-                     <button id="theme-toggle" title="Toggle theme" class="p-2 rounded-lg hover:bg-blue-500/10 text-accent hover:text-white transition-colors relative w-10 h-10 flex justify-center items-center">
-                         <svg id="theme-icon-light" class="theme-icon w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                         </svg>
-                         <img src="favicon_32x32.png" id="theme-icon-gorebox" class="theme-icon w-6 h-6 hidden" alt="GoreBox theme icon">
-                     </button>
-                </div>
-            </div>
-        </footer>
     </div>
 
+    <div class="blog-modal" id="blogModal">
+        <div class="blog-modal-content">
+            <button class="blog-modal-close" id="blogModalClose"> <i class="fas fa-times"></i> </button>
+            <div id="blogModalContent"></div>
+        </div>
+    </div>
+
+    <div id="yt-player"></div>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span>Код скопирован в буфер обмена!</span>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="logo">
+                <i class="logo-icon"><span class="logo-icon-inner"></span></i>
+                <span>GoreBox Modding API</span>
+                <span class="version-badge">v1.0</span>
+            </div>
+            <div class="footer-links">
+                <a href="https://discord.gg/q4uQ646z3P" target="_blank"> <i class="fab fa-discord"></i> Discord </a>
+                <a href="https://www.youtube.com/@F2Games" target="_blank"> <i class="fab fa-youtube"></i> YouTube </a>
+            </div>
+        </div>
+    </footer>
+
+    <button class="settings-btn" id="settingsBtn">
+        <i class="fas fa-cog"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
