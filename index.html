@@ -9,10 +9,172 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kenyan+Coffee&family=Segoe+UI:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <div class="mobile-menu-header">
+            <a href="#" class="logo" id="mobileMenuLogo">
+                <i class="logo-icon"><span class="logo-icon-inner"></span></i>
+                <span class="logo-text-wrapper">
+                    <span>GoreBox Modding API</span>
+                    </span>
+            </a>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <nav class="mobile-menu-nav">
+            <a href="#" class="mobile-nav-link" data-page="home">
+                <i class="fas fa-home"></i> <span data-translate="home">Главная</span>
+            </a>
+            
+            <div class="mobile-nav-item has-submenu">
+                <div class="mobile-nav-item-header">
+                    <a href="#" class="mobile-nav-link" data-page="documentation">
+                        <i class="fas fa-book"></i> <span data-translate="documentation">Документация</span>
+                    </a>
+                    <button class="mobile-submenu-toggle">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="mobile-submenu-content" id="mobileSubmenuContent">
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title"><i class="fas fa-sync-alt"></i> <span data-translate="lifecycle">Жизненный цикл</span></h3>
+                        <ul class="sidebar-links">
+                            <li><a href="#awake" class="sidebar-link" data-function="awake"><i class="fas fa-eye"></i> awake</a></li>
+                            <li><a href="#start" class="sidebar-link" data-function="start"><i class="fas fa-play"></i> start</a></li>
+                            <li><a href="#update" class="sidebar-link" data-function="update"><i class="fas fa-redo"></i> update</a></li>
+                            <li><a href="#late_update" class="sidebar-link" data-function="late_update"><i class="fas fa-history"></i> late_update</a></li>
+                            <li><a href="#fixed_update" class="sidebar-link" data-function="fixed_update"><i class="fas fa-cogs"></i> fixed_update</a></li>
+                            <li><a href="#gui_update" class="sidebar-link" data-function="gui_update"><i class="fas fa-desktop"></i> gui_update</a></li>
+                            <li><a href="#onRPC" class="sidebar-link" data-function="onRPC"><i class="fas fa-network-wired"></i> onRPC</a></li>
+                        </ul>
+                    </div>
+        
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title"><i class="fas fa-globe"></i> <span data-translate="global_functions">Основные функции</span></h3>
+                        <ul class="sidebar-links">
+                            <li><a href="#log" class="sidebar-link active" data-function="log"><i class="fas fa-terminal"></i> log</a></li>
+                            <li><a href="#getModRoot" class="sidebar-link" data-function="getModRoot"><i class="fas fa-folder"></i> getModRoot</a></li>
+                            <li><a href="#getDeltaTime" class="sidebar-link" data-function="getDeltaTime"><i class="fas fa-clock"></i> getDeltaTime</a></li>
+                            <li><a href="#getTime" class="sidebar-link" data-function="getTime"><i class="fas fa-stopwatch"></i> getTime</a></li>
+                            <li><a href="#getLocalPlayer" class="sidebar-link" data-function="getLocalPlayer"><i class="fas fa-user"></i> getLocalPlayer</a></li>
+                        </ul>
+                    </div>
+        
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title"><i class="fas fa-desktop"></i> <span data-translate="gui_functions">Функции GUI</span></h3>
+                        <ul class="sidebar-links">
+                            <li><a href="#gui_label" class="sidebar-link" data-function="gui_label"><i class="fas fa-tag"></i> label</a></li>
+                            <li><a href="#gui_space" class="sidebar-link" data-function="gui_space"><i class="fas fa-ruler-vertical"></i> space</a></li>
+                            <li><a href="#gui_box" class="sidebar-link" data-function="gui_box"><i class="fas fa-image"></i> box</a></li>
+                            <li><a href="#gui_button" class="sidebar-link" data-function="gui_button"><i class="fas fa-hand-pointer"></i> button</a></li>
+                            <li><a href="#gui_textField" class="sidebar-link" data-function="gui_textField"><i class="fas fa-i-cursor"></i> textField</a></li>
+                            <li><a href="#gui_verticalSlider" class="sidebar-link" data-function="gui_verticalSlider"><i class="fas fa-ellipsis-vertical"></i> verticalSlider</a></li>
+                            <li><a href="#gui_horizontalSlider" class="sidebar-link" data-function="gui_horizontalSlider"><i class="fas fa-sliders"></i> horizontalSlider</a></li>
+                            <li><a href="#gui_beginVertical" class="sidebar-link" data-function="gui_beginVertical"><i class="fas fa-arrows-up-down"></i> beginVertical</a></li>
+                            <li><a href="#gui_beginHorizontal" class="sidebar-link" data-function="gui_beginHorizontal"><i class="fas fa-arrows-left-right"></i> beginHorizontal</a></li>
+                        </ul>
+                    </div>
+        
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title"><i class="fas fa-paint-brush"></i> <span data-translate="resources">Ресурсы</span></h3>
+                        <ul class="sidebar-links">
+                            <li><a href="#texture_load" class="sidebar-link" data-function="texture_load"><i class="fas fa-image"></i> texture.load</a></li>
+                            <li><a href="#material_create" class="sidebar-link" data-function="material_create"><i class="fas fa-palette"></i> material.create</a></li>
+                            <li><a href="#material_createWithShader" class="sidebar-link" data-function="material_createWithShader"><i class="fas fa-magic"></i> material.createWithShader</a></li>
+                            <li><a href="#material_setColor" class="sidebar-link" data-function="material_setColor"><i class="fas fa-fill-drip"></i> material.setColor</a></li>
+                            <li><a href="#material_getColor" class="sidebar-link" data-function="material_getColor"><i class="fas fa-eye-dropper"></i> material.getColor</a></li>
+                            <li><a href="#model_load" class="sidebar-link" data-function="model_load"><i class="fas fa-cube"></i> model.load</a></li>
+                            <li><a href="#gameObject_createWithModel" class="sidebar-link" data-function="gameObject_createWithModel"><i class="fas fa-cubes"></i> createWithModel</a></li>
+                            <li><a href="#audioClip_load" class="sidebar-link" data-function="audioClip_load"><i class="fas fa-volume-up"></i> audioClip.load</a></li>
+                        </ul>
+                    </div>
+        
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title"><i class="fas fa-gamepad"></i> <span data-translate="gameobject">Объекты</span></h3>
+                        <ul class="sidebar-links">
+                            <li><a href="#gameObject_create" class="sidebar-link" data-function="gameObject_create"><i class="fas fa-plus-circle"></i> create</a></li>
+                            <li><a href="#gameObject_find" class="sidebar-link" data-function="gameObject_find"><i class="fas fa-search"></i> find</a></li>
+                            <li><a href="#gameObject_destroy" class="sidebar-link" data-function="gameObject_destroy"><i class="fas fa-trash-alt"></i> destroy</a></li>
+                            <li><a href="#gameObject_getTransform" class="sidebar-link" data-function="gameObject_getTransform"><i class="fas fa-arrows-alt"></i> getTransform</a></li>
+                            <li><a href="#gameObject_setName" class="sidebar-link" data-function="gameObject_setName"><i class="fas fa-signature"></i> setName</a></li>
+                            <li><a href="#gameObject_setActive" class="sidebar-link" data-function="gameObject_setActive"><i class="fas fa-power-off"></i> setActive</a></li>
+                            <li><a href="#gameObject_instantiate" class="sidebar-link" data-function="gameObject_instantiate"><i class="fas fa-clone"></i> instantiate</a></li>
+                        </ul>
+                    </div>
+        
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title"><i class="fas fa-compass"></i> <span data-translate="transform">Трансформы</span></h3>
+                        <ul class="sidebar-links">
+                            <li><a href="#transform_getPosition" class="sidebar-link" data-function="transform_getPosition"><i class="fas fa-map-marker-alt"></i> getPosition</a></li>
+                            <li><a href="#transform_setPosition" class="sidebar-link" data-function="transform_setPosition"><i class="fas fa-arrows-alt"></i> setPosition</a></li>
+                            <li><a href="#transform_translate" class="sidebar-link" data-function="transform_translate"><i class="fas fa-arrows-alt"></i> translate</a></li>
+                            <li><a href="#transform_rotate" class="sidebar-link" data-function="transform_rotate"><i class="fas fa-sync-alt"></i> rotate</a></li>
+                            <li><a href="#transform_lookAt" class="sidebar-link" data-function="transform_lookAt"><i class="fas fa-eye"></i> lookAt</a></li>
+                            <li><a href="#transform_getForward" class="sidebar-link" data-function="transform_getForward"><i class="fas fa-arrow-up"></i> getForward</a></li>
+                        </ul>
+                    </div>
+        
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title"><i class="fas fa-bowling-ball"></i> <span data-translate="physics">Физика</span></h3>
+                        <ul class="sidebar-links">
+                            <li><a href="#rigidbody_setVelocity" class="sidebar-link" data-function="rigidbody_setVelocity"><i class="fas fa-forward"></i> setVelocity</a></li>
+                            <li><a href="#rigidbody_addForce" class="sidebar-link" data-function="rigidbody_addForce"><i class="fas fa-wind"></i> addForce</a></li>
+                            <li><a href="#rigidbody_setUseGravity" class="sidebar-link" data-function="rigidbody_setUseGravity"><i class="fas fa-weight-hanging"></i> setUseGravity</a></li>
+                            <li><a href="#physics_raycast" class="sidebar-link" data-function="physics_raycast"><i class="fas fa-stream"></i> raycast</a></li>
+                            <li><a href="#physics_overlapSphere" class="sidebar-link" data-function="physics_overlapSphere"><i class="fas fa-circle-notch"></i> overlapSphere</a></li>
+                        </ul>
+                    </div>
+        
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title"><i class="fas fa-headphones"></i> <span data-translate="audio">Аудио</span></h3>
+                        <ul class="sidebar-links">
+                            <li><a href="#audioSource_play" class="sidebar-link" data-function="audioSource_play"><i class="fas fa-play-circle"></i> play</a></li>
+                            <li><a href="#audioSource_stop" class="sidebar-link" data-function="audioSource_stop"><i class="fas fa-stop-circle"></i> stop</a></li>
+                            <li><a href="#audioSource_setVolume" class="sidebar-link" data-function="audioSource_setVolume"><i class="fas fa-volume-down"></i> setVolume</a></li>
+                            <li><a href="#audioSource_isPlaying" class="sidebar-link" data-function="audioSource_isPlaying"><i class="fas fa-question-circle"></i> isPlaying</a></li>
+                        </ul>
+                    </div>
+        
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title"><i class="fas fa-camera"></i> <span data-translate="camera">Камера</span></h3>
+                        <ul class="sidebar-links">
+                            <li><a href="#camera_setFieldOfView" class="sidebar-link" data-function="camera_setFieldOfView"><i class="fas fa-expand-arrows-alt"></i> setFieldOfView</a></li>
+                            <li><a href="#camera_worldToScreenPoint" class="sidebar-link" data-function="camera_worldToScreenPoint"><i class="fas fa-compress-arrows-alt"></i> worldToScreenPoint</a></li>
+                            <li><a href="#camera_screenToWorldPoint" class="sidebar-link" data-function="camera_screenToWorldPoint"><i class="fas fa-external-link-alt"></i> screenToWorldPoint</a></li>
+                        </ul>
+                    </div>
+        
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title"><i class="fas fa-keyboard"></i> <span data-translate="input">Ввод</span></h3>
+                        <ul class="sidebar-links">
+                            <li><a href="#input_getKey" class="sidebar-link" data-function="input_getKey"><i class="fas fa-key"></i> getKey</a></li>
+                            <li><a href="#input_getKeyDown" class="sidebar-link" data-function="input_getKeyDown"><i class="fas fa-caret-square-down"></i> getKeyDown</a></li>
+                            <li><a href="#input_getMouse" class="sidebar-link" data-function="input_getMouse"><i class="fas fa-mouse-pointer"></i> getMouse</a></li>
+                            <li><a href="#input_getAxis" class="sidebar-link" data-function="input_getAxis"><i class="fas fa-gamepad"></i> getAxis</a></li>
+                            <li><a href="#input_setMouseLock" class="sidebar-link" data-function="input_setMouseLock"><i class="fas fa-lock"></i> setMouseLock</a></li>
+                        </ul>
+                    </div>
+                    </div>
+            </div>
+
+            <a href="#" class="mobile-nav-link" data-page="blog">
+                <i class="fas fa-newspaper"></i> <span data-translate="blog">Блог</span>
+            </a>
+        </nav>
+
+        <div class="mobile-menu-footer">
+            <button class="mobile-nav-link settings-trigger" id="mobileSettingsBtn">
+                <i class="fas fa-cog"></i> <span data-translate="settings">Настройки</span>
+            </button>
+        </div>
+    </div>
     <div class="space-background" id="spaceBackground"></div>
     <div class="blueprint-background" id="blueprintBackground"></div>
     <div class="gorebox-background" id="goreboxBackground"></div> <div id="particles-js"></div>
@@ -21,16 +183,12 @@
         <div class="header-content">
             <a href="#" class="logo" id="logoLink">
                 <i class="logo-icon"><span class="logo-icon-inner"></span></i>
-                <span>GoreBox Modding API</span>
-                <span class="version-badge">v1.0</span>
+                <span class="logo-text-wrapper">
+                    <span>GoreBox Modding API</span>
+                    <span class="version-badge">v1.0</span>
+                </span>
             </a>
-
-            <nav class="nav-links">
-                <a href="#" class="nav-link" data-page="home"><i class="fas fa-home"></i> <span data-translate="home">Главная</span></a>
-                <a href="#" class="nav-link" data-page="documentation"><i class="fas fa-book"></i> <span data-translate="documentation">Документация</span></a>
-                <a href="#" class="nav-link" data-page="blog"><i class="fas fa-newspaper"></i> <span data-translate="blog">Блог</span></a>
-            </nav>
-
+            
             <div class="search-box">
                 <i class="fas fa-search"></i>
                 <input type="text" id="searchInput" data-translate-placeholder="search_placeholder" placeholder="Поиск по документации...">
@@ -40,6 +198,15 @@
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
             </button>
+
+            <div class="header-right-content" id="headerRightContent">
+                <nav class="nav-links">
+                    <a href="#" class="nav-link" data-page="home"><i class="fas fa-home"></i> <span data-translate="home">Главная</span></a>
+                    <a href="#" class="nav-link" data-page="documentation"><i class="fas fa-book"></i> <span data-translate="documentation">Документация</span></a>
+                    <a href="#" class="nav-link" data-page="blog"><i class="fas fa-newspaper"></i> <span data-translate="blog">Блог</span></a>
+                </nav>
+            </div>
+
         </div>
     </header>
 
@@ -52,15 +219,11 @@
                         <i class="fas fa-palette"></i>
                         <span data-translate="tab_appearance">Оформление</span>
                     </button>
-                    <button class="settings-tab-btn" data-tab="general">
+                    <button class="settings-tab-btn" data-tab="language">
                         <i class="fas fa-globe"></i>
-                        <span data-translate="tab_general">Общие</span>
+                        <span data-translate="language">Язык</span>
                     </button>
-                    <button class="settings-tab-btn" data-tab="sound">
-                        <i class="fas fa-volume-up"></i>
-                        <span data-translate="tab_sound">Звук</span>
-                    </button>
-                </nav>
+                    </nav>
                 <button class="settings-close" id="settingsClose">
                     <i class="fas fa-times"></i>
                 </button>
@@ -93,8 +256,8 @@
                             <div class="font-option active" data-font="default">
                                 <div class="font-name" data-translate="font_default">Стандартный</div>
                             </div>
-                            <div class="font-option" data-font="kenyan_coffee">
-                                <div class="font-name" data-translate="font_kenyan_coffee">Kenyan Coffee</div>
+                            <div class="font-option" data-font="wes_fy_black">
+                                <div class="font-name" data-translate="font_wes_fy_black">Wes FY Black</div>
                             </div>
                         </div>
                     </div>
@@ -109,10 +272,22 @@
                             <span data-translate="two_columns">Две колонки</span>
                         </div>
                     </div>
+                    
+                    <div class="setting-group">
+                        <label class="setting-label" data-translate="visual_effects">Визуальные эффекты</label>
+                        <div class="layout-selector">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="effectsToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <span data-translate="effects_enable">Включить эффекты</span>
+                        </div>
+                        <p class="setting-note" data-translate="effects_note">Отключение может улучшить производительность.</p>
+                    </div>
 
                 </div>
                 
-                <div class="settings-tab-panel" id="settings-tab-general">
+                <div class="settings-tab-panel" id="settings-tab-language">
                     <div class="setting-group">
                         <label class="setting-label" data-translate="language">Язык</label>
                         <div class="language-selector">
@@ -128,39 +303,7 @@
                     </div>
                 </div>
                 
-                <div class="settings-tab-panel" id="settings-tab-sound">
-                    <div class="setting-group">
-                        <label class="setting-label" data-translate="music">Фоновая музыка</label>
-                        <div class="music-selector-wrapper">
-                            <div class="custom-select-wrapper">
-                                <div class="custom-select">
-                                    <div class="custom-select-trigger">
-                                        <span>PPLX Radio</span>
-                                        <i class="fas fa-chevron-down arrow"></i>
-                                    </div>
-                                    <div class="custom-options">
-                                        <div class="custom-option" data-value="9XZPCAk4IYc">PPLX Radio</div>
-                                        <div class="custom-option" data-value="HuOHu5XSTSk">Frutiger Aero</div>
-                                        <div class="custom-option" data-value="UedTcufyrHc">ChillSynth</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="music-controls">
-                            <button id="musicToggle" class="music-toggle-btn">
-                                <i class="fas fa-play"></i>
-                                <span data-translate="play_music">Включить музыку</span>
-                            </button>
-                            <div class="volume-control">
-                                <i class="fas fa-volume-mute"></i>
-                                <input type="range" id="volumeSlider" min="0" max="100" value="100">
-                                <i class="fas fa-volume-up"></i>
-                            </div>
-                        </div>
-                    </div>
                 </div> 
-                
-            </div> 
         </div>
     </div>
     
@@ -670,7 +813,7 @@
 <span class="variable">rigidbody</span>.<span class="function-call">addForce</span>(<span class="variable">player</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>)</pre></div>
                         </div>
                         <div class="function-card" id="rigidbody_setUseGravity">
-                            <div class="function-header"><h3 class="function-name"><i class="fas fa-weight-hanging"></i> rigidbody.setUseGravity(id, bool)</h3></div>
+                            <div class="function-header"><h3 class="function-name"><i class="fas fa-weight-hanging"></i> rigging.setUseGravity(id, bool)</h3></div>
                             <p class="function-description" data-translate="desc_rigidbody_setUseGravity">Включает/выключает гравитацию.</p>
                             <div class="code-block"><button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button><pre><span class="comment">--[[comment:fly_mode]]</span>
 <span class="variable">rigidbody</span>.<span class="function-call">setUseGravity</span>(<span class="variable">player</span>, <span class="keyword">false</span>)</pre></div>
@@ -840,7 +983,7 @@
         </div>
     </footer>
 
-    <button class="settings-btn" id="settingsBtn">
+    <button class="settings-btn desktop-settings-btn" id="settingsBtn">
         <i class="fas fa-cog"></i>
     </button>
 

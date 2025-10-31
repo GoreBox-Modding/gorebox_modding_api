@@ -5,21 +5,24 @@ const translations = {
         blog: "Блог",
         settings: "Настройки",
         tab_appearance: "Оформление",
-        tab_general: "Общие",
-        tab_sound: "Звук",
+        // tab_general: "Общие", // Удалено
+        // tab_sound: "Звук", // Удалено
         theme: "Тема оформления",
         theme_default: "Космическая",
         theme_gorebox: "GoreBox",
         theme_programmer: "Cozy",
-        language: "Язык",
+        language: "Язык", // Используется для вкладки
         font: "Шрифт",
         font_default: "Segoe UI",
-        font_kenyan_coffee: "Kenyan Coffee",
+        font_wes_fy_black: "Wes FY Black",
         layout: "Расположение функций",
         two_columns: "Две колонки",
-        music: "Фоновая музыка",
-        play_music: "Включить музыку",
-        stop_music: "Выключить музыку",
+        // music: "Фоновая музыка", // Удалено
+        // play_music: "Включить музыку", // Удалено
+        // stop_music: "Выключить музыку", // Удалено
+        visual_effects: "Визуальные эффекты",
+        effects_enable: "Включить эффекты",
+        effects_note: "Отключение может улучшить производительность.",
         lifecycle: "Жизненный цикл",
         global_functions: "Основные функции",
         gui_functions: "Функции GUI",
@@ -135,21 +138,24 @@ const translations = {
         blog: "Blog",
         settings: "Settings",
         tab_appearance: "Appearance",
-        tab_general: "General",
-        tab_sound: "Sound",
+        // tab_general: "General", // Удалено
+        // tab_sound: "Sound", // Удалено
         theme: "Theme",
         theme_default: "Cosmic",
         theme_gorebox: "GoreBox",
         theme_programmer: "Cozy",
-        language: "Language",
+        language: "Language", // Используется для вкладки
         font: "Font",
         font_default: "Segoe UI",
-        font_kenyan_coffee: "Kenyan Coffee",
+        font_wes_fy_black: "Wes FY Black",
         layout: "Function Layout",
         two_columns: "Two Columns",
-        music: "Background Music",
-        play_music: "Play Music",
-        stop_music: "Stop Music",
+        // music: "Background Music", // Удалено
+        // play_music: "Play Music", // Удалено
+        // stop_music: "Stop Music", // Удалено
+        visual_effects: "Visual Effects",
+        effects_enable: "Enable Effects",
+        effects_note: "Disabling may improve performance.",
         lifecycle: "Lifecycle",
         global_functions: "Global Functions",
         gui_functions: "GUI Functions",
@@ -262,9 +268,12 @@ const translations = {
 
 
 let currentLang = null;
-let selectedTrackId = '9XZPCAk4IYc';
+// let selectedTrackId = '9XZPCAk4IYc'; // Удалено (музыка)
 
 const typingTimers = new Map();
+
+// ИЗМЕНЕНИЕ: Глобальная переменная для интервала комет
+let cometInterval;
 
 function typeAnimation(element, text) {
     if (typingTimers.has(element)) {
@@ -344,8 +353,10 @@ function changeLanguage(lang) {
 
 function createStars() {
     const spaceBg = document.getElementById('spaceBackground');
-    if (!spaceBg) return;
-    const starCount = 200;
+    if (!spaceBg || document.body.classList.contains('effects-disabled')) return;
+    
+    // ИЗМЕНЕНИЕ: Оптимизация (уменьшено с 200)
+    const starCount = 80;
 
     for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
@@ -363,10 +374,11 @@ function createStars() {
 
 function createComets() {
     const spaceBg = document.getElementById('spaceBackground');
-    if (!spaceBg) return;
+    if (!spaceBg || document.body.classList.contains('effects-disabled')) return;
 
-    setInterval(() => {
-        if (Math.random() < 0.4) {
+    // ИЗМЕНЕНИЕ: Сохраняем ID интервала, чтобы его можно было остановить
+    cometInterval = setInterval(() => {
+        if (Math.random() < 0.4 && !document.body.classList.contains('effects-disabled')) {
             const duration = Math.random() * 2000 + 3000;
 
             const startX = Math.random() * 100;
@@ -380,6 +392,9 @@ function createComets() {
             const styleSheet = document.createElement("style");
             styleSheet.type = "text/css";
             styleSheet.innerText = `@keyframes ${animationName} { from { transform: translate(${startX}vw, ${startY}vh); } to { transform: translate(${endX}vw, ${endY}vh); } }`;
+            
+            // ИЗМЕНЕНИЕ: Добавляем data-attribute для поиска и удаления
+            styleSheet.setAttribute('data-comet-style', 'true');
             document.head.appendChild(styleSheet);
 
             const head = document.createElement('div');
@@ -408,10 +423,10 @@ function createComets() {
 
 function createBubbles() {
     const cityBg = document.getElementById('cityBackground');
-    if (!cityBg) return;
+    if (!cityBg || document.body.classList.contains('effects-disabled')) return;
 
     setInterval(() => {
-        if (document.body.classList.contains('frutiger-aero') && Math.random() < 0.3) {
+        if (document.body.classList.contains('frutiger-aero') && Math.random() < 0.3 && !document.body.classList.contains('effects-disabled')) {
             const bubble = document.createElement('div');
             bubble.className = 'bubble';
 
@@ -434,9 +449,10 @@ function createBubbles() {
 
 function createBloodEffect() {
     const container = document.getElementById('goreboxBackground');
-    if (!container) return;
+    if (!container || document.body.classList.contains('effects-disabled')) return;
 
-    const pentagonCount = 80;
+    // ИЗМЕНЕНИЕ: Оптимизация (уменьшено с 80)
+    const pentagonCount = 40;
     const cornerDensity = 30;
     const cornerOffset = 5;
 
@@ -481,8 +497,9 @@ function createBloodEffect() {
 
 
 function initParticles() {
-    if (typeof particlesJS !== 'undefined') {
-        particlesJS('particles-js', { particles: { number: { value: 40, density: { enable: true, value_area: 800 } }, color: { value: "#6366f1" }, shape: { type: "circle" }, opacity: { value: 0.3, random: true }, size: { value: 2, random: true }, line_linked: { enable: true, distance: 150, color: "#6366f1", opacity: 0.2, width: 1 }, move: { enable: true, speed: 1, direction: "none", random: true, out_mode: "out", bounce: false } }, interactivity: { detect_on: "canvas", events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true } } });
+    if (typeof particlesJS !== 'undefined' && !document.body.classList.contains('effects-disabled')) {
+        // ИЗМЕНЕНИЕ: Оптимизация (уменьшено с 40)
+        particlesJS('particles-js', { particles: { number: { value: 20, density: { enable: true, value_area: 800 } }, color: { value: "#6366f1" }, shape: { type: "circle" }, opacity: { value: 0.3, random: true }, size: { value: 2, random: true }, line_linked: { enable: true, distance: 150, color: "#6366f1", opacity: 0.2, width: 1 }, move: { enable: true, speed: 1, direction: "none", random: true, out_mode: "out", bounce: false } }, interactivity: { detect_on: "canvas", events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true } } });
     }
 }
 
@@ -561,6 +578,13 @@ const functionsData = [
 
 
 document.addEventListener('DOMContentLoaded', function() {
+    
+    // ================================================
+    // ИЗМЕНЕНИЕ: Глобальная функция для закрытия меню
+    // ================================================
+    let closeMobileMenu = () => {};
+
+
     document.querySelectorAll('.code-block .comment').forEach(element => {
         const text = element.textContent.trim();
         const match = text.match(/--\[\[comment:(.+)\]\]/);
@@ -581,22 +605,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    createStars();
-    createComets();
-    createBubbles();
-    createBloodEffect();
-    initParticles();
+    // Загрузка настроек должна быть до создания эффектов
+    loadSettings();
+    
     loadBlogPreview();
     loadFullBlog();
     initSearch();
     initNavigation();
     initCodeCopy();
     initBlogModal();
-    initMobileMenu();
-    initMusicPlayer();
+    initMobileMenu(); // <-- Вызов новой функции
+    // initMusicPlayer(); // Удалено
     initDocsCopy();
     initSettings();
-    loadSettings();
+    // loadSettings() уже вызвана выше
 
     const savedPage = localStorage.getItem('activePage') || 'home';
     if (savedPage !== 'home') {
@@ -609,7 +631,146 @@ document.addEventListener('DOMContentLoaded', function() {
             link.classList.add('active');
         }
     });
-});
+
+    // ================================================
+    // ИЗМЕНЕНИЕ: Добавлен слушатель RESIZE
+    // ================================================
+    window.addEventListener('resize', () => {
+        const sidebar = document.getElementById('sidebar');
+        const docPage = document.getElementById('documentation-page');
+        
+        if (window.innerWidth > 1024) {
+            // Если мы на десктопе, закроем мобильное меню на всякий случай
+            if (typeof closeMobileMenu === 'function') {
+                closeMobileMenu();
+            }
+            // И покажем десктопный сайдбар, если мы на странице доков
+            if (docPage && docPage.classList.contains('active')) {
+                sidebar.classList.add('active');
+            }
+        } else {
+            // Если мы на мобильном, скроем десктопный сайдбар
+            sidebar.classList.remove('active');
+        }
+    });
+
+    // ================================================
+    // ИЗМЕНЕНИЕ: Новая функция initMobileMenu
+    // ================================================
+    function initMobileMenu() {
+        const menuBtn = document.getElementById('mobileMenuBtn');
+        const panel = document.getElementById('mobileMenuPanel');
+        const overlay = document.getElementById('mobileMenuOverlay');
+        const closeBtn = document.getElementById('mobileMenuClose');
+        const mobileSettingsBtn = document.getElementById('mobileSettingsBtn');
+        const settingsPanel = document.getElementById('settingsPanel');
+        
+        // Ищем элементы только ВНУТРИ мобильной панели, чтобы не конфликтовать с десктопом
+        const docItem = document.querySelector('#mobileMenuPanel .mobile-nav-item.has-submenu');
+        const docLink = document.querySelector('#mobileMenuPanel .mobile-nav-link[data-page="documentation"]');
+        const docToggle = document.querySelector('#mobileMenuPanel .mobile-submenu-toggle');
+        const docSubmenu = document.getElementById('mobileSubmenuContent');
+
+        if (!menuBtn || !panel || !overlay || !closeBtn) return;
+
+        // Функция закрытия (теперь присваиваем)
+        closeMobileMenu = function() {
+            panel.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = ''; 
+
+            // ИЗМЕНЕНИЕ: Мы по-прежнему сбрасываем max-height,
+            // но НЕ сбрасываем 'active' class, который используется для сохранения состояния
+            if (docItem) {
+                if(docSubmenu) docSubmenu.style.maxHeight = '0px';
+            }
+        }
+
+        // Открыть меню
+        menuBtn.addEventListener('click', () => {
+            panel.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // ИЗМЕНЕНИЕ: Проверяем localStorage, чтобы восстановить состояние
+            if (localStorage.getItem('docSubmenuOpen') === 'true') {
+                docItem.classList.add('active');
+                docSubmenu.style.maxHeight = docSubmenu.scrollHeight + 'px';
+            } else {
+                docItem.classList.remove('active');
+                docSubmenu.style.maxHeight = '0px';
+            }
+        });
+
+        // Закрыть меню (по кнопке 'X' или оверлею)
+        closeBtn.addEventListener('click', closeMobileMenu);
+        overlay.addEventListener('click', closeMobileMenu);
+
+        // Открыть Настройки из меню
+        if (mobileSettingsBtn && settingsPanel) {
+            mobileSettingsBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeMobileMenu();
+                setTimeout(() => {
+                    settingsPanel.classList.add('active');
+                }, 300); // 300ms, чтобы анимация закрытия не лагала
+            });
+        }
+
+        // --- Логика подменю Документации ---
+
+        // Клик по СТРЕЛКЕ (только раскрывает)
+        if (docToggle && docItem && docSubmenu) {
+            docToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                const isActive = docItem.classList.toggle('active');
+                if (isActive) {
+                    docSubmenu.style.maxHeight = docSubmenu.scrollHeight + "px";
+                    localStorage.setItem('docSubmenuOpen', 'true'); // Сохраняем
+                } else {
+                    docSubmenu.style.maxHeight = "0px";
+                    localStorage.setItem('docSubmenuOpen', 'false'); // Сохраняем
+                }
+            });
+        }
+
+        // Клик по ССЫЛКЕ "Documentation" (переходит и закрывает)
+        if (docLink) {
+            docLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchPage('documentation');
+                closeMobileMenu();
+                // Обновляем активную ссылку в десктоп-хедере
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                const desktopLink = document.querySelector('.nav-link[data-page="documentation"]');
+                if(desktopLink) desktopLink.classList.add('active');
+            });
+        }
+
+        // --- Логика остальных ссылок ---
+
+        // Home, Blog (переходят и закрывают)
+        panel.querySelectorAll('.mobile-nav-link[data-page]').forEach(link => {
+            if (link.getAttribute('data-page') !== 'documentation') {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const page = link.getAttribute('data-page');
+                    switchPage(page);
+                    closeMobileMenu();
+                    // Обновляем активную ссылку в десктоп-хедере
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    const desktopLink = document.querySelector(`.nav-link[data-page="${page}"]`);
+                    if(desktopLink) desktopLink.classList.add('active');
+                });
+            }
+        });
+
+        // Ссылки на функции (внутри мобильного меню) УЖЕ ОБРАБАТЫВАЮТСЯ в initNavigation()
+    }
+
+}); // Конец DOMContentLoaded
+
+
 
 function loadBlogPreview() {
     const container = document.getElementById('home-blog-preview');
@@ -707,6 +868,9 @@ function navigateToFunction(funcId) {
     }
 }
 
+// ================================================
+// ИЗМЕНЕНИЕ: Обновлена функция initNavigation
+// ================================================
 function initNavigation() {
     const logoLink = document.getElementById('logoLink');
     if (logoLink) {
@@ -718,6 +882,7 @@ function initNavigation() {
         });
     }
 
+    // Это только для ДЕСКТОПНЫХ ссылок в шапке
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -727,15 +892,26 @@ function initNavigation() {
             this.classList.add('active');
         });
     });
+    
+    // Этот слушатель теперь обрабатывает ОБА сайдбара (десктопный и мобильный)
     document.querySelectorAll('.sidebar-link').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            navigateToFunction(this.getAttribute('data-function'));
+            const funcId = this.getAttribute('data-function');
+            navigateToFunction(funcId);
+            
+            // Активируем *все* ссылки (мобильную и десктопную) с этим data-function
             document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-            if (window.innerWidth <= 1024) { document.getElementById('sidebar').classList.remove('active'); }
+            document.querySelectorAll(`.sidebar-link[data-function="${funcId}"]`).forEach(l => l.classList.add('active'));
+            
+            // Закрываем мобильное меню (если оно было открыто)
+            // 'closeMobileMenu' определяется в 'initMobileMenu'
+            if (typeof closeMobileMenu === 'function') {
+                closeMobileMenu(); 
+            }
         });
     });
+
     document.querySelectorAll('.btn[data-page]').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -747,6 +923,9 @@ function initNavigation() {
     });
 }
 
+// ================================================
+// ИЗМЕНЕНИЕ: Обновлена функция switchPage
+// ================================================
 function switchPage(pageId) {
     document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
     const targetPage = document.getElementById(`${pageId}-page`);
@@ -761,6 +940,11 @@ function switchPage(pageId) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
         localStorage.setItem('activePage', pageId);
+    }
+    
+    // Добавлено: закрываем мобильную навигацию (header) при смене страницы
+    if (typeof closeMobileMenu === 'function') {
+        closeMobileMenu();
     }
 }
 
@@ -789,7 +973,12 @@ function initDocsCopy() {
                 if (!acc[sectionId]) acc[sectionId] = [];
                 const enCommentKey = func.code.match(/--\[\[comment:(.+)\]\]/);
                 let finalCode = func.code;
+                 
+                 // ================================================
+                 // ИСПРАВЛЕНИЕ ОШИБКИ
+                 // ================================================
                  if (enCommentKey && translations['en']['comment_' + enCommentKey[1]]) {
+                    // Я УБРАЛ ЛИШНИЙ 'G' + ИЗ СТРОКИ НИЖЕ
                     finalCode = finalCode.replace(enCommentKey[0], translations['en']['comment_' + enCommentKey[1]]);
                 }
 
@@ -867,103 +1056,10 @@ function openBlogModal(postId) {
     modal.classList.add('active');
 }
 
-let player;
-let isPlaying = false;
-let fadeInterval;
-let isPlayerReady = false;
+// ================================================
+// ВСЕ ФУНКЦИИ МУЗЫКИ УДАЛЕНЫ
+// ================================================
 
-function initMusicPlayer() {
-    if (document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
-        if (window.YT && YT.loaded) onYouTubeIframeAPIReady();
-        return;
-    }
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-}
-
-function onYouTubeIframeAPIReady() {
-    try {
-        player = new YT.Player('yt-player', { height: '0', width: '0', videoId: selectedTrackId, playerVars: { 'autoplay': 0, 'controls': 0, 'disablekb': 1, 'enablejsapi': 1, 'fs': 0, 'iv_load_policy': 3, 'modestbranding': 1, 'playsinline': 1, 'rel': 0 }, events: { 'onReady': onPlayerReady, 'onError': onPlayerError, 'onStateChange': onPlayerStateChange } });
-    } catch (error) { console.error('Error initializing YouTube player:', error); }
-}
-
-function onPlayerReady(event) {
-    isPlayerReady = true;
-    const savedVolume = localStorage.getItem('musicVolume') || 100;
-    player.setVolume(savedVolume);
-    document.getElementById('volumeSlider').value = savedVolume;
-}
-
-function onPlayerError(event) { console.error('YouTube player error:', event.data); }
-
-function onPlayerStateChange(event) {
-    if (event.data === YT.PlayerState.ENDED && isPlaying) {
-        player.playVideo();
-    }
-}
-
-function toggleMusic() {
-    if (!player || !isPlayerReady) return;
-    const musicToggleBtn = document.getElementById('musicToggle');
-    const icon = musicToggleBtn.querySelector('i');
-    const textSpan = musicToggleBtn.querySelector('span');
-    if (fadeInterval) clearInterval(fadeInterval);
-    if (isPlaying) {
-        let currentVolume = player.getVolume();
-        fadeInterval = setInterval(() => {
-            currentVolume -= 5;
-            if (currentVolume <= 0) {
-                player.pauseVideo();
-                player.setVolume(0);
-                clearInterval(fadeInterval);
-                player.setVolume(localStorage.getItem('musicVolume') || 100);
-            } else {
-                player.setVolume(currentVolume);
-            }
-        }, 50);
-        icon.classList.replace('fa-pause', 'fa-play');
-        textSpan.setAttribute('data-translate', 'play_music');
-        textSpan.textContent = translations[currentLang].play_music;
-        isPlaying = false;
-        localStorage.setItem('musicEnabled', 'false');
-    } else {
-        const currentVideoUrl = player.getVideoUrl();
-        if (!currentVideoUrl || !currentVideoUrl.includes(selectedTrackId)) {
-            player.loadVideoById(selectedTrackId);
-        }
-        player.playVideo();
-        const targetVolume = localStorage.getItem('musicVolume') || 100;
-        player.setVolume(0);
-        let currentVolume = 0;
-        fadeInterval = setInterval(() => {
-            currentVolume += 5;
-            if (currentVolume >= targetVolume) {
-                player.setVolume(targetVolume);
-                clearInterval(fadeInterval);
-            } else {
-                player.setVolume(currentVolume);
-            }
-        }, 50);
-        icon.classList.replace('fa-play', 'fa-pause');
-        textSpan.setAttribute('data-translate', 'stop_music');
-        textSpan.textContent = translations[currentLang].stop_music;
-        isPlaying = true;
-        localStorage.setItem('musicEnabled', 'true');
-    }
-}
-
-function initMobileMenu() {
-    const menuBtn = document.getElementById('mobileMenuBtn');
-    const sidebar = document.getElementById('sidebar');
-    if (!menuBtn || !sidebar) return;
-    menuBtn.addEventListener('click', function() {
-        if (document.querySelector('.page.active').id === 'documentation-page') {
-            sidebar.classList.toggle('active');
-        }
-    });
-}
 
 function showNotification(message) {
     const notification = document.getElementById('notification');
@@ -974,26 +1070,26 @@ function showNotification(message) {
 }
 
 function initSettings() {
-    const settingsBtn = document.getElementById('settingsBtn');
+    const settingsBtnDesktop = document.getElementById('settingsBtn');
     const settingsPanel = document.getElementById('settingsPanel');
     const settingsClose = document.getElementById('settingsClose');
 
     const themeOptions = document.querySelectorAll('.theme-option');
     const fontOptions = document.querySelectorAll('.font-option');
     const languageOptions = document.querySelectorAll('.language-option');
-    const musicToggle = document.getElementById('musicToggle');
-    const volumeSlider = document.getElementById('volumeSlider');
-    const selectWrapper = document.querySelector('.custom-select-wrapper');
-    const selectTrigger = selectWrapper.querySelector('.custom-select-trigger');
-    const customOptions = selectWrapper.querySelectorAll('.custom-option');
+
+    // Музыкальные контролы удалены
 
     const settingsTabs = document.querySelectorAll('.settings-tab-btn');
     const settingsTabPanels = document.querySelectorAll('.settings-tab-panel');
 
     const columnToggle = document.getElementById('columnToggle');
     const docPage = document.getElementById('documentation-page');
+    const effectsToggle = document.getElementById('effectsToggle');
 
-    if (settingsBtn) settingsBtn.addEventListener('click', () => settingsPanel.classList.add('active'));
+    if (settingsBtnDesktop) settingsBtnDesktop.addEventListener('click', () => settingsPanel.classList.add('active'));
+    // (Слушатель для settingsBtnMobile уже находится в initMobileMenu)
+    
     if (settingsClose) settingsClose.addEventListener('click', () => settingsPanel.classList.remove('active'));
 
     if (settingsPanel) {
@@ -1049,45 +1145,14 @@ function initSettings() {
             localStorage.setItem('layoutColumns', twoColumnsEnabled ? 'two' : 'one');
         });
     }
-
-    if (musicToggle) musicToggle.addEventListener('click', toggleMusic);
-
-    if (volumeSlider) {
-        volumeSlider.addEventListener('input', (e) => {
-            const newVolume = e.target.value;
-            if (player && isPlayerReady) player.setVolume(newVolume);
-            localStorage.setItem('musicVolume', newVolume);
+    
+    if (effectsToggle) {
+        effectsToggle.addEventListener('change', () => {
+            toggleVisualEffects(effectsToggle.checked);
         });
     }
 
-    if (selectTrigger) {
-        selectTrigger.addEventListener('click', () => {
-            selectWrapper.querySelector('.custom-select').classList.toggle('open');
-        });
-    }
-
-    if (customOptions) {
-        customOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                const newTrackId = option.getAttribute('data-value');
-                if (newTrackId !== selectedTrackId) {
-                    selectedTrackId = newTrackId;
-                    selectTrigger.querySelector('span').textContent = option.textContent;
-                    localStorage.setItem('musicTrack', selectedTrackId);
-                    if (isPlaying) player.loadVideoById(selectedTrackId);
-                }
-                selectWrapper.querySelector('.custom-select').classList.remove('open');
-                customOptions.forEach(opt => opt.classList.remove('selected'));
-                option.classList.add('selected');
-            });
-        });
-    }
-
-    document.addEventListener('click', (e) => {
-        if (selectWrapper && !selectWrapper.contains(e.target)) {
-            selectWrapper.querySelector('.custom-select').classList.remove('open');
-        }
-    });
+    // Вся логика музыки удалена
 }
 
 
@@ -1109,14 +1174,57 @@ function changeTheme(theme) {
     }, 300);
 }
 
+// Новая функция для смены шрифта
 function changeFont(font) {
-    if (font === 'kenyan_coffee') {
-        document.body.classList.add('font-kenyan-coffee');
+    if (font === 'wes_fy_black') {
+        document.body.classList.add('font-wes-fy-black');
     } else {
-        document.body.classList.remove('font-kenyan-coffee');
+        document.body.classList.remove('font-wes-fy-black');
     }
     localStorage.setItem('font', font);
 }
+
+// ИЗМЕНЕНИЕ: Новая функция для очистки всех эффектов
+function clearAllEffectElements() {
+    // 1. Останавливаем интервал создания комет
+    if (cometInterval) {
+        clearInterval(cometInterval);
+        cometInterval = null;
+    }
+
+    // 2. Удаляем все DOM-элементы эффектов
+    document.querySelectorAll('.star, .comet-head, .comet-trail, .blood-pentagon').forEach(el => el.remove());
+    
+    // 3. Удаляем все динамически добавленные стили комет
+    document.querySelectorAll('style[data-comet-style="true"]').forEach(el => el.remove());
+
+    // 4. Уничтожаем инстанс particles.js
+    if (window.pJSDom && window.pJSDom.length > 0) {
+        window.pJSDom[0].pJS.fn.vendors.destroypJS();
+        window.pJSDom = [];
+    }
+}
+
+
+// ИЗМЕНЕНИЕ: Полностью переписанная функция для исправления бага
+function toggleVisualEffects(enabled) {
+    if (enabled) {
+        document.body.classList.remove('effects-disabled');
+        // Повторно инициализируем эффекты
+        // (Проверки внутри функций не дадут им запуститься, если они уже запущены)
+        createStars();
+        createComets();
+        createBubbles(); // (эта функция у вас все равно пустая, но оставляем)
+        createBloodEffect();
+        initParticles(); // (эта функция имеет проверку на 'effects-disabled')
+    } else {
+        document.body.classList.add('effects-disabled');
+        // Вызываем новую функцию очистки
+        clearAllEffectElements();
+    }
+    localStorage.setItem('visualEffects', enabled.toString());
+}
+
 
 function loadSettings() {
     const savedTheme = localStorage.getItem('theme') || 'gorebox';
@@ -1125,7 +1233,7 @@ function loadSettings() {
         option.classList.toggle('active', option.getAttribute('data-theme') === savedTheme);
     });
 
-    const savedFont = localStorage.getItem('font') || 'kenyan_coffee';
+    const savedFont = localStorage.getItem('font') || 'wes_fy_black'; // Изменено
     changeFont(savedFont);
     document.querySelectorAll('.font-option').forEach(option => {
         option.classList.toggle('active', option.getAttribute('data-font') === savedFont);
@@ -1134,15 +1242,7 @@ function loadSettings() {
     const savedLanguage = localStorage.getItem('language') || 'en';
     changeLanguage(savedLanguage);
 
-    selectedTrackId = localStorage.getItem('musicTrack') || '9XZPCAk4IYc';
-    const activeOption = document.querySelector(`.custom-option[data-value="${selectedTrackId}"]`);
-    if (activeOption) {
-        document.querySelector('.custom-select-trigger span').textContent = activeOption.textContent;
-        document.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
-        activeOption.classList.add('selected');
-    }
-    const savedVolume = localStorage.getItem('musicVolume') || 100;
-    document.getElementById('volumeSlider').value = savedVolume;
+    // Логика музыки удалена
 
     const savedLayout = localStorage.getItem('layoutColumns') || 'one';
     const columnToggle = document.getElementById('columnToggle');
@@ -1152,12 +1252,22 @@ function loadSettings() {
         columnToggle.checked = isTwoColumns;
         docPage.classList.toggle('two-column-layout', isTwoColumns);
     }
+    
+    // ИЗМЕНЕНИЕ: Загрузка настройки эффектов
+    const savedEffects = localStorage.getItem('visualEffects') !== 'false'; // По умолчанию true
+    const effectsToggle = document.getElementById('effectsToggle');
+    if (effectsToggle) {
+        effectsToggle.checked = savedEffects;
+    }
+    // Применяем настройку эффектов при загрузке
+    toggleVisualEffects(savedEffects);
 }
 
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-        if (entry.isIntersecting) {
+        // Добавлена проверка на отключенные эффекты
+        if (entry.isIntersecting && !document.body.classList.contains('effects-disabled')) {
             entry.target.style.animationPlayState = 'running';
             observer.unobserve(entry.target);
         }
@@ -1168,4 +1278,4 @@ document.querySelectorAll('.section, .clickable-card-wrapper').forEach(el => {
     observer.observe(el);
 });
 
-window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+// window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady; // Удалено
