@@ -5,21 +5,16 @@ const translations = {
         blog: "Блог",
         settings: "Настройки",
         tab_appearance: "Оформление",
-        // tab_general: "Общие", // Удалено
-        // tab_sound: "Звук", // Удалено
         theme: "Тема оформления",
         theme_default: "Космическая",
         theme_gorebox: "GoreBox",
         theme_programmer: "Cozy",
-        language: "Язык", // Используется для вкладки
+        language: "Язык",
         font: "Шрифт",
         font_default: "Segoe UI",
         font_wes_fy_black: "Wes FY Black",
         layout: "Расположение функций",
         two_columns: "Две колонки",
-        // music: "Фоновая музыка", // Удалено
-        // play_music: "Включить музыку", // Удалено
-        // stop_music: "Выключить музыку", // Удалено
         visual_effects: "Визуальные эффекты",
         effects_enable: "Включить эффекты",
         effects_note: "Отключение может улучшить производительность.",
@@ -45,9 +40,7 @@ const translations = {
         copy_documentation: "Скопировать всю документацию",
         docs_copied: "Скопировано!",
         search_placeholder: "Поиск по документации...",
-        badge_original: "Оригинал",
 
-       
         desc_awake: "Инициализация Lua-среды перед запуском.",
         desc_start: "Вызывается при старте скрипта.",
         desc_update: "Обновление каждый кадр.",
@@ -95,7 +88,7 @@ const translations = {
         desc_transform_rotate: "Вращает объект.",
         desc_transform_lookAt: "Направляет объект на точку.",
         desc_transform_getForward: "<span class=\"highlight\">Возвращает</span> направление 'вперёд' (x, y, z).",
-        
+
         desc_rigidbody_setVelocity: "Устанавливает скорость (<span class=\"highlight\">ID</span> объекта, не Rigidbody).",
         desc_rigidbody_addForce: "Прикладывает силу к объекту.",
         desc_rigidbody_setUseGravity: "Включает/выключает гравитацию.",
@@ -138,21 +131,16 @@ const translations = {
         blog: "Blog",
         settings: "Settings",
         tab_appearance: "Appearance",
-        // tab_general: "General", // Удалено
-        // tab_sound: "Sound", // Удалено
         theme: "Theme",
         theme_default: "Cosmic",
         theme_gorebox: "GoreBox",
         theme_programmer: "Cozy",
-        language: "Language", // Используется для вкладки
+        language: "Language",
         font: "Font",
         font_default: "Segoe UI",
         font_wes_fy_black: "Wes FY Black",
         layout: "Function Layout",
         two_columns: "Two Columns",
-        // music: "Background Music", // Удалено
-        // play_music: "Play Music", // Удалено
-        // stop_music: "Stop Music", // Удалено
         visual_effects: "Visual Effects",
         effects_enable: "Enable Effects",
         effects_note: "Disabling may improve performance.",
@@ -178,7 +166,6 @@ const translations = {
         copy_documentation: "Copy All Documentation",
         docs_copied: "Copied!",
         search_placeholder: "Search documentation...",
-        badge_original: "Original",
 
         desc_awake: "Lua environment initialization before launch.",
         desc_start: "Called when the script starts.",
@@ -268,11 +255,7 @@ const translations = {
 
 
 let currentLang = null;
-// let selectedTrackId = '9XZPCAk4IYc'; // Удалено (музыка)
-
 const typingTimers = new Map();
-
-// ИЗМЕНЕНИЕ: Глобальная переменная для интервала комет
 let cometInterval;
 
 function typeAnimation(element, text) {
@@ -354,8 +337,7 @@ function changeLanguage(lang) {
 function createStars() {
     const spaceBg = document.getElementById('spaceBackground');
     if (!spaceBg || document.body.classList.contains('effects-disabled')) return;
-    
-    // ИЗМЕНЕНИЕ: Оптимизация (уменьшено с 200)
+
     const starCount = 80;
 
     for (let i = 0; i < starCount; i++) {
@@ -376,7 +358,6 @@ function createComets() {
     const spaceBg = document.getElementById('spaceBackground');
     if (!spaceBg || document.body.classList.contains('effects-disabled')) return;
 
-    // ИЗМЕНЕНИЕ: Сохраняем ID интервала, чтобы его можно было остановить
     cometInterval = setInterval(() => {
         if (Math.random() < 0.4 && !document.body.classList.contains('effects-disabled')) {
             const duration = Math.random() * 2000 + 3000;
@@ -392,8 +373,7 @@ function createComets() {
             const styleSheet = document.createElement("style");
             styleSheet.type = "text/css";
             styleSheet.innerText = `@keyframes ${animationName} { from { transform: translate(${startX}vw, ${startY}vh); } to { transform: translate(${endX}vw, ${endY}vh); } }`;
-            
-            // ИЗМЕНЕНИЕ: Добавляем data-attribute для поиска и удаления
+
             styleSheet.setAttribute('data-comet-style', 'true');
             document.head.appendChild(styleSheet);
 
@@ -421,37 +401,11 @@ function createComets() {
     }, 2500);
 }
 
-function createBubbles() {
-    const cityBg = document.getElementById('cityBackground');
-    if (!cityBg || document.body.classList.contains('effects-disabled')) return;
-
-    setInterval(() => {
-        if (document.body.classList.contains('frutiger-aero') && Math.random() < 0.3 && !document.body.classList.contains('effects-disabled')) {
-            const bubble = document.createElement('div');
-            bubble.className = 'bubble';
-
-            const size = Math.random() * 60 + 20;
-            bubble.style.width = `${size}px`;
-            bubble.style.height = `${size}px`;
-            bubble.style.left = `${Math.random() * 100}%`;
-            bubble.style.animationDuration = `${Math.random() * 10 + 15}s`;
-
-            cityBg.appendChild(bubble);
-
-            setTimeout(() => {
-                if (bubble.parentNode) {
-                    bubble.remove();
-                }
-            }, 20000);
-        }
-    }, 2000);
-}
 
 function createBloodEffect() {
     const container = document.getElementById('goreboxBackground');
     if (!container || document.body.classList.contains('effects-disabled')) return;
 
-    // ИЗМЕНЕНИЕ: Оптимизация (уменьшено с 80)
     const pentagonCount = 40;
     const cornerDensity = 30;
     const cornerOffset = 5;
@@ -488,7 +442,7 @@ function createBloodEffect() {
 
         pentagon.style.animation = `
             ${driftType} ${duration}s ${delay}s infinite alternate ease-in-out,
-            bloodFade ${duration * 0.7}s ${delay + (duration*0.1)}s infinite alternate ease-in-out
+            bloodFade ${duration * 0.7}s ${delay + (duration * 0.1)}s infinite alternate ease-in-out
         `;
 
         container.appendChild(pentagon);
@@ -498,12 +452,11 @@ function createBloodEffect() {
 
 function initParticles() {
     if (typeof particlesJS !== 'undefined' && !document.body.classList.contains('effects-disabled')) {
-        // ИЗМЕНЕНИЕ: Оптимизация (уменьшено с 40)
         particlesJS('particles-js', { particles: { number: { value: 20, density: { enable: true, value_area: 800 } }, color: { value: "#6366f1" }, shape: { type: "circle" }, opacity: { value: 0.3, random: true }, size: { value: 2, random: true }, line_linked: { enable: true, distance: 150, color: "#6366f1", opacity: 0.2, width: 1 }, move: { enable: true, speed: 1, direction: "none", random: true, out_mode: "out", bounce: false } }, interactivity: { detect_on: "canvas", events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true } } });
     }
 }
 
-const blogPosts = [ { "id": "new-beginning", "title": { "ru": "Представляем новый Lua-моддинг для GoreBox!", "en": "Introducing the new Lua modding for GoreBox!" }, "summary": { "ru": "Начало чего-то грандиозного", "en": "The beginning of something big" }, "imageUrl": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80", "content": { "ru": `<h1>Запуск Lua-моддинга и документации для GoreBox</h1><p><br></p><blockquote>Сообщаем о выходе нового моддинга на основе <strong>Lua </strong>для <strong>GoreBox</strong>. Этот инструмент позволит пользователям создавать собственные игровые элементы, включая механики и предметы</blockquote><p><br></p><h2>Техническая документация</h2><h2><br></h2><blockquote>Для поддержки моддеров мы подготовили техническую документацию, которая поможет в освоении скриптинга</blockquote><p><br></p><blockquote>Важно отметить, что документация будет регулярно обновляться. Мы планируем дополнять и изменять её на основе обратной связи от пользователей. Ваши предложения помогут сделать её более точной и понятной</blockquote><p><br></p><h2>Новости и обновления</h2><h2><br></h2><blockquote>Здесь будут публиковаться новости об изменениях в документации и улучшениях моддинга</blockquote>`, "en": `<h1><strong>Launch of Lua Modding and Documentation for GoreBox</strong></h1><p><br></p><blockquote>We are announcing the release of a new Lua-based modding system for GoreBox. This tool will allow users to create their own game elements, including mechanics and items</blockquote><p><br></p><h2><strong>Technical Documentation</strong></h2><p><br></p><blockquote>To support modders, we have prepared technical documentation that will help with learning the scripting process</blockquote><p><br></p><blockquote>It is important to note that the documentation will be updated regularly. We plan to supplement and change it based on user feedback. Your suggestions will help make it more accurate and understandable</blockquote><p><br></p><h2><strong>News and Updates</strong></h2><p><br></p><blockquote>News about changes to the documentation and improvements to the modding system will be published here</blockquote>` }, "date": "2025-09-13", "readTime": "1 min read" } ];
+const blogPosts = [{ "id": "new-beginning", "title": { "ru": "Представляем новый Lua-моддинг для GoreBox!", "en": "Introducing the new Lua modding for GoreBox!" }, "summary": { "ru": "Начало чего-то грандиозного", "en": "The beginning of something big" }, "imageUrl": "https://iili.io/KsI7N4f.md.png", "content": { "ru": `<h1>Запуск Lua-моддинга и документации для GoreBox</h1><p><br></p><blockquote>Сообщаем о выходе нового моддинга на основе <strong>Lua </strong>для <strong>GoreBox</strong>. Этот инструмент позволит пользователям создавать собственные игровые элементы, включая механики и предметы</blockquote><p><br></p><h2>Техническая документация</h2><h2><br></h2><blockquote>Для поддержки моддеров мы подготовили техническую документацию, которая поможет в освоении скриптинга</blockquote><p><br></p><blockquote>Важно отметить, что документация будет регулярно обновляться. Мы планируем дополнять и изменять её на основе обратной связи от пользователей. Ваши предложения помогут сделать её более точной и понятной</blockquote><p><br></p><h2>Новости и обновления</h2><h2><br></h2><blockquote>Здесь будут публиковаться новости об изменениях в документации и улучшениях моддинга</blockquote>`, "en": `<h1><strong>Launch of Lua Modding and Documentation for GoreBox</strong></h1><p><br></p><blockquote>We are announcing the release of a new Lua-based modding system for GoreBox. This tool will allow users to create their own game elements, including mechanics and items</blockquote><p><br></p><h2><strong>Technical Documentation</strong></h2><p><br></p><blockquote>To support modders, we have prepared technical documentation that will help with learning the scripting process</blockquote><p><br></p><blockquote>It is important to note that the documentation will be updated regularly. We plan to supplement and change it based on user feedback. Your suggestions will help make it more accurate and understandable</blockquote><p><br></p><h2><strong>News and Updates</strong></h2><p><br></p><blockquote>News about changes to the documentation and improvements to the modding system will be published here</blockquote>` }, "date": "2025-09-13", "readTime": "1 min read" }];
 
 const functionsData = [
     { id: 'awake', name: 'awake()', descKey: 'desc_awake', code: 'function M.awake()\n    log("Module is awake!")\nend' },
@@ -577,13 +530,9 @@ const functionsData = [
 ];
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // ================================================
-    // ИЗМЕНЕНИЕ: Глобальная функция для закрытия меню
-    // ================================================
-    let closeMobileMenu = () => {};
+document.addEventListener('DOMContentLoaded', function () {
 
+    let closeMobileMenu = () => { };
 
     document.querySelectorAll('.code-block .comment').forEach(element => {
         const text = element.textContent.trim();
@@ -591,34 +540,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (match && match[1]) {
             const key = match[1];
-
             element.setAttribute('data-translate-comment', 'comment_' + key);
-
             const originalText = element.textContent;
             const indentMatch = originalText.match(/^(\s*)/);
             const indent = indentMatch ? indentMatch[1] : '';
             element.setAttribute('data-indent', indent);
-
             const trailingMatch = originalText.match(/(\s*)$/);
             const trailing = trailingMatch ? trailingMatch[1] : '';
             element.setAttribute('data-trailing', trailing);
         }
     });
 
-    // Загрузка настроек должна быть до создания эффектов
     loadSettings();
-    
     loadBlogPreview();
     loadFullBlog();
     initSearch();
     initNavigation();
     initCodeCopy();
     initBlogModal();
-    initMobileMenu(); // <-- Вызов новой функции
-    // initMusicPlayer(); // Удалено
+    initMobileMenu();
     initDocsCopy();
     initSettings();
-    // loadSettings() уже вызвана выше
 
     const savedPage = localStorage.getItem('activePage') || 'home';
     if (savedPage !== 'home') {
@@ -632,31 +574,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ================================================
-    // ИЗМЕНЕНИЕ: Добавлен слушатель RESIZE
-    // ================================================
     window.addEventListener('resize', () => {
         const sidebar = document.getElementById('sidebar');
         const docPage = document.getElementById('documentation-page');
-        
+
         if (window.innerWidth > 1024) {
-            // Если мы на десктопе, закроем мобильное меню на всякий случай
             if (typeof closeMobileMenu === 'function') {
                 closeMobileMenu();
             }
-            // И покажем десктопный сайдбар, если мы на странице доков
             if (docPage && docPage.classList.contains('active')) {
                 sidebar.classList.add('active');
             }
         } else {
-            // Если мы на мобильном, скроем десктопный сайдбар
             sidebar.classList.remove('active');
         }
     });
 
-    // ================================================
-    // ИЗМЕНЕНИЕ: Новая функция initMobileMenu
-    // ================================================
     function initMobileMenu() {
         const menuBtn = document.getElementById('mobileMenuBtn');
         const panel = document.getElementById('mobileMenuPanel');
@@ -664,8 +597,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const closeBtn = document.getElementById('mobileMenuClose');
         const mobileSettingsBtn = document.getElementById('mobileSettingsBtn');
         const settingsPanel = document.getElementById('settingsPanel');
-        
-        // Ищем элементы только ВНУТРИ мобильной панели, чтобы не конфликтовать с десктопом
+
         const docItem = document.querySelector('#mobileMenuPanel .mobile-nav-item.has-submenu');
         const docLink = document.querySelector('#mobileMenuPanel .mobile-nav-link[data-page="documentation"]');
         const docToggle = document.querySelector('#mobileMenuPanel .mobile-submenu-toggle');
@@ -673,26 +605,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!menuBtn || !panel || !overlay || !closeBtn) return;
 
-        // Функция закрытия (теперь присваиваем)
-        closeMobileMenu = function() {
+        closeMobileMenu = function () {
             panel.classList.remove('active');
             overlay.classList.remove('active');
-            document.body.style.overflow = ''; 
-
-            // ИЗМЕНЕНИЕ: Мы по-прежнему сбрасываем max-height,
-            // но НЕ сбрасываем 'active' class, который используется для сохранения состояния
+            document.body.style.overflow = '';
             if (docItem) {
-                if(docSubmenu) docSubmenu.style.maxHeight = '0px';
+                if (docSubmenu) docSubmenu.style.maxHeight = '0px';
             }
         }
 
-        // Открыть меню
         menuBtn.addEventListener('click', () => {
             panel.classList.add('active');
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
 
-            // ИЗМЕНЕНИЕ: Проверяем localStorage, чтобы восстановить состояние
             if (localStorage.getItem('docSubmenuOpen') === 'true') {
                 docItem.classList.add('active');
                 docSubmenu.style.maxHeight = docSubmenu.scrollHeight + 'px';
@@ -702,54 +628,44 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Закрыть меню (по кнопке 'X' или оверлею)
         closeBtn.addEventListener('click', closeMobileMenu);
         overlay.addEventListener('click', closeMobileMenu);
 
-        // Открыть Настройки из меню
         if (mobileSettingsBtn && settingsPanel) {
             mobileSettingsBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 closeMobileMenu();
                 setTimeout(() => {
                     settingsPanel.classList.add('active');
-                }, 300); // 300ms, чтобы анимация закрытия не лагала
+                }, 300);
             });
         }
 
-        // --- Логика подменю Документации ---
-
-        // Клик по СТРЕЛКЕ (только раскрывает)
         if (docToggle && docItem && docSubmenu) {
             docToggle.addEventListener('click', (e) => {
                 e.preventDefault();
                 const isActive = docItem.classList.toggle('active');
                 if (isActive) {
                     docSubmenu.style.maxHeight = docSubmenu.scrollHeight + "px";
-                    localStorage.setItem('docSubmenuOpen', 'true'); // Сохраняем
+                    localStorage.setItem('docSubmenuOpen', 'true');
                 } else {
                     docSubmenu.style.maxHeight = "0px";
-                    localStorage.setItem('docSubmenuOpen', 'false'); // Сохраняем
+                    localStorage.setItem('docSubmenuOpen', 'false');
                 }
             });
         }
 
-        // Клик по ССЫЛКЕ "Documentation" (переходит и закрывает)
         if (docLink) {
             docLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 switchPage('documentation');
                 closeMobileMenu();
-                // Обновляем активную ссылку в десктоп-хедере
                 document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
                 const desktopLink = document.querySelector('.nav-link[data-page="documentation"]');
-                if(desktopLink) desktopLink.classList.add('active');
+                if (desktopLink) desktopLink.classList.add('active');
             });
         }
 
-        // --- Логика остальных ссылок ---
-
-        // Home, Blog (переходят и закрывают)
         panel.querySelectorAll('.mobile-nav-link[data-page]').forEach(link => {
             if (link.getAttribute('data-page') !== 'documentation') {
                 link.addEventListener('click', (e) => {
@@ -757,19 +673,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     const page = link.getAttribute('data-page');
                     switchPage(page);
                     closeMobileMenu();
-                    // Обновляем активную ссылку в десктоп-хедере
                     document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
                     const desktopLink = document.querySelector(`.nav-link[data-page="${page}"]`);
-                    if(desktopLink) desktopLink.classList.add('active');
+                    if (desktopLink) desktopLink.classList.add('active');
                 });
             }
         });
-
-        // Ссылки на функции (внутри мобильного меню) УЖЕ ОБРАБАТЫВАЮТСЯ в initNavigation()
     }
 
-}); // Конец DOMContentLoaded
-
+});
 
 
 function loadBlogPreview() {
@@ -778,7 +690,7 @@ function loadBlogPreview() {
     const previewPosts = blogPosts.slice(0, 2);
     container.innerHTML = previewPosts.map(post => `<div class="blog-card" data-id="${post.id}"><img src="${post.imageUrl}" alt="${post.title[currentLang]}" class="blog-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4='"><div class="blog-content"><h3 class="blog-title">${post.title[currentLang]}</h3><p class="blog-summary">${post.summary[currentLang]}</p><div class="blog-meta"><span>${post.date}</span><span>${post.readTime}</span></div></div></div>`).join('');
     container.querySelectorAll('.blog-card').forEach(card => {
-        card.addEventListener('click', function() { openBlogModal(this.getAttribute('data-id')); });
+        card.addEventListener('click', function () { openBlogModal(this.getAttribute('data-id')); });
     });
 }
 
@@ -787,7 +699,7 @@ function loadFullBlog() {
     if (!container) return;
     container.innerHTML = blogPosts.map(post => `<div class="blog-card" data-id="${post.id}"><img src="${post.imageUrl}" alt="${post.title[currentLang]}" class="blog-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4='"><div class="blog-content"><h3 class="blog-title">${post.title[currentLang]}</h3><p class="blog-summary">${post.summary[currentLang]}</p><div class="blog-meta"><span>${post.date}</span><span>${post.readTime}</span></div></div></div>`).join('');
     container.querySelectorAll('.blog-card').forEach(card => {
-        card.addEventListener('click', function() { openBlogModal(this.getAttribute('data-id')); });
+        card.addEventListener('click', function () { openBlogModal(this.getAttribute('data-id')); });
     });
 }
 
@@ -814,8 +726,8 @@ function initSearch() {
 
         const results = functionsData.filter(func => {
             const descText = translations[currentLang][func.descKey]
-                             ? translations[currentLang][func.descKey].replace(/<[^>]*>?/gm, '')
-                             : '';
+                ? translations[currentLang][func.descKey].replace(/<[^>]*>?/gm, '')
+                : '';
             return func.name.toLowerCase().includes(query) || descText.toLowerCase().includes(query);
         });
 
@@ -868,13 +780,10 @@ function navigateToFunction(funcId) {
     }
 }
 
-// ================================================
-// ИЗМЕНЕНИЕ: Обновлена функция initNavigation
-// ================================================
 function initNavigation() {
     const logoLink = document.getElementById('logoLink');
     if (logoLink) {
-        logoLink.addEventListener('click', function(e) {
+        logoLink.addEventListener('click', function (e) {
             e.preventDefault();
             switchPage('home');
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
@@ -882,9 +791,8 @@ function initNavigation() {
         });
     }
 
-    // Это только для ДЕСКТОПНЫХ ссылок в шапке
     document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             e.preventDefault();
             const page = this.getAttribute('data-page');
             switchPage(page);
@@ -892,28 +800,24 @@ function initNavigation() {
             this.classList.add('active');
         });
     });
-    
-    // Этот слушатель теперь обрабатывает ОБА сайдбара (десктопный и мобильный)
+
     document.querySelectorAll('.sidebar-link').forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             e.preventDefault();
             const funcId = this.getAttribute('data-function');
             navigateToFunction(funcId);
-            
-            // Активируем *все* ссылки (мобильную и десктопную) с этим data-function
+
             document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
             document.querySelectorAll(`.sidebar-link[data-function="${funcId}"]`).forEach(l => l.classList.add('active'));
-            
-            // Закрываем мобильное меню (если оно было открыто)
-            // 'closeMobileMenu' определяется в 'initMobileMenu'
+
             if (typeof closeMobileMenu === 'function') {
-                closeMobileMenu(); 
+                closeMobileMenu();
             }
         });
     });
 
     document.querySelectorAll('.btn[data-page]').forEach(btn => {
-        btn.addEventListener('click', function(e) {
+        btn.addEventListener('click', function (e) {
             e.preventDefault();
             const page = this.getAttribute('data-page');
             switchPage(page);
@@ -923,9 +827,6 @@ function initNavigation() {
     });
 }
 
-// ================================================
-// ИЗМЕНЕНИЕ: Обновлена функция switchPage
-// ================================================
 function switchPage(pageId) {
     document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
     const targetPage = document.getElementById(`${pageId}-page`);
@@ -941,8 +842,7 @@ function switchPage(pageId) {
 
         localStorage.setItem('activePage', pageId);
     }
-    
-    // Добавлено: закрываем мобильную навигацию (header) при смене страницы
+
     if (typeof closeMobileMenu === 'function') {
         closeMobileMenu();
     }
@@ -973,12 +873,8 @@ function initDocsCopy() {
                 if (!acc[sectionId]) acc[sectionId] = [];
                 const enCommentKey = func.code.match(/--\[\[comment:(.+)\]\]/);
                 let finalCode = func.code;
-                 
-                 // ================================================
-                 // ИСПРАВЛЕНИЕ ОШИБКИ
-                 // ================================================
-                 if (enCommentKey && translations['en']['comment_' + enCommentKey[1]]) {
-                    // Я УБРАЛ ЛИШНИЙ 'G' + ИЗ СТРОКИ НИЖЕ
+
+                if (enCommentKey && translations['en']['comment_' + enCommentKey[1]]) {
                     finalCode = finalCode.replace(enCommentKey[0], translations['en']['comment_' + enCommentKey[1]]);
                 }
 
@@ -1022,7 +918,7 @@ function initDocsCopy() {
 
 function initCodeCopy() {
     document.querySelectorAll('.function-copy').forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             if (this.classList.contains('copied')) return;
             const textToCopy = this.nextElementSibling.textContent;
             navigator.clipboard.writeText(textToCopy).then(() => {
@@ -1056,10 +952,6 @@ function openBlogModal(postId) {
     modal.classList.add('active');
 }
 
-// ================================================
-// ВСЕ ФУНКЦИИ МУЗЫКИ УДАЛЕНЫ
-// ================================================
-
 
 function showNotification(message) {
     const notification = document.getElementById('notification');
@@ -1078,8 +970,6 @@ function initSettings() {
     const fontOptions = document.querySelectorAll('.font-option');
     const languageOptions = document.querySelectorAll('.language-option');
 
-    // Музыкальные контролы удалены
-
     const settingsTabs = document.querySelectorAll('.settings-tab-btn');
     const settingsTabPanels = document.querySelectorAll('.settings-tab-panel');
 
@@ -1088,8 +978,6 @@ function initSettings() {
     const effectsToggle = document.getElementById('effectsToggle');
 
     if (settingsBtnDesktop) settingsBtnDesktop.addEventListener('click', () => settingsPanel.classList.add('active'));
-    // (Слушатель для settingsBtnMobile уже находится в initMobileMenu)
-    
     if (settingsClose) settingsClose.addEventListener('click', () => settingsPanel.classList.remove('active'));
 
     if (settingsPanel) {
@@ -1145,25 +1033,22 @@ function initSettings() {
             localStorage.setItem('layoutColumns', twoColumnsEnabled ? 'two' : 'one');
         });
     }
-    
+
     if (effectsToggle) {
         effectsToggle.addEventListener('change', () => {
             toggleVisualEffects(effectsToggle.checked);
         });
     }
 
-    // Вся логика музыки удалена
 }
 
 
 function changeTheme(theme) {
     document.body.classList.add('theme-changing');
     setTimeout(() => {
-        document.body.classList.remove('frutiger-aero', 'programmer-theme', 'gorebox-theme');
+        document.body.classList.remove('programmer-theme', 'gorebox-theme');
 
-        if (theme === 'frutiger-aero') {
-            document.body.classList.add('frutiger-aero');
-        } else if (theme === 'programmer') {
+        if (theme === 'programmer') {
             document.body.classList.add('programmer-theme');
         } else if (theme === 'gorebox') {
             document.body.classList.add('gorebox-theme');
@@ -1174,7 +1059,6 @@ function changeTheme(theme) {
     }, 300);
 }
 
-// Новая функция для смены шрифта
 function changeFont(font) {
     if (font === 'wes_fy_black') {
         document.body.classList.add('font-wes-fy-black');
@@ -1184,21 +1068,15 @@ function changeFont(font) {
     localStorage.setItem('font', font);
 }
 
-// ИЗМЕНЕНИЕ: Новая функция для очистки всех эффектов
 function clearAllEffectElements() {
-    // 1. Останавливаем интервал создания комет
     if (cometInterval) {
         clearInterval(cometInterval);
         cometInterval = null;
     }
 
-    // 2. Удаляем все DOM-элементы эффектов
     document.querySelectorAll('.star, .comet-head, .comet-trail, .blood-pentagon').forEach(el => el.remove());
-    
-    // 3. Удаляем все динамически добавленные стили комет
     document.querySelectorAll('style[data-comet-style="true"]').forEach(el => el.remove());
 
-    // 4. Уничтожаем инстанс particles.js
     if (window.pJSDom && window.pJSDom.length > 0) {
         window.pJSDom[0].pJS.fn.vendors.destroypJS();
         window.pJSDom = [];
@@ -1206,20 +1084,15 @@ function clearAllEffectElements() {
 }
 
 
-// ИЗМЕНЕНИЕ: Полностью переписанная функция для исправления бага
 function toggleVisualEffects(enabled) {
     if (enabled) {
         document.body.classList.remove('effects-disabled');
-        // Повторно инициализируем эффекты
-        // (Проверки внутри функций не дадут им запуститься, если они уже запущены)
         createStars();
         createComets();
-        createBubbles(); // (эта функция у вас все равно пустая, но оставляем)
         createBloodEffect();
-        initParticles(); // (эта функция имеет проверку на 'effects-disabled')
+        initParticles();
     } else {
         document.body.classList.add('effects-disabled');
-        // Вызываем новую функцию очистки
         clearAllEffectElements();
     }
     localStorage.setItem('visualEffects', enabled.toString());
@@ -1233,7 +1106,7 @@ function loadSettings() {
         option.classList.toggle('active', option.getAttribute('data-theme') === savedTheme);
     });
 
-    const savedFont = localStorage.getItem('font') || 'wes_fy_black'; // Изменено
+    const savedFont = localStorage.getItem('font') || 'default';
     changeFont(savedFont);
     document.querySelectorAll('.font-option').forEach(option => {
         option.classList.toggle('active', option.getAttribute('data-font') === savedFont);
@@ -1242,7 +1115,6 @@ function loadSettings() {
     const savedLanguage = localStorage.getItem('language') || 'en';
     changeLanguage(savedLanguage);
 
-    // Логика музыки удалена
 
     const savedLayout = localStorage.getItem('layoutColumns') || 'one';
     const columnToggle = document.getElementById('columnToggle');
@@ -1252,21 +1124,18 @@ function loadSettings() {
         columnToggle.checked = isTwoColumns;
         docPage.classList.toggle('two-column-layout', isTwoColumns);
     }
-    
-    // ИЗМЕНЕНИЕ: Загрузка настройки эффектов
-    const savedEffects = localStorage.getItem('visualEffects') !== 'false'; // По умолчанию true
+
+    const savedEffects = localStorage.getItem('visualEffects') !== 'false';
     const effectsToggle = document.getElementById('effectsToggle');
     if (effectsToggle) {
         effectsToggle.checked = savedEffects;
     }
-    // Применяем настройку эффектов при загрузке
     toggleVisualEffects(savedEffects);
 }
 
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-        // Добавлена проверка на отключенные эффекты
         if (entry.isIntersecting && !document.body.classList.contains('effects-disabled')) {
             entry.target.style.animationPlayState = 'running';
             observer.unobserve(entry.target);
@@ -1277,5 +1146,3 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.section, .clickable-card-wrapper').forEach(el => {
     observer.observe(el);
 });
-
-// window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady; // Удалено
