@@ -16,8 +16,10 @@ const translations = {
         layout: "Расположение функций",
         two_columns: "Две колонки",
         visual_effects: "Визуальные эффекты",
-        effects_enable: "Включить эффекты",
         effects_note: "Отключение может улучшить производительность.",
+        effects_off: "Выкл.",
+        effects_static: "Статика",
+        effects_full: "Полные",
         lifecycle: "Жизненный цикл",
         global_functions: "Основные функции",
         gui_functions: "Функции GUI",
@@ -41,75 +43,7 @@ const translations = {
         docs_copied: "Скопировано!",
         search_placeholder: "Поиск по документации...",
 
-        desc_awake: "Инициализация Lua-среды перед запуском.",
-        desc_start: "Вызывается при старте скрипта.",
-        desc_update: "Обновление каждый кадр.",
-        desc_late_update: "Выполняется после update().",
-        desc_fixed_update: "Срабатывает с фиксированным интервалом (для физики).",
-        desc_gui_update: "Используется для отрисовки GUI.",
-        desc_onRPC: "Обрабатывает сетевые сообщения.",
-
-        desc_log: "Выводит текст в консоль Unity.",
-        desc_getModRoot: "Возвращает путь к папке мода.",
-        desc_getDeltaTime: "Возвращает время между кадрами.",
-        desc_getTime: "Возвращает время с начала игры.",
-        desc_getLocalPlayer: "Возвращает объект (ID) игрока.",
-
-        desc_gui_label: "Отображает текст.",
-        desc_gui_space: "Отступ между элементами.",
-        desc_gui_box: "Отображает изображение (текстуру).",
-        desc_gui_button: "Кнопка, <span class=\"highlight\">возвращает true</span>, если нажата.",
-        desc_gui_textField: "Поле ввода, <span class=\"highlight\">возвращает</span> измененный текст.",
-        desc_gui_verticalSlider: "Вертикальный слайдер.",
-        desc_gui_horizontalSlider: "Горизонтальный слайдер.",
-        desc_gui_beginVertical: "Вертикальная группа элементов.",
-        desc_gui_beginHorizontal: "Горизонтальная группа элементов.",
-
-        desc_texture_load: "Загружает текстуру (<span class=\"highlight\">возвращает ID</span>).",
-        desc_material_create: "Создает материал с текстурой (<span class=\"highlight\">возвращает ID</span>).",
-        desc_material_createWithShader: "Создает материал с шейдером (<span class=\"highlight\">возвращает ID</span>).",
-        desc_material_setColor: "Изменяет цвет материала.",
-        desc_material_getColor: "<span class=\"highlight\">Возвращает</span> цвет (r, g, b, a).",
-        desc_model_load: "Загружает 3D-модель (<span class=\"highlight\">возвращает ID</span>).",
-        desc_gameObject_createWithModel: "Создает объект с моделью и текстурой (<span class=\"highlight\">возвращает ID</span>).",
-        desc_audioClip_load: "Загружает аудио (<span class=\"highlight\">возвращает ID</span>).",
-
-        desc_gameObject_create: "Создает новый пустой объект (<span class=\"highlight\">возвращает ID</span>).",
-        desc_gameObject_find: "Ищет объект по имени (<span class=\"highlight\">возвращает ID</span>).",
-        desc_gameObject_destroy: "Удаляет объект.",
-        desc_gameObject_getTransform: "<span class=\"highlight\">Возвращает</span> Transform (ID) объекта.",
-        desc_gameObject_setName: "Задает имя объекту.",
-        desc_gameObject_setActive: "Активирует или деактивирует объект.",
-        desc_gameObject_instantiate: "Клонирует объект (<span class=\"highlight\">возвращает ID</span> клона).",
-
-        desc_transform_getPosition: "<span class=\"highlight\">Возвращает</span> позицию (x, y, z).",
-        desc_transform_setPosition: "Устанавливает позицию.",
-        desc_transform_translate: "Сдвигает объект (локально).",
-        desc_transform_rotate: "Вращает объект.",
-        desc_transform_lookAt: "Направляет объект на точку.",
-        desc_transform_getForward: "<span class=\"highlight\">Возвращает</span> направление 'вперёд' (x, y, z).",
-
-        desc_rigidbody_setVelocity: "Устанавливает скорость (<span class=\"highlight\">ID</span> объекта, не Rigidbody).",
-        desc_rigidbody_addForce: "Прикладывает силу к объекту.",
-        desc_rigidbody_setUseGravity: "Включает/выключает гравитацию.",
-        desc_physics_raycast: "Пускает луч, <span class=\"highlight\">возвращает bool</span> (попал или нет).",
-        desc_physics_overlapSphere: "<span class=\"highlight\">Возвращает таблицу ID</span> объектов в сфере.",
-
-        desc_audioSource_play: "Воспроизводит звук (<span class=\"highlight\">ID</span> объекта с AudioSource).",
-        desc_audioSource_stop: "Останавливает звук.",
-        desc_audioSource_setVolume: "Устанавливает громкость (0.0 - 1.0).",
-        desc_audioSource_isPlaying: "Проверяет, воспроизводится ли звук (<span class=\"highlight\">возвращает bool</span>).",
-
-        desc_camera_setFieldOfView: "Устанавливает угол обзора (FOV).",
-        desc_camera_worldToScreenPoint: "Мировые → экранные координаты (<span class=\"highlight\">возвращает</span> x, y, z).",
-        desc_camera_screenToWorldPoint: "Экранные → мировые координаты (<span class=\"highlight\">возвращает</span> x, y, z).",
-
-        desc_input_getKey: "Проверка, зажата ли клавиша (<span class=\"highlight\">возвращает bool</span>).",
-        desc_input_getKeyDown: "Проверка нажатия клавиши (<span class=\"highlight\">возвращает bool</span>, срабатывает 1 раз).",
-        desc_input_getMouse: "Нажатие кнопки мыши (<span class=\"highlight\">0=LMB, 1=RMB, 2=MMB</span>).",
-        desc_input_getAxis: "<span class=\"highlight\">Возвращает</span> значение оси (напр., 'Mouse X', 'Vertical').",
-        desc_input_setMouseLock: "Управление блокировкой курсора.",
-
+        // --- Ключи для комментариев из functions.json ---
         comment_game_logic: "-- Логика игры здесь",
         comment_camera_logic: "-- Логика камеры часто здесь",
         comment_physics_logic: "-- Логика физики здесь",
@@ -142,8 +76,10 @@ const translations = {
         layout: "Function Layout",
         two_columns: "Two Columns",
         visual_effects: "Visual Effects",
-        effects_enable: "Enable Effects",
         effects_note: "Disabling may improve performance.",
+        effects_off: "Off",
+        effects_static: "Static",
+        effects_full: "Full",
         lifecycle: "Lifecycle",
         global_functions: "Global Functions",
         gui_functions: "GUI Functions",
@@ -167,75 +103,7 @@ const translations = {
         docs_copied: "Copied!",
         search_placeholder: "Search documentation...",
 
-        desc_awake: "Lua environment initialization before launch.",
-        desc_start: "Called when the script starts.",
-        desc_update: "Updates every frame.",
-        desc_late_update: "Executes after update().",
-        desc_fixed_update: "Triggers at a fixed interval (for physics).",
-        desc_gui_update: "Used for rendering GUI.",
-        desc_onRPC: "Handles network messages.",
-
-        desc_log: "Prints text to the Unity console.",
-        desc_getModRoot: "Returns the path to the mod's folder.",
-        desc_getDeltaTime: "Returns the time between frames.",
-        desc_getTime: "Returns the time since the game started.",
-        desc_getLocalPlayer: "Returns the player's object (ID).",
-
-        desc_gui_label: "Displays text.",
-        desc_gui_space: "Space between elements.",
-        desc_gui_box: "Displays an image (texture).",
-        desc_gui_button: "Button, <span class=\"highlight\">returns true</span> if pressed.",
-        desc_gui_textField: "Input field, <span class=\"highlight\">returns</span> the modified text.",
-        desc_gui_verticalSlider: "Vertical slider.",
-        desc_gui_horizontalSlider: "Horizontal slider.",
-        desc_gui_beginVertical: "Vertical group of elements.",
-        desc_gui_beginHorizontal: "Horizontal group of elements.",
-
-        desc_texture_load: "Loads a texture (<span class=\"highlight\">returns ID</span>).",
-        desc_material_create: "Creates a material with a texture (<span class=\"highlight\">returns ID</span>).",
-        desc_material_createWithShader: "Creates a material with a shader (<span class=\"highlight\">returns ID</span>).",
-        desc_material_setColor: "Changes the material's color.",
-        desc_material_getColor: "<span class=\"highlight\">Returns</span> the color (r, g, b, a).",
-        desc_model_load: "Loads a 3D model (<span class=\"highlight\">returns ID</span>).",
-        desc_gameObject_createWithModel: "Creates an object with a model and texture (<span class=\"highlight\">returns ID</span>).",
-        desc_audioClip_load: "Loads an audio clip (<span class=\"highlight\">returns ID</span>).",
-
-        desc_gameObject_create: "Creates a new empty object (<span class=\"highlight\">returns ID</span>).",
-        desc_gameObject_find: "Finds an object by name (<span class=\"highlight\">returns ID</span>).",
-        desc_gameObject_destroy: "Destroys an object.",
-        desc_gameObject_getTransform: "<span class=\"highlight\">Returns</span> the object's Transform (ID).",
-        desc_gameObject_setName: "Sets the object's name.",
-        desc_gameObject_setActive: "Activates or deactivates an object.",
-        desc_gameObject_instantiate: "Clones an object (<span class=\"highlight\">returns clone's ID</span>).",
-
-        desc_transform_getPosition: "<span class=\"highlight\">Returns</span> the position (x, y, z).",
-        desc_transform_setPosition: "Sets the position.",
-        desc_transform_translate: "Moves the object (locally).",
-        desc_transform_rotate: "Rotates the object.",
-        desc_transform_lookAt: "Makes the object look at a point.",
-        desc_transform_getForward: "<span class=\"highlight\">Returns</span> the forward direction (x, y, z).",
-
-        desc_rigidbody_setVelocity: "Sets the velocity (<span class=\"highlight\">Object ID</span>, not Rigidbody).",
-        desc_rigidbody_addForce: "Applies a force to the object.",
-        desc_rigidbody_setUseGravity: "Enables/disables gravity.",
-        desc_physics_raycast: "Casts a ray, <span class=\"highlight\">returns bool</span> (hit or not).",
-        desc_physics_overlapSphere: "<span class=\"highlight\">Returns a table of object IDs</span> within a sphere.",
-
-        desc_audioSource_play: "Plays a sound (<span class=\"highlight\">ID</span> of object with AudioSource).",
-        desc_audioSource_stop: "Stops the sound.",
-        desc_audioSource_setVolume: "Sets the volume (0.0 - 1.0).",
-        desc_audioSource_isPlaying: "Checks if the sound is playing (<span class=\"highlight\">returns bool</span>).",
-
-        desc_camera_setFieldOfView: "Sets the field of view (FOV).",
-        desc_camera_worldToScreenPoint: "World → screen coordinates (<span class=\"highlight\">returns</span> x, y, z).",
-        desc_camera_screenToWorldPoint: "Screen → world coordinates (<span class=\"highlight\">returns</span> x, y, z).",
-
-        desc_input_getKey: "Checks if a key is held down (<span class=\"highlight\">returns bool</span>).",
-        desc_input_getKeyDown: "Checks if a key was pressed down (<span class=\"highlight\">returns bool</span>, triggers once).",
-        desc_input_getMouse: "Mouse button press (<span class=\"highlight\">0=LMB, 1=RMB, 2=MMB</span>).",
-        desc_input_getAxis: "<span class=\"highlight\">Returns</span> the value of an axis (e.g., 'Mouse X', 'Vertical').",
-        desc_input_setMouseLock: "Controls the cursor lock state.",
-
+        // --- Ключи для комментариев из functions.json ---
         comment_game_logic: "-- Game logic here",
         comment_camera_logic: "-- Camera logic often goes here",
         comment_physics_logic: "-- Physics logic here",
@@ -254,9 +122,128 @@ const translations = {
 };
 
 
-let currentLang = null;
+let currentLang = 'en';
 const typingTimers = new Map();
 let cometInterval;
+
+// Глобальные переменные для хранения данных
+let blogPosts = [];
+let functionsData = [];
+let closeMobileMenu = () => { };
+let currentEffectsLevel = 2; // 0 = off, 1 = static, 2 = full
+
+/**
+ * Генерирует HTML для карточек функций и ссылок в боковом меню
+ * на основе данных из functions.json
+ */
+function buildDocumentation(functions) {
+    const sections = {
+        'lifecycle': document.querySelector('#lifecycle .function-grid'),
+        'global-functions': document.querySelector('#global-functions .function-grid'),
+        'lua-gui': document.querySelector('#lua-gui .function-grid'),
+        'resources': document.querySelector('#resources .function-grid'),
+        'gameobject': document.querySelector('#gameobject .function-grid'),
+        'transform': document.querySelector('#transform .function-grid'),
+        'physics': document.querySelector('#physics .function-grid'),
+        'audio': document.querySelector('#audio .function-grid'),
+        'camera': document.querySelector('#camera .function-grid'),
+        'input': document.querySelector('#input .function-grid')
+    };
+
+    // Контейнеры для ссылок в боковом меню (основном и мобильном)
+    const sidebarLinkContainers = {
+        'lifecycle': document.querySelectorAll('.sidebar-links[data-links-for="lifecycle"]'),
+        'global-functions': document.querySelectorAll('.sidebar-links[data-links-for="global-functions"]'),
+        'lua-gui': document.querySelectorAll('.sidebar-links[data-links-for="lua-gui"]'),
+        'resources': document.querySelectorAll('.sidebar-links[data-links-for="resources"]'),
+        'gameobject': document.querySelectorAll('.sidebar-links[data-links-for="gameobject"]'),
+        'transform': document.querySelectorAll('.sidebar-links[data-links-for="transform"]'),
+        'physics': document.querySelectorAll('.sidebar-links[data-links-for="physics"]'),
+        'audio': document.querySelectorAll('.sidebar-links[data-links-for="audio"]'),
+        'camera': document.querySelectorAll('.sidebar-links[data-links-for="camera"]'),
+        'input': document.querySelectorAll('.sidebar-links[data-links-for="input"]')
+    };
+
+    // Очистка
+    Object.values(sections).forEach(s => { if (s) s.innerHTML = ''; });
+    Object.values(sidebarLinkContainers).forEach(list => list.forEach(s => { if (s) s.innerHTML = ''; }));
+
+    functions.forEach(func => {
+        const container = sections[func.section];
+        if (!container) {
+            console.warn(`No container found for section: ${func.section}`);
+            return;
+        }
+
+        // 1. Сборка карточки функции
+        const cardHTML = `
+        <div class="function-card" id="${func.id}">
+            <div class="function-header">
+                <h3 class="function-name">${func.name}</h3>
+            </div>
+            <p class="function-description" data-translate-desc="${func.id}">${func.desc[currentLang] || func.desc['en']}</p>
+            <div class="code-block">
+                <button class="function-copy" title="Copy Example"><i class="far fa-copy"></i><i class="fas fa-check"></i></button>
+                <pre>${func.code}</pre>
+            </div>
+        </div>
+        `;
+        container.insertAdjacentHTML('beforeend', cardHTML);
+
+        // 2. Сборка ссылок для бокового меню
+        const linkName = func.name.replace(/<[^>]*>?/gm, '').replace(/\(.*\)/, '').trim();
+        const linkIconMatch = func.name.match(/<i class="([^"]+)"><\/i>/);
+        const linkIcon = linkIconMatch ? linkIconMatch[0] : '<i class="fas fa-code"></i>'; // Иконка по умолчанию
+
+        const sidebarLinkHTML = `
+        <li><a href="#${func.id}" class="sidebar-link" data-function="${func.id}">${linkIcon} ${linkName}</a></li>
+        `;
+
+        const linkContainers = sidebarLinkContainers[func.section];
+        if (linkContainers) {
+            linkContainers.forEach(list => list.insertAdjacentHTML('beforeend', sidebarLinkHTML));
+        }
+
+        // 3. Поиск комментария для перевода
+        if (func.commentKey) {
+            const commentEl = container.querySelector(`#${func.id} .comment`);
+            if (commentEl) {
+                // Убираем старый мусор, если он есть
+                const cleanCode = func.code.match(/--\[\[comment:.*\]\]/);
+                if(cleanCode) {
+                    commentEl.textContent = cleanCode[0];
+                }
+                
+                commentEl.setAttribute('data-translate-comment', `comment_${func.commentKey}`);
+                const originalText = commentEl.textContent;
+                const indentMatch = originalText.match(/^(\s*)/);
+                const indent = indentMatch ? indentMatch[1] : '';
+                commentEl.setAttribute('data-indent', indent);
+                const trailingMatch = originalText.match(/(\s*)$/);
+                const trailing = trailingMatch ? trailingMatch[1] : '';
+                commentEl.setAttribute('data-trailing', trailing);
+            }
+        }
+    });
+
+    // Повторная инициализация слушателей для новых элементов
+    initCodeCopy();
+    initNavigationSidebarLinks();
+}
+
+/**
+ * Обновляет тексты описаний функций при смене языка
+ */
+function updateFunctionTranslations(lang) {
+    if (!functionsData) return;
+    functionsData.forEach(func => {
+        const el = document.querySelector(`[data-translate-desc="${func.id}"]`);
+        if (el) {
+            el.innerHTML = func.desc[lang] || func.desc['en'];
+        }
+    });
+}
+
 
 function typeAnimation(element, text) {
     if (typingTimers.has(element)) {
@@ -284,7 +271,7 @@ function typeAnimation(element, text) {
 }
 
 function changeLanguage(lang) {
-    if (lang === currentLang) return;
+    if (lang === currentLang && document.querySelector('[data-translate]').textContent !== 'Главная') return;
     currentLang = lang;
 
     typingTimers.forEach((timer, element) => {
@@ -293,6 +280,7 @@ function changeLanguage(lang) {
     });
     typingTimers.clear();
 
+    // 1. Перевод UI
     document.querySelectorAll('[data-translate]').forEach(element => {
         const key = element.getAttribute('data-translate');
         if (translations[lang] && translations[lang][key]) {
@@ -305,6 +293,7 @@ function changeLanguage(lang) {
         }
     });
 
+    // 2. Перевод плейсхолдеров
     document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
         const key = element.getAttribute('data-translate-placeholder');
         if (translations[lang] && translations[lang][key]) {
@@ -312,6 +301,7 @@ function changeLanguage(lang) {
         }
     });
 
+    // 3. Перевод комментариев в коде
     document.querySelectorAll('[data-translate-comment]').forEach(element => {
         const key = element.getAttribute('data-translate-comment');
         if (translations[lang] && translations[lang][key]) {
@@ -321,6 +311,10 @@ function changeLanguage(lang) {
         }
     });
 
+    // 4. Перевод описаний функций (новая функция)
+    updateFunctionTranslations(lang);
+
+    // 5. Обновление кнопок языка
     document.querySelectorAll('.language-option').forEach(option => {
         option.classList.remove('active');
         if (option.getAttribute('data-lang') === lang) {
@@ -330,13 +324,15 @@ function changeLanguage(lang) {
 
     localStorage.setItem('language', lang);
 
-    loadBlogPreview();
-    loadFullBlog();
+    if (blogPosts.length > 0) {
+        loadBlogPreview();
+        loadFullBlog();
+    }
 }
 
 function createStars() {
     const spaceBg = document.getElementById('spaceBackground');
-    if (!spaceBg || document.body.classList.contains('effects-disabled')) return;
+    if (!spaceBg || currentEffectsLevel === 0) return;
 
     const starCount = 80;
 
@@ -348,7 +344,12 @@ function createStars() {
         star.classList.add('star', starType);
         star.style.left = `${Math.random() * 100}%`;
         star.style.top = `${Math.random() * 100}%`;
-        star.style.animationDelay = `${Math.random() * 6}s`;
+        
+        // Если 'static', не добавляем анимацию
+        if (currentEffectsLevel === 2) {
+             star.style.animationDelay = `${Math.random() * 6}s`;
+             star.style.animationName = 'twinkle';
+        }
 
         spaceBg.appendChild(star);
     }
@@ -356,10 +357,11 @@ function createStars() {
 
 function createComets() {
     const spaceBg = document.getElementById('spaceBackground');
-    if (!spaceBg || document.body.classList.contains('effects-disabled')) return;
+    // Не запускаем, если выключено или статика
+    if (!spaceBg || currentEffectsLevel < 2) return;
 
     cometInterval = setInterval(() => {
-        if (Math.random() < 0.4 && !document.body.classList.contains('effects-disabled')) {
+        if (Math.random() < 0.4 && currentEffectsLevel === 2) {
             const duration = Math.random() * 2000 + 3000;
 
             const startX = Math.random() * 100;
@@ -404,7 +406,7 @@ function createComets() {
 
 function createBloodEffect() {
     const container = document.getElementById('goreboxBackground');
-    if (!container || document.body.classList.contains('effects-disabled')) return;
+    if (!container || currentEffectsLevel === 0) return;
 
     const pentagonCount = 40;
     const cornerDensity = 30;
@@ -431,19 +433,28 @@ function createBloodEffect() {
         pentagon.style.height = `${size}px`;
 
         const startRotate = Math.random() * 360;
-        const endRotate = startRotate + (Math.random() * 60 - 30);
         pentagon.style.setProperty('--r-start', `${startRotate}deg`);
-        pentagon.style.setProperty('--r-end', `${endRotate}deg`);
+        
+        // Если 'static', задаем только начальный поворот
+        if (currentEffectsLevel === 1) {
+             pentagon.style.transform = `rotate(${startRotate}deg)`;
+             pentagon.style.opacity = `${Math.random() * 0.3 + 0.1}`; // Случайная статичная прозрачность
+        }
+        
+        // Если 'full', добавляем анимации
+        if (currentEffectsLevel === 2) {
+            const endRotate = startRotate + (Math.random() * 60 - 30);
+            pentagon.style.setProperty('--r-end', `${endRotate}deg`);
 
-        const duration = Math.random() * 20 + 25;
-        const delay = Math.random() * -45;
+            const duration = Math.random() * 20 + 25;
+            const delay = Math.random() * -45;
+            const driftType = `bloodDrift${Math.ceil(Math.random() * 3)}`;
 
-        const driftType = `bloodDrift${Math.ceil(Math.random() * 3)}`;
-
-        pentagon.style.animation = `
-            ${driftType} ${duration}s ${delay}s infinite alternate ease-in-out,
-            bloodFade ${duration * 0.7}s ${delay + (duration * 0.1)}s infinite alternate ease-in-out
-        `;
+            pentagon.style.animation = `
+                ${driftType} ${duration}s ${delay}s infinite alternate ease-in-out,
+                bloodFade ${duration * 0.7}s ${delay + (duration * 0.1)}s infinite alternate ease-in-out
+            `;
+        }
 
         container.appendChild(pentagon);
     }
@@ -451,238 +462,40 @@ function createBloodEffect() {
 
 
 function initParticles() {
-    if (typeof particlesJS !== 'undefined' && !document.body.classList.contains('effects-disabled')) {
-        particlesJS('particles-js', { particles: { number: { value: 20, density: { enable: true, value_area: 800 } }, color: { value: "#6366f1" }, shape: { type: "circle" }, opacity: { value: 0.3, random: true }, size: { value: 2, random: true }, line_linked: { enable: true, distance: 150, color: "#6366f1", opacity: 0.2, width: 1 }, move: { enable: true, speed: 1, direction: "none", random: true, out_mode: "out", bounce: false } }, interactivity: { detect_on: "canvas", events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true } } });
-    }
+    // Не запускаем, если выключено
+    if (typeof particlesJS === 'undefined' || currentEffectsLevel === 0) return;
+
+    const isStatic = currentEffectsLevel === 1;
+
+    particlesJS('particles-js', {
+        particles: {
+            number: { value: 20, density: { enable: true, value_area: 800 } },
+            color: { value: "#6366f1" },
+            shape: { type: "circle" },
+            opacity: { value: 0.3, random: true },
+            size: { value: 2, random: true },
+            line_linked: { enable: true, distance: 150, color: "#6366f1", opacity: 0.2, width: 1 },
+            // Отключаем движение для 'static'
+            move: {
+                enable: !isStatic, 
+                speed: 1, 
+                direction: "none", 
+                random: true, 
+                out_mode: "out", 
+                bounce: false 
+            }
+        },
+        interactivity: {
+            detect_on: "canvas",
+            // Отключаем интерактивность для 'static'
+            events: {
+                onhover: { enable: !isStatic, mode: "repulse" },
+                onclick: { enable: !isStatic, mode: "push" },
+                resize: true
+            }
+        }
+    });
 }
-
-const blogPosts = [{ "id": "new-beginning", "title": { "ru": "Представляем новый Lua-моддинг для GoreBox!", "en": "Introducing the new Lua modding for GoreBox!" }, "summary": { "ru": "Начало чего-то грандиозного", "en": "The beginning of something big" }, "imageUrl": "https://iili.io/KsI7N4f.md.png", "content": { "ru": `<h1>Запуск Lua-моддинга и документации для GoreBox</h1><p><br></p><blockquote>Сообщаем о выходе нового моддинга на основе <strong>Lua </strong>для <strong>GoreBox</strong>. Этот инструмент позволит пользователям создавать собственные игровые элементы, включая механики и предметы</blockquote><p><br></p><h2>Техническая документация</h2><h2><br></h2><blockquote>Для поддержки моддеров мы подготовили техническую документацию, которая поможет в освоении скриптинга</blockquote><p><br></p><blockquote>Важно отметить, что документация будет регулярно обновляться. Мы планируем дополнять и изменять её на основе обратной связи от пользователей. Ваши предложения помогут сделать её более точной и понятной</blockquote><p><br></p><h2>Новости и обновления</h2><h2><br></h2><blockquote>Здесь будут публиковаться новости об изменениях в документации и улучшениях моддинга</blockquote>`, "en": `<h1><strong>Launch of Lua Modding and Documentation for GoreBox</strong></h1><p><br></p><blockquote>We are announcing the release of a new Lua-based modding system for GoreBox. This tool will allow users to create their own game elements, including mechanics and items</blockquote><p><br></p><h2><strong>Technical Documentation</strong></h2><p><br></p><blockquote>To support modders, we have prepared technical documentation that will help with learning the scripting process</blockquote><p><br></p><blockquote>It is important to note that the documentation will be updated regularly. We plan to supplement and change it based on user feedback. Your suggestions will help make it more accurate and understandable</blockquote><p><br></p><h2><strong>News and Updates</strong></h2><p><br></p><blockquote>News about changes to the documentation and improvements to the modding system will be published here</blockquote>` }, "date": "2025-09-13", "readTime": "1 min read" }];
-
-const functionsData = [
-    { id: 'awake', name: 'awake()', descKey: 'desc_awake', code: 'function M.awake()\n    log("Module is awake!")\nend' },
-    { id: 'start', name: 'start()', descKey: 'desc_start', code: 'function M.start()\n    log("Module has started!")\nend' },
-    { id: 'update', name: 'update()', descKey: 'desc_update', code: 'function M.update()\n    --[[comment:game_logic]]\nend' },
-    { id: 'late_update', name: 'late_update()', descKey: 'desc_late_update', code: 'function M.late_update()\n    --[[comment:camera_logic]]\nend' },
-    { id: 'fixed_update', name: 'fixed_update()', descKey: 'desc_fixed_update', code: 'function M.fixed_update()\n    --[[comment:physics_logic]]\nend' },
-    { id: 'gui_update', name: 'gui_update()', descKey: 'desc_gui_update', code: 'function M.gui_update()\n    gui.label("Hello from GUI!")\nend' },
-    { id: 'onRPC', name: 'onRPC(message)', descKey: 'desc_onRPC', code: 'function M.onRPC(message)\n    if message == "Heal" then\n        log("Received Heal RPC")\n    end\nend' },
-
-    { id: 'log', name: 'log(message)', descKey: 'desc_log', code: 'log("Mod started!")' },
-    { id: 'getModRoot', name: 'getModRoot()', descKey: 'desc_getModRoot', code: 'local rootPath = getModRoot()\nlog("Mod path: " .. rootPath)' },
-    { id: 'getDeltaTime', name: 'getDeltaTime()', descKey: 'desc_getDeltaTime', code: 'local dt = getDeltaTime()\ntransform:Translate(0, 0, 5 * dt)' },
-    { id: 'getTime', name: 'time.getTime()', descKey: 'desc_getTime', code: 'local gameTime = time.getTime()\nlog("Game running for: " .. gameTime .. "s")' },
-    { id: 'getLocalPlayer', name: 'getLocalPlayer()', descKey: 'desc_getLocalPlayer', code: 'local playerID = getLocalPlayer()\nlocal playerTransform = gameObject.getTransform(playerID)' },
-
-    { id: 'gui_label', name: 'gui.label(text)', descKey: 'desc_gui_label', code: 'gui.label("Player Health: 100")' },
-    { id: 'gui_space', name: 'gui.space(pixels)', descKey: 'desc_gui_space', code: 'gui.label("First line")\ngui.space(10)\ngui.label("Second line")' },
-    { id: 'gui_box', name: 'gui.box(textureId, ...)', descKey: 'desc_gui_box', code: 'local myTexture = texture.load("images/icon.png")\ngui.box(myTexture, true)' },
-    { id: 'gui_button', name: 'gui.button(text)', descKey: 'desc_gui_button', code: 'if gui.button("Click Me!") then\n    log("Clicked!")\nend' },
-    { id: 'gui_textField', name: 'gui.textField(text)', descKey: 'desc_gui_textField', code: 'local inputText = "Hello"\ninputText = gui.textField(inputText)' },
-    { id: 'gui_verticalSlider', name: 'gui.verticalSlider(value, min, max)', descKey: 'desc_gui_verticalSlider', code: 'local vSlider = 50\nvSlider = gui.verticalSlider(vSlider, 0, 100)' },
-    { id: 'gui_horizontalSlider', name: 'gui.horizontalSlider(value, min, max)', descKey: 'desc_gui_horizontalSlider', code: 'local hSlider = 0.5\nhSlider = gui.horizontalSlider(hSlider, 0.0, 1.0)' },
-    { id: 'gui_beginVertical', name: 'gui.beginVertical() / gui.endVertical()', descKey: 'desc_gui_beginVertical', code: 'gui.beginVertical()\ngui.label("Item 1")\ngui.label("Item 2")\ngui.endVertical()' },
-    { id: 'gui_beginHorizontal', name: 'gui.beginHorizontal() / gui.endHorizontal()', descKey: 'desc_gui_beginHorizontal', code: 'gui.beginHorizontal()\ngui.label("Left")\ngui.label("Right")\ngui.endHorizontal()' },
-
-    { id: 'texture_load', name: 'texture.load(path)', descKey: 'desc_texture_load', code: 'local texID = texture.load("images/my_texture.png")' },
-    { id: 'material_create', name: 'material.create(texturePath)', descKey: 'desc_material_create', code: 'local matID = material.create("images/my_texture.png")' },
-    { id: 'material_createWithShader', name: 'material.createWithShader(texturePath, shaderName)', descKey: 'desc_material_createWithShader', code: 'local glowMat = material.createWithShader("tex/glow.png", "Legacy Shaders/Additive")' },
-    { id: 'material_setColor', name: 'material.setColor(id, prop, r, g, b, a)', descKey: 'desc_material_setColor', code: '--[[comment:set_red]]\nmaterial.setColor(matID, "_Color", 1, 0, 0, 1)' },
-    { id: 'material_getColor', name: 'material.getColor(id, prop)', descKey: 'desc_material_getColor', code: 'local r, g, b, a = material.getColor(matID, "_Color")\nlog("Red: " .. r)' },
-    { id: 'model_load', name: 'model.load(path)', descKey: 'desc_model_load', code: 'local modelID = model.load("models/my_model.obj")' },
-    { id: 'gameObject_createWithModel', name: 'gameObject.createWithModel(name, model, texture)', descKey: 'desc_gameObject_createWithModel', code: 'local obj = gameObject.createWithModel("MyObject", "models/car.obj", "tex/car.png")' },
-    { id: 'audioClip_load', name: 'audioClip.load(path)', descKey: 'desc_audioClip_load', code: 'local soundID = audioClip.load("sounds/shot.wav")' },
-
-    { id: 'gameObject_create', name: 'gameObject.create(name)', descKey: 'desc_gameObject_create', code: 'local newObj = gameObject.create("EmptyHolder")' },
-    { id: 'gameObject_find', name: 'gameObject.find(name)', descKey: 'desc_gameObject_find', code: 'local player = gameObject.find("MainPlayer")' },
-    { id: 'gameObject_destroy', name: 'gameObject.destroy(id)', descKey: 'desc_gameObject_destroy', code: 'gameObject.destroy(newObj)' },
-    { id: 'gameObject_getTransform', name: 'gameObject.getTransform(id)', descKey: 'desc_gameObject_getTransform', code: 'local player = gameObject.find("MainPlayer")\nlocal t = gameObject.getTransform(player)' },
-    { id: 'gameObject_setName', name: 'gameObject.setName(id, name)', descKey: 'desc_gameObject_setName', code: 'gameObject.setName(player, "RenamedPlayer")' },
-    { id: 'gameObject_setActive', name: 'gameObject.setActive(id, bool)', descKey: 'desc_gameObject_setActive', code: '--[[comment:hide_player]]\ngameObject.setActive(player, false)' },
-    { id: 'gameObject_instantiate', name: 'gameObject.instantiate(id)', descKey: 'desc_gameObject_instantiate', code: 'local playerClone = gameObject.instantiate(player)' },
-
-    { id: 'transform_getPosition', name: 'transform.getPosition(id)', descKey: 'desc_transform_getPosition', code: 'local x, y, z = transform.getPosition(t)\nlog("Y position: " .. y)' },
-    { id: 'transform_setPosition', name: 'transform.setPosition(id, x, y, z)', descKey: 'desc_transform_setPosition', code: '--[[comment:teleport_roof]]\ntransform.setPosition(t, 10, 50, 20)' },
-    { id: 'transform_translate', name: 'transform.translate(id, x, y, z)', descKey: 'desc_transform_translate', code: '--[[comment:move_forward]]\ntransform.translate(t, 0, 0, 1 * getDeltaTime())' },
-    { id: 'transform_rotate', name: 'transform.rotate(id, x, y, z)', descKey: 'desc_transform_rotate', code: '--[[comment:rotate_y]]\ntransform.rotate(t, 0, 45 * getDeltaTime(), 0)' },
-    { id: 'transform_lookAt', name: 'transform.lookAt(id, x, y, z)', descKey: 'desc_transform_lookAt', code: '--[[comment:look_center]]\ntransform.lookAt(t, 0, 0, 0)' },
-    { id: 'transform_getForward', name: 'transform.getForward(id)', descKey: 'desc_transform_getForward', code: 'local fwdX, fwdY, fwdZ = transform.getForward(t)' },
-
-    { id: 'rigidbody_setVelocity', name: 'rigidbody.setVelocity(id, x, y, z)', descKey: 'desc_rigidbody_setVelocity', code: '--[[comment:jump]]\nrigidbody.setVelocity(player, 0, 10, 0)' },
-    { id: 'rigidbody_addForce', name: 'rigidbody.addForce(id, x, y, z)', descKey: 'desc_rigidbody_addForce', code: '--[[comment:push_forward]]\nrigidbody.addForce(player, 0, 0, 100)' },
-    { id: 'rigidbody_setUseGravity', name: 'rigidbody.setUseGravity(id, bool)', descKey: 'desc_rigidbody_setUseGravity', code: '--[[comment:fly_mode]]\nrigidbody.setUseGravity(player, false)' },
-    { id: 'physics_raycast', name: 'physics.raycast(x, y, z, dirX, dirY, dirZ)', descKey: 'desc_physics_raycast', code: 'local didHit = physics.raycast(0, 1, 0, 0, -1, 0)\nif didHit then log("Hit ground") end' },
-    { id: 'physics_overlapSphere', name: 'physics.overlapSphere(x, y, z, r)', descKey: 'desc_physics_overlapSphere', code: 'local targets = physics.overlapSphere(0, 0, 0, 10)\nfor _, id in pairs(targets) do\n    log("Found: " .. id)\nend' },
-
-    { id: 'audioSource_play', name: 'audioSource.play(id)', descKey: 'desc_audioSource_play', code: 'audioSource.play(player)' },
-    { id: 'audioSource_stop', name: 'audioSource.stop(id)', descKey: 'desc_audioSource_stop', code: 'audioSource.stop(player)' },
-    { id: 'audioSource_setVolume', name: 'audioSource.setVolume(id, v)', descKey: 'desc_audioSource_setVolume', code: 'audioSource.setVolume(player, 0.5)' },
-    { id: 'audioSource_isPlaying', name: 'audioSource.isPlaying(id)', descKey: 'desc_audioSource_isPlaying', code: 'if audioSource.isPlaying(player) then\n    log("Music is playing")\nend' },
-
-    { id: 'camera_setFieldOfView', name: 'camera.setFieldOfView(id, fov)', descKey: 'desc_camera_setFieldOfView', code: 'local cam = gameObject.find("MainCamera")\ncamera.setFieldOfView(cam, 90)' },
-    { id: 'camera_worldToScreenPoint', name: 'camera.worldToScreenPoint(id, x, y, z)', descKey: 'desc_camera_worldToScreenPoint', code: 'local x, y, z = camera.worldToScreenPoint(cam, 0, 0, 0)\nlog("Center on screen: " .. x)' },
-    { id: 'camera_screenToWorldPoint', name: 'camera.screenToWorldPoint(id, x, y, z)', descKey: 'desc_camera_screenToWorldPoint', code: '--[[comment:z_depth]]\nlocal worldX, _, _ = camera.screenToWorldPoint(cam, 100, 100, 10)' },
-
-    { id: 'input_getKey', name: 'input.getKey(name)', descKey: 'desc_input_getKey', code: 'if input.getKey("Space") then\n    log("Space is held down")\nend' },
-    { id: 'input_getKeyDown', name: 'input.getKeyDown(name)', descKey: 'desc_input_getKeyDown', code: 'if input.getKeyDown("F") then\n    log("Toggled flashlight")\nend' },
-    { id: 'input_getMouse', name: 'input.getMouse(button)', descKey: 'desc_input_getMouse', code: 'if input.getMouse(0) then\n    log("Left mouse button pressed")\nend' },
-    { id: 'input_getAxis', name: 'input.getAxis(name)', descKey: 'desc_input_getAxis', code: 'local v = input.getAxis("Vertical")\nif v > 0 then log("Moving forward") end' },
-    { id: 'input_setMouseLock', name: 'input.setMouseLock(bool)', descKey: 'desc_input_setMouseLock', code: '--[[comment:show_cursor]]\ninput.setMouseLock(false)' }
-];
-
-
-document.addEventListener('DOMContentLoaded', function () {
-
-    let closeMobileMenu = () => { };
-
-    document.querySelectorAll('.code-block .comment').forEach(element => {
-        const text = element.textContent.trim();
-        const match = text.match(/--\[\[comment:(.+)\]\]/);
-
-        if (match && match[1]) {
-            const key = match[1];
-            element.setAttribute('data-translate-comment', 'comment_' + key);
-            const originalText = element.textContent;
-            const indentMatch = originalText.match(/^(\s*)/);
-            const indent = indentMatch ? indentMatch[1] : '';
-            element.setAttribute('data-indent', indent);
-            const trailingMatch = originalText.match(/(\s*)$/);
-            const trailing = trailingMatch ? trailingMatch[1] : '';
-            element.setAttribute('data-trailing', trailing);
-        }
-    });
-
-    loadSettings();
-    loadBlogPreview();
-    loadFullBlog();
-    initSearch();
-    initNavigation();
-    initCodeCopy();
-    initBlogModal();
-    initMobileMenu();
-    initDocsCopy();
-    initSettings();
-
-    const savedPage = localStorage.getItem('activePage') || 'home';
-    if (savedPage !== 'home') {
-        switchPage(savedPage);
-    }
-
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('data-page') === savedPage) {
-            link.classList.add('active');
-        }
-    });
-
-    window.addEventListener('resize', () => {
-        const sidebar = document.getElementById('sidebar');
-        const docPage = document.getElementById('documentation-page');
-
-        if (window.innerWidth > 1024) {
-            if (typeof closeMobileMenu === 'function') {
-                closeMobileMenu();
-            }
-            if (docPage && docPage.classList.contains('active')) {
-                sidebar.classList.add('active');
-            }
-        } else {
-            sidebar.classList.remove('active');
-        }
-    });
-
-    function initMobileMenu() {
-        const menuBtn = document.getElementById('mobileMenuBtn');
-        const panel = document.getElementById('mobileMenuPanel');
-        const overlay = document.getElementById('mobileMenuOverlay');
-        const closeBtn = document.getElementById('mobileMenuClose');
-        const mobileSettingsBtn = document.getElementById('mobileSettingsBtn');
-        const settingsPanel = document.getElementById('settingsPanel');
-
-        const docItem = document.querySelector('#mobileMenuPanel .mobile-nav-item.has-submenu');
-        const docLink = document.querySelector('#mobileMenuPanel .mobile-nav-link[data-page="documentation"]');
-        const docToggle = document.querySelector('#mobileMenuPanel .mobile-submenu-toggle');
-        const docSubmenu = document.getElementById('mobileSubmenuContent');
-
-        if (!menuBtn || !panel || !overlay || !closeBtn) return;
-
-        closeMobileMenu = function () {
-            panel.classList.remove('active');
-            overlay.classList.remove('active');
-            document.body.style.overflow = '';
-            if (docItem) {
-                if (docSubmenu) docSubmenu.style.maxHeight = '0px';
-            }
-        }
-
-        menuBtn.addEventListener('click', () => {
-            panel.classList.add('active');
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-
-            if (localStorage.getItem('docSubmenuOpen') === 'true') {
-                docItem.classList.add('active');
-                docSubmenu.style.maxHeight = docSubmenu.scrollHeight + 'px';
-            } else {
-                docItem.classList.remove('active');
-                docSubmenu.style.maxHeight = '0px';
-            }
-        });
-
-        closeBtn.addEventListener('click', closeMobileMenu);
-        overlay.addEventListener('click', closeMobileMenu);
-
-        if (mobileSettingsBtn && settingsPanel) {
-            mobileSettingsBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                closeMobileMenu();
-                setTimeout(() => {
-                    settingsPanel.classList.add('active');
-                }, 300);
-            });
-        }
-
-        if (docToggle && docItem && docSubmenu) {
-            docToggle.addEventListener('click', (e) => {
-                e.preventDefault();
-                const isActive = docItem.classList.toggle('active');
-                if (isActive) {
-                    docSubmenu.style.maxHeight = docSubmenu.scrollHeight + "px";
-                    localStorage.setItem('docSubmenuOpen', 'true');
-                } else {
-                    docSubmenu.style.maxHeight = "0px";
-                    localStorage.setItem('docSubmenuOpen', 'false');
-                }
-            });
-        }
-
-        if (docLink) {
-            docLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                switchPage('documentation');
-                closeMobileMenu();
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                const desktopLink = document.querySelector('.nav-link[data-page="documentation"]');
-                if (desktopLink) desktopLink.classList.add('active');
-            });
-        }
-
-        panel.querySelectorAll('.mobile-nav-link[data-page]').forEach(link => {
-            if (link.getAttribute('data-page') !== 'documentation') {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const page = link.getAttribute('data-page');
-                    switchPage(page);
-                    closeMobileMenu();
-                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                    const desktopLink = document.querySelector(`.nav-link[data-page="${page}"]`);
-                    if (desktopLink) desktopLink.classList.add('active');
-                });
-            }
-        });
-    }
-
-});
-
 
 function loadBlogPreview() {
     const container = document.getElementById('home-blog-preview');
@@ -725,16 +538,15 @@ function initSearch() {
         }
 
         const results = functionsData.filter(func => {
-            const descText = translations[currentLang][func.descKey]
-                ? translations[currentLang][func.descKey].replace(/<[^>]*>?/gm, '')
-                : '';
-            return func.name.toLowerCase().includes(query) || descText.toLowerCase().includes(query);
+            const descText = func.desc[currentLang] ? func.desc[currentLang].replace(/<[^>]*>?/gm, '') : '';
+            const nameText = func.name.replace(/<[^>]*>?/gm, ''); // Очищаем имя от HTML
+            return nameText.toLowerCase().includes(query) || descText.toLowerCase().includes(query);
         });
 
         if (results.length > 0) {
             searchResults.innerHTML = results.map(func => {
-                const funcName = func.name;
-                const funcDesc = translations[currentLang][func.descKey].replace(/<[^>]*>?/gm, '');
+                const funcName = func.name.replace(/<[^>]*>?/gm, ''); // Очищаем имя
+                const funcDesc = func.desc[currentLang].replace(/<[^>]*>?/gm, '');
 
                 const highlightedName = highlight(funcName, rawQuery);
                 const highlightedDesc = highlight(funcDesc, rawQuery);
@@ -773,13 +585,24 @@ function navigateToFunction(funcId) {
     const funcElement = document.getElementById(funcId);
     if (funcElement) {
         funcElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        funcElement.classList.add('highlight-animation');
-        funcElement.addEventListener('animationend', () => {
-            funcElement.classList.remove('highlight-animation');
-        }, { once: true });
+        
+        // Отключаем анимацию подсветки если эффекты не на 'full'
+        if (currentEffectsLevel === 2) {
+            funcElement.classList.add('highlight-animation');
+            funcElement.addEventListener('animationend', () => {
+                funcElement.classList.remove('highlight-animation');
+            }, { once: true });
+        } else {
+             // Просто быстрая подсветка без CSS анимации
+            funcElement.style.boxShadow = '0 0 25px rgba(99, 102, 241, 0.7)';
+            setTimeout(() => {
+                funcElement.style.boxShadow = '';
+            }, 1000);
+        }
     }
 }
 
+// Инициализация основных ссылок (шапка, лого, кнопки)
 function initNavigation() {
     const logoLink = document.getElementById('logoLink');
     if (logoLink) {
@@ -801,6 +624,19 @@ function initNavigation() {
         });
     });
 
+    document.querySelectorAll('.btn[data-page]').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            const page = this.getAttribute('data-page');
+            switchPage(page);
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.querySelector(`.nav-link[data-page="${page}"]`).classList.add('active');
+        });
+    });
+}
+
+// Инициализация ссылок бокового меню (вызывается после buildDocumentation)
+function initNavigationSidebarLinks() {
     document.querySelectorAll('.sidebar-link').forEach(link => {
         link.addEventListener('click', function (e) {
             e.preventDefault();
@@ -815,17 +651,8 @@ function initNavigation() {
             }
         });
     });
-
-    document.querySelectorAll('.btn[data-page]').forEach(btn => {
-        btn.addEventListener('click', function (e) {
-            e.preventDefault();
-            const page = this.getAttribute('data-page');
-            switchPage(page);
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            document.querySelector(`.nav-link[data-page="${page}"]`).classList.add('active');
-        });
-    });
 }
+
 
 function switchPage(pageId) {
     document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
@@ -853,9 +680,9 @@ function initDocsCopy() {
     if (!copyBtn) return;
 
     copyBtn.addEventListener('click', () => {
-        if (copyBtn.classList.contains('copied')) return;
+        if (copyBtn.classList.contains('copied') || functionsData.length === 0) return;
 
-        let fullDocsText = 'GoreBox Modding API Documentation\n\n';
+        let fullDocsText = 'GoreBox Modding API Documentation v1.1\n\n'; // ВЕРСИЯ
         const sectionTitles = {};
         document.querySelectorAll('#documentation-page .section-title').forEach(el => {
             const section = el.closest('.section');
@@ -865,34 +692,27 @@ function initDocsCopy() {
             }
         });
 
-        const sectionsOrder = Array.from(document.querySelectorAll('#documentation-page .section')).map(s => s.id);
-        const groupedFunctions = functionsData.reduce((acc, func) => {
-            const card = document.getElementById(func.id);
-            if (card) {
-                const sectionId = card.closest('.section').id;
-                if (!acc[sectionId]) acc[sectionId] = [];
-                const enCommentKey = func.code.match(/--\[\[comment:(.+)\]\]/);
-                let finalCode = func.code;
-
-                if (enCommentKey && translations['en']['comment_' + enCommentKey[1]]) {
-                    finalCode = finalCode.replace(enCommentKey[0], translations['en']['comment_' + enCommentKey[1]]);
-                }
-
-                acc[sectionId].push({
-                    ...func,
-                    code: finalCode
-                });
-            }
-            return acc;
-        }, {});
+        const sectionsOrder = [
+            'lifecycle', 'global-functions', 'lua-gui', 'resources',
+            'gameobject', 'transform', 'physics', 'audio', 'camera', 'input'
+        ];
 
         sectionsOrder.forEach(sectionId => {
-            if (groupedFunctions[sectionId] && sectionTitles[sectionId]) {
+            const sectionFuncs = functionsData.filter(f => f.section === sectionId);
+            if (sectionFuncs.length > 0 && sectionTitles[sectionId]) {
                 fullDocsText += `==============================\n${sectionTitles[sectionId]}\n==============================\n\n`;
-                groupedFunctions[sectionId].forEach(func => {
-                    fullDocsText += `Function: ${func.name}\n`;
-                    fullDocsText += `Description: ${translations['en'][func.descKey].replace(/<[^>]*>?/gm, '')}\n`;
-                    fullDocsText += `Example:\n${func.code}\n\n------------------------------\n\n`;
+
+                sectionFuncs.forEach(func => {
+                    let codeText = func.code.replace(/<[^>]*>?/gm, ''); // Убираем HTML из кода
+
+                    if (func.commentKey && translations['en'][`comment_${func.commentKey}`]) {
+                        const commentTag = `--[[comment:${func.commentKey}]]`;
+                        codeText = codeText.replace(commentTag, translations['en'][`comment_${func.commentKey}`]);
+                    }
+
+                    fullDocsText += `Function: ${func.name.replace(/<[^>]*>?/gm, '')}\n`;
+                    fullDocsText += `Description: ${func.desc['en'].replace(/<[^>]*>?/gm, '')}\n`;
+                    fullDocsText += `Example:\n${codeText}\n\n------------------------------\n\n`;
                 });
             }
         });
@@ -917,6 +737,11 @@ function initDocsCopy() {
 
 
 function initCodeCopy() {
+    document.querySelectorAll('.function-copy').forEach(button => {
+        // Удаляем старый, если есть
+        button.replaceWith(button.cloneNode(true));
+    });
+
     document.querySelectorAll('.function-copy').forEach(button => {
         button.addEventListener('click', function () {
             if (this.classList.contains('copied')) return;
@@ -961,6 +786,97 @@ function showNotification(message) {
     setTimeout(() => { notification.classList.remove('show'); }, 3000);
 }
 
+function initMobileMenu() {
+    const menuBtn = document.getElementById('mobileMenuBtn');
+    const panel = document.getElementById('mobileMenuPanel');
+    const overlay = document.getElementById('mobileMenuOverlay');
+    const closeBtn = document.getElementById('mobileMenuClose');
+    const mobileSettingsBtn = document.getElementById('mobileSettingsBtn');
+    const settingsPanel = document.getElementById('settingsPanel');
+
+    const docItem = document.querySelector('#mobileMenuPanel .mobile-nav-item.has-submenu');
+    const docLink = document.querySelector('#mobileMenuPanel .mobile-nav-link[data-page="documentation"]');
+    const docToggle = document.querySelector('#mobileMenuPanel .mobile-submenu-toggle');
+    const docSubmenu = document.getElementById('mobileSubmenuContent');
+
+    if (!menuBtn || !panel || !overlay || !closeBtn) return;
+
+    closeMobileMenu = function () {
+        panel.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        if (docItem) {
+            if (docSubmenu) docSubmenu.style.maxHeight = '0px';
+        }
+    }
+
+    menuBtn.addEventListener('click', () => {
+        panel.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        if (localStorage.getItem('docSubmenuOpen') === 'true') {
+            docItem.classList.add('active');
+            docSubmenu.style.maxHeight = docSubmenu.scrollHeight + 'px';
+        } else {
+            docItem.classList.remove('active');
+            docSubmenu.style.maxHeight = '0px';
+        }
+    });
+
+    closeBtn.addEventListener('click', closeMobileMenu);
+    overlay.addEventListener('click', closeMobileMenu);
+
+    if (mobileSettingsBtn && settingsPanel) {
+        mobileSettingsBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeMobileMenu();
+            setTimeout(() => {
+                settingsPanel.classList.add('active');
+            }, 300);
+        });
+    }
+
+    if (docToggle && docItem && docSubmenu) {
+        docToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            const isActive = docItem.classList.toggle('active');
+            if (isActive) {
+                docSubmenu.style.maxHeight = docSubmenu.scrollHeight + "px";
+                localStorage.setItem('docSubmenuOpen', 'true');
+            } else {
+                docSubmenu.style.maxHeight = "0px";
+                localStorage.setItem('docSubmenuOpen', 'false');
+            }
+        });
+    }
+
+    if (docLink) {
+        docLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchPage('documentation');
+            closeMobileMenu();
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            const desktopLink = document.querySelector('.nav-link[data-page="documentation"]');
+            if (desktopLink) desktopLink.classList.add('active');
+        });
+    }
+
+    panel.querySelectorAll('.mobile-nav-link[data-page]').forEach(link => {
+        if (link.getAttribute('data-page') !== 'documentation') {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = link.getAttribute('data-page');
+                switchPage(page);
+                closeMobileMenu();
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                const desktopLink = document.querySelector(`.nav-link[data-page="${page}"]`);
+                if (desktopLink) desktopLink.classList.add('active');
+            });
+        }
+    });
+}
+
 function initSettings() {
     const settingsBtnDesktop = document.getElementById('settingsBtn');
     const settingsPanel = document.getElementById('settingsPanel');
@@ -975,7 +891,7 @@ function initSettings() {
 
     const columnToggle = document.getElementById('columnToggle');
     const docPage = document.getElementById('documentation-page');
-    const effectsToggle = document.getElementById('effectsToggle');
+    const effectsSlider = document.getElementById('effectsSlider'); // ИЗМЕНЕНО
 
     if (settingsBtnDesktop) settingsBtnDesktop.addEventListener('click', () => settingsPanel.classList.add('active'));
     if (settingsClose) settingsClose.addEventListener('click', () => settingsPanel.classList.remove('active'));
@@ -1034,9 +950,11 @@ function initSettings() {
         });
     }
 
-    if (effectsToggle) {
-        effectsToggle.addEventListener('change', () => {
-            toggleVisualEffects(effectsToggle.checked);
+    // ИЗМЕНЕНО: Слушатель для слайдера
+    if (effectsSlider) {
+        effectsSlider.addEventListener('input', () => {
+            const level = parseInt(effectsSlider.value, 10);
+            toggleVisualEffects(level);
         });
     }
 
@@ -1054,6 +972,11 @@ function changeTheme(theme) {
             document.body.classList.add('gorebox-theme');
         }
 
+        // Анимация смены темы должна быть статичной, если эффекты не 'full'
+        if(currentEffectsLevel < 2) {
+             document.body.classList.remove('theme-changing');
+        }
+        
         setTimeout(() => document.body.classList.remove('theme-changing'), 800);
         localStorage.setItem('theme', theme);
     }, 300);
@@ -1081,21 +1004,34 @@ function clearAllEffectElements() {
         window.pJSDom[0].pJS.fn.vendors.destroypJS();
         window.pJSDom = [];
     }
+    
+    // Удаляем классы режимов
+    document.body.classList.remove('effects-disabled', 'effects-static');
 }
 
 
-function toggleVisualEffects(enabled) {
-    if (enabled) {
-        document.body.classList.remove('effects-disabled');
-        createStars();
-        createComets();
-        createBloodEffect();
-        initParticles();
-    } else {
+function toggleVisualEffects(level) {
+    currentEffectsLevel = level; // 0, 1, 2
+    
+    // 1. Очищаем все старые эффекты
+    clearAllEffectElements();
+
+    // 2. Устанавливаем классы на body
+    if (level === 0) {
         document.body.classList.add('effects-disabled');
-        clearAllEffectElements();
+    } else if (level === 1) {
+        document.body.classList.add('effects-static');
     }
-    localStorage.setItem('visualEffects', enabled.toString());
+    // level === 2 не требует класса, это по умолчанию
+
+    // 3. (Пере)создаем эффекты в соответствии с новым уровнем
+    createStars();
+    createComets();
+    createBloodEffect();
+    initParticles();
+    
+    // 4. Сохраняем
+    localStorage.setItem('visualEffectsLevel', level.toString());
 }
 
 
@@ -1112,8 +1048,19 @@ function loadSettings() {
         option.classList.toggle('active', option.getAttribute('data-font') === savedFont);
     });
 
+    // ИЗМЕНЕНО: Загрузка уровня эффектов
+    // Загружаем ДО языка, чтобы changeLanguage() знал, как рендерить
+    const savedEffectsLevel = parseInt(localStorage.getItem('visualEffectsLevel') || '2', 10);
+    const effectsSlider = document.getElementById('effectsSlider');
+    if (effectsSlider) {
+        effectsSlider.value = savedEffectsLevel;
+    }
+    // Применяем эффекты
+    toggleVisualEffects(savedEffectsLevel);
+
+
     const savedLanguage = localStorage.getItem('language') || 'en';
-    changeLanguage(savedLanguage);
+    changeLanguage(savedLanguage); // Это загрузит блоги и т.д.
 
 
     const savedLayout = localStorage.getItem('layoutColumns') || 'one';
@@ -1124,25 +1071,101 @@ function loadSettings() {
         columnToggle.checked = isTwoColumns;
         docPage.classList.toggle('two-column-layout', isTwoColumns);
     }
-
-    const savedEffects = localStorage.getItem('visualEffects') !== 'false';
-    const effectsToggle = document.getElementById('effectsToggle');
-    if (effectsToggle) {
-        effectsToggle.checked = savedEffects;
-    }
-    toggleVisualEffects(savedEffects);
 }
 
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting && !document.body.classList.contains('effects-disabled')) {
-            entry.target.style.animationPlayState = 'running';
-            observer.unobserve(entry.target);
+document.addEventListener('DOMContentLoaded', function () {
+
+    // Инициализация функций, которые не зависят от данных
+    initNavigation(); // Навигация по шапке
+    initBlogModal();
+    initMobileMenu();
+    initSettings(); // Слушатели для панели настроек
+
+    // Загрузка данных
+    Promise.all([
+        fetch('blog.json').then(res => {
+            if (!res.ok) throw new Error('Failed to load blog.json');
+            return res.json();
+        }),
+        fetch('functions.json').then(res => {
+            if (!res.ok) throw new Error('Failed to load functions.json');
+            return res.json();
+        })
+    ])
+    .then(([blogData, funcData]) => {
+        blogPosts = blogData;
+        functionsData = funcData;
+
+        // 1. Строим HTML на основе functions.json
+        buildDocumentation(functionsData);
+        
+        // 2. Загружаем настройки (тема, язык и т.д.)
+        // Это вызовет changeLanguage(), который переведет UI и функции
+        loadSettings();
+
+        // 3. Инициализируем функции, зависящие от данных
+        initSearch();
+        initDocsCopy();
+
+        // 4. Восстанавливаем активную страницу
+        const savedPage = localStorage.getItem('activePage') || 'home';
+        if (savedPage !== 'home') {
+            switchPage(savedPage);
+        }
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('data-page') === savedPage) {
+                link.classList.add('active');
+            }
+        });
+    })
+    .catch(error => {
+        console.error('Error loading essential data:', error);
+        document.body.innerHTML = '<h1>Failed to load site data. Please check console.</h1>';
+    });
+
+
+    // Слушатель изменения размера окна
+    window.addEventListener('resize', () => {
+        const sidebar = document.getElementById('sidebar');
+        const docPage = document.getElementById('documentation-page');
+
+        if (window.innerWidth > 1024) {
+            if (typeof closeMobileMenu === 'function') {
+                closeMobileMenu();
+            }
+            if (docPage && docPage.classList.contains('active')) {
+                sidebar.classList.add('active');
+            }
+        } else {
+            sidebar.classList.remove('active');
         }
     });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-document.querySelectorAll('.section, .clickable-card-wrapper').forEach(el => {
-    observer.observe(el);
+    // Intersection Observer для анимаций
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // Анимация появления блоков работает только на 'full'
+            if (entry.isIntersecting && currentEffectsLevel === 2) {
+                entry.target.style.animationPlayState = 'running';
+                observer.unobserve(entry.target);
+            } else if (currentEffectsLevel < 2) {
+                // Если эффекты выключены или статичны, просто показываем блок
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'none';
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.section, .clickable-card-wrapper').forEach(el => {
+        if (currentEffectsLevel < 2) {
+            // Если эффекты не 'full', сразу показываем, не ждем observer
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+        } else {
+            observer.observe(el);
+        }
+    });
+
 });

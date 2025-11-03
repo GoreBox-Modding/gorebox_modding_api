@@ -590,6 +590,105 @@ body.programmer-theme .toggle-switch input:checked+.slider {
     background-color: var(--primary);
 }
 
+/* --- НАСТРОЙКИ АНИМАЦИЙ --- */
+
+/* 1. Отключенные эффекты */
+.effects-disabled .space-background,
+.effects-disabled .blueprint-background,
+.effects-disabled .gorebox-background,
+.effects-disabled #particles-js,
+.effects-disabled .star,
+.effects-disabled .comet-head,
+.effects-disabled .comet-trail,
+.effects-disabled .blood-pentagon {
+    display: none !important;
+}
+
+.effects-disabled .section,
+.effects-disabled .clickable-card-wrapper {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+.effects-disabled .function-card.highlight-animation,
+.effects-disabled body.theme-changing,
+.effects-disabled .notification.show,
+.effects-disabled .hero-title {
+    animation: none !important;
+}
+
+.effects-disabled *,
+.effects-disabled *::before,
+.effects-disabled *::after {
+    transition: none !important;
+}
+
+.effects-disabled .function-card:hover,
+.effects-disabled .btn:hover,
+.effects-disabled .settings-btn:hover,
+.effects-disabled .search-box:focus-within,
+.effects-disabled .clickable-card:hover,
+.effects-disabled .theme-option:hover,
+.effects-disabled .language-option:hover,
+.effects-disabled .font-option:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* 2. Статичные эффекты (Все фоны, но без анимаций) */
+.effects-static .space-background,
+.effects-static .blueprint-background,
+.effects-static .gorebox-background,
+.effects-static #particles-js {
+    display: block !important;
+}
+
+.effects-static .star,
+.effects-static .blood-pentagon {
+    animation: none !important;
+}
+
+.effects-static .comet-head,
+.effects-static .comet-trail {
+    display: none !important;
+}
+
+.effects-static .section,
+.effects-static .clickable-card-wrapper {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+.effects-static .function-card.highlight-animation,
+.effects-static body.theme-changing,
+.effects-static .notification.show,
+.effects-static .hero-title {
+    animation: none !important;
+}
+
+.effects-static *,
+.effects-static *::before,
+.effects-static *::after {
+    transition: none !important;
+}
+
+.effects-static .function-card:hover,
+.effects-static .btn:hover,
+.effects-static .settings-btn:hover,
+.effects-static .search-box:focus-within,
+.effects-static .clickable-card:hover,
+.effects-static .theme-option:hover,
+.effects-static .language-option:hover,
+.effects-static .font-option:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+
+/* --- КОНЕЦ НАСТРОЕК АНИМАЦИЙ --- */
+
 
 .typing-effect::after {
     content: '_';
@@ -671,7 +770,10 @@ body.programmer-theme .toggle-switch input:checked+.slider {
     position: absolute;
     background-color: white;
     border-radius: 50%;
-    animation: twinkle ease-in-out infinite alternate;
+    animation-duration: 4s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
 .star.small {
@@ -823,30 +925,6 @@ body.programmer-theme .toggle-switch input:checked+.slider {
         opacity: 0.2;
     }
 }
-
-.effects-disabled .space-background,
-.effects-disabled .blueprint-background,
-.effects-disabled .gorebox-background,
-.effects-disabled #particles-js,
-.effects-disabled .star,
-.effects-disabled .comet-head,
-.effects-disabled .comet-trail,
-.effects-disabled .blood-pentagon {
-    display: none !important;
-}
-
-.effects-disabled .section {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-}
-
-.effects-disabled .function-card.highlight-animation,
-.effects-disabled body.theme-changing {
-    animation: none !important;
-}
-
-
 
 #particles-js {
     position: fixed;
@@ -1515,6 +1593,71 @@ body.programmer-theme .search-highlight {
     border-radius: 12px;
 }
 
+.layout-selector.vertical {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem 1.5rem;
+}
+
+.effects-slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--gray-light);
+    padding: 0 2px;
+}
+
+.effects-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: var(--dark);
+    outline: none;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.effects-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--primary);
+    cursor: pointer;
+    border-radius: 50%;
+    border: 3px solid var(--dark);
+    transition: background 0.2s ease;
+}
+
+.effects-slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    background: var(--primary);
+    cursor: pointer;
+    border-radius: 50%;
+    border: 3px solid var(--dark);
+    transition: background 0.2s ease;
+}
+
+body.gorebox-theme .effects-slider::-webkit-slider-thumb {
+     background: var(--primary);
+     border-color: #0a0a0a;
+}
+body.programmer-theme .effects-slider::-webkit-slider-thumb {
+     background: var(--primary);
+     border-color: #1d2021;
+}
+body.gorebox-theme .effects-slider::-moz-range-thumb {
+     background: var(--primary);
+     border-color: #0a0a0a;
+}
+body.programmer-theme .effects-slider::-moz-range-thumb {
+     background: var(--primary);
+     border-color: #1d2021;
+}
+
+
 .toggle-switch {
     position: relative;
     display: inline-block;
@@ -1689,6 +1832,7 @@ input:checked+.slider:before {
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 0.6s ease forwards;
+    animation-play-state: paused; /* Управляется JS */
     backdrop-filter: blur(10px);
     position: relative;
     overflow: hidden;
@@ -2062,6 +2206,10 @@ body.programmer-theme .function-card.highlight-animation {
 
 .clickable-card-wrapper {
     margin: 2rem 0;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+    animation-play-state: paused; /* Управляется JS */
 }
 
 .clickable-card {
