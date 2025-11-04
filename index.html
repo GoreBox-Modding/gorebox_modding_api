@@ -14,6 +14,38 @@
         href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <script>
+        (function () {
+            try {
+                const theme = localStorage.getItem('theme') || 'gorebox';
+                const font = localStorage.getItem('font') || 'wes_fy_black';
+
+                if (theme === 'gorebox') {
+                    document.documentElement.classList.add('gorebox-theme');
+                } else if (theme === 'programmer') {
+                    document.documentElement.classList.add('programmer-theme');
+                }
+
+                if (font === 'wes_fy_black') {
+                    document.documentElement.classList.add('font-wes-fy-black');
+                }
+            } catch (e) {
+                console.warn('Failed to pre-load settings from localStorage', e);
+            }
+        })();
+    </script>
+
+    <style>
+        .notification {
+            opacity: 0;
+            display: none;
+        }
+
+        .notification.show {
+            display: flex;
+        }
+    </style>
 </head>
 
 <body>
@@ -25,7 +57,7 @@
                 <i class="logo-icon"><span class="logo-icon-inner"></span></i>
                 <span class="logo-text-wrapper">
                     <span>GoreBox Modding API</span>
-                    </span>
+                </span>
             </a>
             <button class="mobile-menu-close" id="mobileMenuClose">
                 <i class="fas fa-times"></i>
@@ -398,7 +430,7 @@
                         <h2 class="section-title" data-translate="lifecycle">Жизненный цикл Lua-скрипта</h2>
                     </div>
                     <div class="function-grid">
-                        </div>
+                    </div>
                 </section>
 
                 <section class="section" id="global-functions">
@@ -407,7 +439,7 @@
                         <h2 class="section-title" data-translate="global_functions">Основные функции</h2>
                     </div>
                     <div class="function-grid">
-                        </div>
+                    </div>
                 </section>
 
                 <section class="section" id="lua-gui">
@@ -416,7 +448,7 @@
                         <h2 class="section-title" data-translate="gui_functions">Функции GUI</h2>
                     </div>
                     <div class="function-grid">
-                        </div>
+                    </div>
                 </section>
 
                 <section class="section" id="resources">
@@ -425,7 +457,7 @@
                         <h2 class="section-title" data-translate="resources">Ресурсы</h2>
                     </div>
                     <div class="function-grid">
-                        </div>
+                    </div>
                 </section>
 
                 <section class="section" id="gameobject">
@@ -434,7 +466,7 @@
                         <h2 class="section-title" data-translate="gameobject">Объекты</h2>
                     </div>
                     <div class="function-grid">
-                        </div>
+                    </div>
                 </section>
 
                 <section class="section" id="transform">
@@ -443,7 +475,7 @@
                         <h2 class="section-title" data-translate="transform">Трансформы</h2>
                     </div>
                     <div class="function-grid">
-                        </div>
+                    </div>
                 </section>
 
                 <section class="section" id="physics">
@@ -452,7 +484,7 @@
                         <h2 class="section-title" data-translate="physics">Физика</h2>
                     </div>
                     <div class="function-grid">
-                        </div>
+                    </div>
                 </section>
 
                 <section class="section" id="audio">
@@ -461,7 +493,7 @@
                         <h2 class="section-title" data-translate="audio">Аудио</h2>
                     </div>
                     <div class="function-grid">
-                        </div>
+                    </div>
                 </section>
 
                 <section class="section" id="camera">
@@ -470,7 +502,7 @@
                         <h2 class="section-title" data-translate="camera">Камера</h2>
                     </div>
                     <div class="function-grid">
-                        </div>
+                    </div>
                 </section>
 
                 <section class="section" id="input">
@@ -479,7 +511,7 @@
                         <h2 class="section-title" data-translate="input">Ввод</h2>
                     </div>
                     <div class="function-grid">
-                        </div>
+                    </div>
                 </section>
 
                 <div class="clickable-card-wrapper">

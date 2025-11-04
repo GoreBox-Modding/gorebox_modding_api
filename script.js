@@ -43,7 +43,6 @@ const translations = {
         docs_copied: "Скопировано!",
         search_placeholder: "Поиск по документации...",
 
-        // --- Ключи для комментариев из functions.json ---
         comment_game_logic: "-- Логика игры здесь",
         comment_camera_logic: "-- Логика камеры часто здесь",
         comment_physics_logic: "-- Логика физики здесь",
@@ -103,7 +102,6 @@ const translations = {
         docs_copied: "Copied!",
         search_placeholder: "Search documentation...",
 
-        // --- Ключи для комментариев из functions.json ---
         comment_game_logic: "-- Game logic here",
         comment_camera_logic: "-- Camera logic often goes here",
         comment_physics_logic: "-- Physics logic here",
@@ -126,16 +124,11 @@ let currentLang = 'en';
 const typingTimers = new Map();
 let cometInterval;
 
-// Глобальные переменные для хранения данных
 let blogPosts = [];
 let functionsData = [];
 let closeMobileMenu = () => { };
-let currentEffectsLevel = 2; // 0 = off, 1 = static, 2 = full
+let currentEffectsLevel = 2;
 
-/**
- * Генерирует HTML для карточек функций и ссылок в боковом меню
- * на основе данных из functions.json
- */
 function buildDocumentation(functions) {
     const sections = {
         'lifecycle': document.querySelector('#lifecycle .function-grid'),
@@ -149,8 +142,7 @@ function buildDocumentation(functions) {
         'camera': document.querySelector('#camera .function-grid'),
         'input': document.querySelector('#input .function-grid')
     };
-    
-    // Контейнеры для ссылок в боковом меню (основном и мобильном)
+
     const sidebarLinkContainers = {
         'lifecycle': document.querySelectorAll('.sidebar-links[data-links-for="lifecycle"]'),
         'global-functions': document.querySelectorAll('.sidebar-links[data-links-for="global-functions"]'),
@@ -164,7 +156,6 @@ function buildDocumentation(functions) {
         'input': document.querySelectorAll('.sidebar-links[data-links-for="input"]')
     };
 
-    // Очистка
     Object.values(sections).forEach(s => { if (s) s.innerHTML = ''; });
     Object.values(sidebarLinkContainers).forEach(list => list.forEach(s => { if (s) s.innerHTML = ''; }));
 
@@ -175,7 +166,6 @@ function buildDocumentation(functions) {
             return;
         }
 
-        // 1. Сборка карточки функции
         const cardHTML = `
         <div class="function-card" id="${func.id}">
             <div class="function-header">
@@ -190,30 +180,27 @@ function buildDocumentation(functions) {
         `;
         container.insertAdjacentHTML('beforeend', cardHTML);
 
-        // 2. Сборка ссылок для бокового меню
         const linkName = func.name.replace(/<[^>]*>?/gm, '').replace(/\(.*\)/, '').trim();
         const linkIconMatch = func.name.match(/<i class="([^"]+)"><\/i>/);
-        const linkIcon = linkIconMatch ? linkIconMatch[0] : '<i class="fas fa-code"></i>'; // Иконка по умолчанию
+        const linkIcon = linkIconMatch ? linkIconMatch[0] : '<i class="fas fa-code"></i>';
 
         const sidebarLinkHTML = `
         <li><a href="#${func.id}" class="sidebar-link" data-function="${func.id}">${linkIcon} ${linkName}</a></li>
         `;
-        
+
         const linkContainers = sidebarLinkContainers[func.section];
         if (linkContainers) {
             linkContainers.forEach(list => list.insertAdjacentHTML('beforeend', sidebarLinkHTML));
         }
 
-        // 3. Поиск комментария для перевода
         if (func.commentKey) {
             const commentEl = container.querySelector(`#${func.id} .comment`);
             if (commentEl) {
-                // Убираем старый мусор, если он есть
                 const cleanCode = func.code.match(/--\[\[comment:.*\]\]/);
-                if(cleanCode) {
+                if (cleanCode) {
                     commentEl.textContent = cleanCode[0];
                 }
-                
+
                 commentEl.setAttribute('data-translate-comment', `comment_${func.commentKey}`);
                 const originalText = commentEl.textContent;
                 const indentMatch = originalText.match(/^(\s*)/);
@@ -226,14 +213,10 @@ function buildDocumentation(functions) {
         }
     });
 
-    // Повторная инициализация слушателей для новых элементов
     initCodeCopy();
     initNavigationSidebarLinks();
 }
 
-/**
- * Обновляет тексты описаний функций при смене языка
- */
 function updateFunctionTranslations(lang) {
     if (!functionsData) return;
     functionsData.forEach(func => {
@@ -271,7 +254,6 @@ function typeAnimation(element, text) {
 }
 
 function changeLanguage(lang) {
-    if (lang === currentLang && document.querySelector('[data-translate]').textContent !== 'Главная') return;
     currentLang = lang;
 
     typingTimers.forEach((timer, element) => {
@@ -280,7 +262,6 @@ function changeLanguage(lang) {
     });
     typingTimers.clear();
 
-    // 1. Перевод UI
     document.querySelectorAll('[data-translate]').forEach(element => {
         const key = element.getAttribute('data-translate');
         if (translations[lang] && translations[lang][key]) {
@@ -293,7 +274,6 @@ function changeLanguage(lang) {
         }
     });
 
-    // 2. Перевод плейсхолдеров
     document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
         const key = element.getAttribute('data-translate-placeholder');
         if (translations[lang] && translations[lang][key]) {
@@ -301,7 +281,6 @@ function changeLanguage(lang) {
         }
     });
 
-    // 3. Перевод комментариев в коде
     document.querySelectorAll('[data-translate-comment]').forEach(element => {
         const key = element.getAttribute('data-translate-comment');
         if (translations[lang] && translations[lang][key]) {
@@ -311,10 +290,8 @@ function changeLanguage(lang) {
         }
     });
 
-    // 4. Перевод описаний функций (новая функция)
     updateFunctionTranslations(lang);
 
-    // 5. Обновление кнопок языка
     document.querySelectorAll('.language-option').forEach(option => {
         option.classList.remove('active');
         if (option.getAttribute('data-lang') === lang) {
@@ -344,11 +321,10 @@ function createStars() {
         star.classList.add('star', starType);
         star.style.left = `${Math.random() * 100}%`;
         star.style.top = `${Math.random() * 100}%`;
-        
-        // Если 'static', не добавляем анимацию
+
         if (currentEffectsLevel === 2) {
-             star.style.animationDelay = `${Math.random() * 6}s`;
-             star.style.animationName = 'twinkle';
+            star.style.animationDelay = `${Math.random() * 6}s`;
+            star.style.animationName = 'twinkle';
         }
 
         spaceBg.appendChild(star);
@@ -357,7 +333,6 @@ function createStars() {
 
 function createComets() {
     const spaceBg = document.getElementById('spaceBackground');
-    // Не запускаем, если выключено или статика
     if (!spaceBg || currentEffectsLevel < 2) return;
 
     cometInterval = setInterval(() => {
@@ -406,12 +381,8 @@ function createComets() {
 
 function createBloodEffect() {
     const container = document.getElementById('goreboxBackground');
-    
-    // --- ИЗМЕНЕНО ---
-    // Эффект пентагонов запускается ТОЛЬКО на 'full' (level 2)
-    // Раньше было (currentEffectsLevel === 0)
+
     if (!container || currentEffectsLevel < 2) return;
-    // --- КОНЕЦ ИЗМЕНЕНИЯ ---
 
     const pentagonCount = 40;
     const cornerDensity = 30;
@@ -439,9 +410,7 @@ function createBloodEffect() {
 
         const startRotate = Math.random() * 360;
         pentagon.style.setProperty('--r-start', `${startRotate}deg`);
-        
-        // 'static' (level 1) сюда больше не попадет,
-        // поэтому эта проверка всегда будет 'true' (level 2)
+
         if (currentEffectsLevel === 2) {
             const endRotate = startRotate + (Math.random() * 60 - 30);
             pentagon.style.setProperty('--r-end', `${endRotate}deg`);
@@ -462,7 +431,6 @@ function createBloodEffect() {
 
 
 function initParticles() {
-    // Не запускаем, если выключено
     if (typeof particlesJS === 'undefined' || currentEffectsLevel === 0) return;
 
     const isStatic = currentEffectsLevel === 1;
@@ -475,19 +443,17 @@ function initParticles() {
             opacity: { value: 0.3, random: true },
             size: { value: 2, random: true },
             line_linked: { enable: true, distance: 150, color: "#6366f1", opacity: 0.2, width: 1 },
-            // Отключаем движение для 'static'
             move: {
-                enable: !isStatic, 
-                speed: 1, 
-                direction: "none", 
-                random: true, 
-                out_mode: "out", 
-                bounce: false 
+                enable: !isStatic,
+                speed: 1,
+                direction: "none",
+                random: true,
+                out_mode: "out",
+                bounce: false
             }
         },
         interactivity: {
             detect_on: "canvas",
-            // Отключаем интерактивность для 'static'
             events: {
                 onhover: { enable: !isStatic, mode: "repulse" },
                 onclick: { enable: !isStatic, mode: "push" },
@@ -539,13 +505,13 @@ function initSearch() {
 
         const results = functionsData.filter(func => {
             const descText = func.desc[currentLang] ? func.desc[currentLang].replace(/<[^>]*>?/gm, '') : '';
-            const nameText = func.name.replace(/<[^>]*>?/gm, ''); // Очищаем имя от HTML
+            const nameText = func.name.replace(/<[^>]*>?/gm, '');
             return nameText.toLowerCase().includes(query) || descText.toLowerCase().includes(query);
         });
 
         if (results.length > 0) {
             searchResults.innerHTML = results.map(func => {
-                const funcName = func.name.replace(/<[^>]*>?/gm, ''); // Очищаем имя
+                const funcName = func.name.replace(/<[^>]*>?/gm, '');
                 const funcDesc = func.desc[currentLang].replace(/<[^>]*>?/gm, '');
 
                 const highlightedName = highlight(funcName, rawQuery);
@@ -585,15 +551,13 @@ function navigateToFunction(funcId) {
     const funcElement = document.getElementById(funcId);
     if (funcElement) {
         funcElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        
-        // Отключаем анимацию подсветки если эффекты не на 'full'
+
         if (currentEffectsLevel === 2) {
             funcElement.classList.add('highlight-animation');
             funcElement.addEventListener('animationend', () => {
                 funcElement.classList.remove('highlight-animation');
             }, { once: true });
         } else {
-             // Просто быстрая подсветка без CSS анимации
             funcElement.style.boxShadow = '0 0 25px rgba(99, 102, 241, 0.7)';
             setTimeout(() => {
                 funcElement.style.boxShadow = '';
@@ -602,7 +566,6 @@ function navigateToFunction(funcId) {
     }
 }
 
-// Инициализация основных ссылок (шапка, лого, кнопки)
 function initNavigation() {
     const logoLink = document.getElementById('logoLink');
     if (logoLink) {
@@ -635,7 +598,6 @@ function initNavigation() {
     });
 }
 
-// Инициализация ссылок бокового меню (вызывается после buildDocumentation)
 function initNavigationSidebarLinks() {
     document.querySelectorAll('.sidebar-link').forEach(link => {
         link.addEventListener('click', function (e) {
@@ -682,7 +644,7 @@ function initDocsCopy() {
     copyBtn.addEventListener('click', () => {
         if (copyBtn.classList.contains('copied') || functionsData.length === 0) return;
 
-        let fullDocsText = 'GoreBox Modding API v1.1\n\n'; // ВЕРСИЯ
+        let fullDocsText = 'GoreBox Modding API v1.1\n\n';
         const sectionTitles = {};
         document.querySelectorAll('#documentation-page .section-title').forEach(el => {
             const section = el.closest('.section');
@@ -703,7 +665,7 @@ function initDocsCopy() {
                 fullDocsText += `==============================\n${sectionTitles[sectionId]}\n==============================\n\n`;
 
                 sectionFuncs.forEach(func => {
-                    let codeText = func.code.replace(/<[^>]*>?/gm, ''); // Убираем HTML из кода
+                    let codeText = func.code.replace(/<[^>]*>?/gm, '');
 
                     if (func.commentKey && translations['en'][`comment_${func.commentKey}`]) {
                         const commentTag = `--[[comment:${func.commentKey}]]`;
@@ -738,7 +700,6 @@ function initDocsCopy() {
 
 function initCodeCopy() {
     document.querySelectorAll('.function-copy').forEach(button => {
-        // Удаляем старый, если есть
         button.replaceWith(button.cloneNode(true));
     });
 
@@ -891,7 +852,7 @@ function initSettings() {
 
     const columnToggle = document.getElementById('columnToggle');
     const docPage = document.getElementById('documentation-page');
-    const effectsSlider = document.getElementById('effectsSlider'); 
+    const effectsSlider = document.getElementById('effectsSlider');
 
     if (settingsBtnDesktop) settingsBtnDesktop.addEventListener('click', () => settingsPanel.classList.add('active'));
     if (settingsClose) settingsClose.addEventListener('click', () => settingsPanel.classList.remove('active'));
@@ -962,26 +923,38 @@ function initSettings() {
 
 function changeTheme(theme) {
     document.body.classList.add('theme-changing');
+
+    document.documentElement.classList.remove('programmer-theme', 'gorebox-theme');
+    if (theme === 'programmer') {
+        document.documentElement.classList.add('programmer-theme');
+    } else if (theme === 'gorebox') {
+        document.documentElement.classList.add('gorebox-theme');
+    }
+
     setTimeout(() => {
         document.body.classList.remove('programmer-theme', 'gorebox-theme');
-
         if (theme === 'programmer') {
             document.body.classList.add('programmer-theme');
         } else if (theme === 'gorebox') {
             document.body.classList.add('gorebox-theme');
         }
 
-        // Анимация смены темы должна быть статичной, если эффекты не 'full'
-        if(currentEffectsLevel < 2) {
-             document.body.classList.remove('theme-changing');
+        if (currentEffectsLevel < 2) {
+            document.body.classList.remove('theme-changing');
         }
-        
+
         setTimeout(() => document.body.classList.remove('theme-changing'), 800);
         localStorage.setItem('theme', theme);
     }, 300);
 }
 
 function changeFont(font) {
+    if (font === 'wes_fy_black') {
+        document.documentElement.classList.add('font-wes-fy-black');
+    } else {
+        document.documentElement.classList.remove('font-wes-fy-black');
+    }
+
     if (font === 'wes_fy_black') {
         document.body.classList.add('font-wes-fy-black');
     } else {
@@ -1003,66 +976,58 @@ function clearAllEffectElements() {
         window.pJSDom[0].pJS.fn.vendors.destroypJS();
         window.pJSDom = [];
     }
-    
-    // Удаляем классы режимов
+
     document.body.classList.remove('effects-disabled', 'effects-static');
 }
 
 
 function toggleVisualEffects(level) {
-    currentEffectsLevel = level; // 0, 1, 2
-    
-    // 1. Очищаем все старые эффекты
+    currentEffectsLevel = level;
+
     clearAllEffectElements();
 
-    // 2. Устанавливаем классы на body
     if (level === 0) {
         document.body.classList.add('effects-disabled');
     } else if (level === 1) {
         document.body.classList.add('effects-static');
     }
-    // level === 2 не требует класса, это по умолчанию
-
-    // 3. (Пере)создаем эффекты в соответствии с новым уровнем
     createStars();
     createComets();
     createBloodEffect();
     initParticles();
-    
-    // 4. Сохраняем
+
     localStorage.setItem('visualEffectsLevel', level.toString());
 }
 
 
 function loadSettings() {
     const savedTheme = localStorage.getItem('theme') || 'gorebox';
+    const savedFont = localStorage.getItem('font') || 'wes_fy_black';
+    const savedLanguage = localStorage.getItem('language') || 'en';
+    const savedLayout = localStorage.getItem('layoutColumns') || 'two';
+    const savedEffectsLevel = parseInt(localStorage.getItem('visualEffectsLevel') || '1', 10);
+
     changeTheme(savedTheme);
     document.querySelectorAll('.theme-option').forEach(option => {
         option.classList.toggle('active', option.getAttribute('data-theme') === savedTheme);
     });
 
-    const savedFont = localStorage.getItem('font') || 'default';
     changeFont(savedFont);
     document.querySelectorAll('.font-option').forEach(option => {
         option.classList.toggle('active', option.getAttribute('data-font') === savedFont);
     });
 
-    // ИЗМЕНЕНО: Загрузка уровня эффектов
-    // Загружаем ДО языка, чтобы changeLanguage() знал, как рендерить
-    const savedEffectsLevel = parseInt(localStorage.getItem('visualEffectsLevel') || '2', 10);
     const effectsSlider = document.getElementById('effectsSlider');
     if (effectsSlider) {
         effectsSlider.value = savedEffectsLevel;
     }
-    // Применяем эффекты
     toggleVisualEffects(savedEffectsLevel);
 
+    changeLanguage(savedLanguage);
+    document.querySelectorAll('.language-option').forEach(option => {
+        option.classList.toggle('active', option.getAttribute('data-lang') === savedLanguage);
+    });
 
-    const savedLanguage = localStorage.getItem('language') || 'en';
-    changeLanguage(savedLanguage); // Это загрузит блоги и т.д.
-
-
-    const savedLayout = localStorage.getItem('layoutColumns') || 'one';
     const columnToggle = document.getElementById('columnToggle');
     const docPage = document.getElementById('documentation-page');
     if (columnToggle && docPage) {
@@ -1075,13 +1040,11 @@ function loadSettings() {
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    // Инициализация функций, которые не зависят от данных
-    initNavigation(); // Навигация по шапке
+    initNavigation();
     initBlogModal();
     initMobileMenu();
-    initSettings(); // Слушатели для панели настроек
+    initSettings();
 
-    // Загрузка данных
     Promise.all([
         fetch('blog.json').then(res => {
             if (!res.ok) throw new Error('Failed to load blog.json');
@@ -1092,40 +1055,34 @@ document.addEventListener('DOMContentLoaded', function () {
             return res.json();
         })
     ])
-    .then(([blogData, funcData]) => {
-        blogPosts = blogData;
-        functionsData = funcData;
+        .then(([blogData, funcData]) => {
+            blogPosts = blogData;
+            functionsData = funcData;
 
-        // 1. Строим HTML на основе functions.json
-        buildDocumentation(functionsData);
-        
-        // 2. Загружаем настройки (тема, язык и т.д.)
-        // Это вызовет changeLanguage(), который переведет UI и функции
-        loadSettings();
+            buildDocumentation(functionsData);
 
-        // 3. Инициализируем функции, зависящие от данных
-        initSearch();
-        initDocsCopy();
+            loadSettings();
 
-        // 4. Восстанавливаем активную страницу
-        const savedPage = localStorage.getItem('activePage') || 'home';
-        if (savedPage !== 'home') {
-            switchPage(savedPage);
-        }
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('data-page') === savedPage) {
-                link.classList.add('active');
+            initSearch();
+            initDocsCopy();
+
+            const savedPage = localStorage.getItem('activePage') || 'home';
+            if (savedPage !== 'home') {
+                switchPage(savedPage);
             }
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === savedPage) {
+                    link.classList.add('active');
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error loading essential data:', error);
+            document.body.innerHTML = '<h1>Failed to load site data. Please check console.</h1>';
         });
-    })
-    .catch(error => {
-        console.error('Error loading essential data:', error);
-        document.body.innerHTML = '<h1>Failed to load site data. Please check console.</h1>';
-    });
 
 
-    // Слушатель изменения размера окна
     window.addEventListener('resize', () => {
         const sidebar = document.getElementById('sidebar');
         const docPage = document.getElementById('documentation-page');
@@ -1142,15 +1099,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Intersection Observer для анимаций
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            // Анимация появления блоков работает только на 'full'
             if (entry.isIntersecting && currentEffectsLevel === 2) {
                 entry.target.style.animationPlayState = 'running';
                 observer.unobserve(entry.target);
             } else if (currentEffectsLevel < 2) {
-                // Если эффекты выключены или статичны, просто показываем блок
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'none';
             }
@@ -1159,7 +1113,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.querySelectorAll('.section, .clickable-card-wrapper').forEach(el => {
         if (currentEffectsLevel < 2) {
-            // Если эффекты не 'full', сразу показываем, не ждем observer
             el.style.opacity = '1';
             el.style.transform = 'none';
         } else {
