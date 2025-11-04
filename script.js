@@ -149,7 +149,7 @@ function buildDocumentation(functions) {
         'camera': document.querySelector('#camera .function-grid'),
         'input': document.querySelector('#input .function-grid')
     };
-
+    
     // Контейнеры для ссылок в боковом меню (основном и мобильном)
     const sidebarLinkContainers = {
         'lifecycle': document.querySelectorAll('.sidebar-links[data-links-for="lifecycle"]'),
@@ -198,7 +198,7 @@ function buildDocumentation(functions) {
         const sidebarLinkHTML = `
         <li><a href="#${func.id}" class="sidebar-link" data-function="${func.id}">${linkIcon} ${linkName}</a></li>
         `;
-
+        
         const linkContainers = sidebarLinkContainers[func.section];
         if (linkContainers) {
             linkContainers.forEach(list => list.insertAdjacentHTML('beforeend', sidebarLinkHTML));
@@ -406,7 +406,12 @@ function createComets() {
 
 function createBloodEffect() {
     const container = document.getElementById('goreboxBackground');
-    if (!container || currentEffectsLevel === 0) return;
+    
+    // --- ИЗМЕНЕНО ---
+    // Эффект пентагонов запускается ТОЛЬКО на 'full' (level 2)
+    // Раньше было (currentEffectsLevel === 0)
+    if (!container || currentEffectsLevel < 2) return;
+    // --- КОНЕЦ ИЗМЕНЕНИЯ ---
 
     const pentagonCount = 40;
     const cornerDensity = 30;
@@ -435,13 +440,8 @@ function createBloodEffect() {
         const startRotate = Math.random() * 360;
         pentagon.style.setProperty('--r-start', `${startRotate}deg`);
         
-        // Если 'static', задаем только начальный поворот
-        if (currentEffectsLevel === 1) {
-             pentagon.style.transform = `rotate(${startRotate}deg)`;
-             pentagon.style.opacity = `${Math.random() * 0.3 + 0.1}`; // Случайная статичная прозрачность
-        }
-        
-        // Если 'full', добавляем анимации
+        // 'static' (level 1) сюда больше не попадет,
+        // поэтому эта проверка всегда будет 'true' (level 2)
         if (currentEffectsLevel === 2) {
             const endRotate = startRotate + (Math.random() * 60 - 30);
             pentagon.style.setProperty('--r-end', `${endRotate}deg`);
@@ -682,7 +682,7 @@ function initDocsCopy() {
     copyBtn.addEventListener('click', () => {
         if (copyBtn.classList.contains('copied') || functionsData.length === 0) return;
 
-        let fullDocsText = 'GoreBox Modding API Documentation v1.1\n\n'; // ВЕРСИЯ
+        let fullDocsText = 'GoreBox Modding API v1.1\n\n'; // ВЕРСИЯ
         const sectionTitles = {};
         document.querySelectorAll('#documentation-page .section-title').forEach(el => {
             const section = el.closest('.section');
@@ -891,7 +891,7 @@ function initSettings() {
 
     const columnToggle = document.getElementById('columnToggle');
     const docPage = document.getElementById('documentation-page');
-    const effectsSlider = document.getElementById('effectsSlider'); // ИЗМЕНЕНО
+    const effectsSlider = document.getElementById('effectsSlider'); 
 
     if (settingsBtnDesktop) settingsBtnDesktop.addEventListener('click', () => settingsPanel.classList.add('active'));
     if (settingsClose) settingsClose.addEventListener('click', () => settingsPanel.classList.remove('active'));
@@ -950,7 +950,6 @@ function initSettings() {
         });
     }
 
-    // ИЗМЕНЕНО: Слушатель для слайдера
     if (effectsSlider) {
         effectsSlider.addEventListener('input', () => {
             const level = parseInt(effectsSlider.value, 10);
