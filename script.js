@@ -43,6 +43,42 @@ const translations = {
         docs_copied: "Скопировано!",
         search_placeholder: "Поиск по документации...",
 
+        tutorials: "Уроки",
+        api_reference: "API Справочник",
+        tutorials_header: "Начало работы: Ваш первый мод",
+        tutorials_intro: "Добро пожаловать в мир моддинга GoreBox! Это пошаговое руководство проведет вас от создания пустого файла до полностью рабочего мода \"Bouncing DVD Logo\". К концу этого урока вы поймете структуру мода, жизненный цикл и как использовать GUI.",
+        tutorials_step1_title: "Шаг 1: Где должны находиться моды?",
+        tutorials_step1_desc: "Игра ищет моды в специальной папке в вашем компьютере. Прежде чем что-либо создавать, вам нужно найти или создать эту папку.",
+        tutorials_step1_desc2: "Нажмите <kbd>Win + R</kbd>, вставьте этот путь и нажмите Enter:",
+        tutorials_step1_desc3: "Если папки `Mods` не существует, просто создайте ее. Каждый мод, который вы создаете, будет отдельной папкой внутри этой папки `Mods`.",
+        tutorials_step2_title: "Шаг 2: Структура папки мода",
+        tutorials_step2_desc: "Каждый мод — это папка. Давайте создадим наш мод. Внутри папки `Mods` создайте новую папку с именем `MyMod`. Внутри нее должны лежать 4 обязательных элемента:",
+        tutorials_file_main: "— Это \"мозг\" вашего мода. Весь ваш Lua-код будет здесь.",
+        tutorials_file_info: "— Информация о вашем моде, которую игра показывает в меню.",
+        tutorials_file_icon: "— Иконка 256x256, которую игра показывает в меню.",
+        tutorials_file_icons: "— (Необязательно) Папка для наших собственных изображений, которые мы будем использовать в моде.",
+        tutorials_step3_title: "Шаг 3: Файл info.txt",
+        tutorials_step3_desc: "Это простой текстовый файл. Создайте `info.txt` внутри папки `MyMod` и вставьте в него следующее:",
+        tutorials_info_name: ": Название мода.",
+        tutorials_info_desc: ": Описание в меню.",
+        tutorials_info_ver: ": Ваша версия мода.",
+        tutorials_info_active: ": `true` или `false`. Определяет, включен ли мод при запуске.",
+        tutorials_step4_title: "Шаг 4: Иконки",
+        tutorials_step4_desc: "Вам понадобятся изображения. Вы можете использовать свои собственные или скачать готовый набор, который мы будем использовать в этом уроке.",
+        tutorials_step4_desc2: "1. Скачайте `icon.jpg` (иконка мода) и `vabish.jpg` (лого DVD) по ссылкам ниже.<br>2. Поместите `icon.jpg` в корень папки `MyMod`.<br>3. Создайте папку `icons` внутри `MyMod`.<br>4. Поместите `vabish.jpg` внутрь папки `icons`.",
+        tutorials_step5_title: "Шаг 5: Код (main.lua)",
+        tutorials_step5_desc: "Настало время для \"мозга\". Создайте `main.lua` и вставьте в него этот код. Не волнуйтесь, мы разберем каждую часть.",
+        tutorials_step6_title: "Шаг 6: Разбор кода",
+        tutorials_step6_1: "<b>Локальная таблица (M):</b> Каждый мод в Lua - это таблица. Мы называем ее `M` (сокращение от Module). Все наши функции (`M.start`, `M.update`) принадлежат этой таблице.",
+        tutorials_step6_2: "<b>Переменные:</b> Мы объявляем переменные вверху, чтобы хранить текстуру, позицию и скорость нашего логотипа.",
+        tutorials_step6_3: "<b>M.start():</b> Срабатывает один раз при запуске игры. Идеальное место для загрузки ресурсов (как `texture.load`) и установки начальных значений (как случайная позиция).",
+        tutorials_step6_4: "<b>M.update():</b> Срабатывает постоянно, много раз в секунду. Здесь мы обновляем позицию логотипа (`dvdPos.x = dvdPos.x + dvdSpeed.x`) и проверяем, не ударился ли он о стену.",
+        tutorials_step6_5: "<b>M.gui_update():</b> Тоже срабатывает постоянно. Используется *только* для рисования. Мы используем `gui.beginArea` и `gui.box`, чтобы нарисовать нашу текстуру в позиции, которую мы рассчитали в `M.update`.",
+        tutorials_step6_6: "<b>return M:</b> В конце файла мы всегда должны возвращать нашу главную таблицу `M`, чтобы игра могла ее использовать.",
+        tutorials_step7_title: "Шаг 7: Запуск!",
+        tutorials_step7_desc: "Сохраните все файлы. Убедитесь, что `active:true` в вашем `info.txt`. Запустите GoreBox. Если вы все сделали правильно, вы увидите логотип Vabish, отскакивающий от краев экрана!",
+        tutorials_step7_desc2: "Поздравляем! Вы только что создали свой первый мод, изучив файловую структуру, жизненный цикл и основы GUI. Теперь вы готовы к более сложным задачам.",
+
         comment_game_logic: "-- Логика игры здесь",
         comment_camera_logic: "-- Логика камеры часто здесь",
         comment_physics_logic: "-- Логика физики здесь",
@@ -56,7 +92,24 @@ const translations = {
         comment_push_forward: "-- Толкнуть вперед",
         comment_fly_mode: "-- Режим полета",
         comment_z_depth: "-- z - это глубина от камеры",
-        comment_show_cursor: "-- Показать курсор (для меню)"
+        comment_show_cursor: "-- Показать курсор (для меню)",
+
+        tut_code_1: "-- 1. Таблица, в которой будет храниться наш мод",
+        tut_code_2: "-- 2. Переменные для нашего мода",
+        tut_code_3: "-- 3. Жизненный цикл: Start()",
+        tut_code_4: "-- Вызывается ОДИН РАЗ при загрузке мода",
+        tut_code_5: "-- Загружаем наше изображение из папки 'icons'",
+        tut_code_6: "-- Устанавливаем случайную начальную позицию",
+        tut_code_7: "-- 4. Жизненный цикл: Update()",
+        tut_code_8: "-- Вызывается КАЖДЫЙ КАДР. Здесь живет вся логика.",
+        tut_code_9: "-- Двигаем логотип",
+        tut_code_10: "-- Проверка столкновений с краями экрана",
+        tut_code_11: "-- Меняем направление",
+        tut_code_12: "-- 5. Жизненный цикл: Gui_Update()",
+        tut_code_13: "-- Вызывается каждый кадр (после Update). Здесь мы РИСУЕМ.",
+        tut_code_14: "-- Если текстура еще не загрузилась, ничего не делаем",
+        tut_code_15: "-- Рисуем наше изображение в его текущей позиции",
+        tut_code_16: "-- 6. Обязательно возвращаем таблицу мода"
     },
     en: {
         home: "Home",
@@ -102,6 +155,42 @@ const translations = {
         docs_copied: "Copied!",
         search_placeholder: "Search documentation...",
 
+        tutorials: "Tutorials",
+        api_reference: "API Reference",
+        tutorials_header: "Getting Started: Your First Mod",
+        tutorials_intro: "Welcome to the world of GoreBox modding! This step-by-step guide will take you from an empty file to a fully working \"Bouncing DVD Logo\" mod. By the end, you'll understand mod structure, lifecycles, and how to use the GUI.",
+        tutorials_step1_title: "Step 1: Where do mods live?",
+        tutorials_step1_desc: "The game looks for mods in a special folder on your computer. Before creating anything, you need to find or create this folder.",
+        tutorials_step1_desc2: "Press <kbd>Win + R</kbd>, paste in this path, and hit Enter:",
+        tutorials_step1_desc3: "If the `Mods` folder doesn't exist, go ahead and create it. Every mod you make will be a separate folder inside this `Mods` folder.",
+        tutorials_step2_title: "Step 2: Mod Folder Structure",
+        tutorials_step2_desc: "Every mod is a folder. Let's create ours. Inside the `Mods` folder, create a new folder named `MyMod`. Inside it, you need 4 essential items:",
+        tutorials_file_main: "— This is the \"brain\" of your mod. All your Lua code goes here.",
+        tutorials_file_info: "— Information about your mod that the game shows in the menu.",
+        tutorials_file_icon: "— A 256x256 icon the game shows in the menu.",
+        tutorials_file_icons: "— (Optional) A folder for our own images to use in the mod.",
+        tutorials_step3_title: "Step 3: The info.txt file",
+        tutorials_step3_desc: "This is a simple text file. Create `info.txt` inside your `MyMod` folder and paste this in:",
+        tutorials_info_name: ": The name of your mod.",
+        tutorials_info_desc: ": The description in the menu.",
+        tutorials_info_ver: ": Your mod's version.",
+        tutorials_info_active: ": `true` or `false`. Toggles if the mod is on by default.",
+        tutorials_step4_title: "Step 4: The Icons",
+        tutorials_step4_desc: "You'll need images. You can use your own, or download the pre-made pack we'll use for this tutorial.",
+        tutorials_step4_desc2: "1. Download `icon.jpg` (the mod icon) and `vabish.jpg` (the DVD logo) from the links below.<br>2. Place `icon.jpg` in the root of your `MyMod` folder.<br>3. Create a new folder inside `MyMod` called `icons`.<br>4. Place `vabish.jpg` inside the `icons` folder.",
+        tutorials_step5_title: "Step 5: The Code (main.lua)",
+        tutorials_step5_desc: "Time for the \"brain\". Create `main.lua` and paste in this code. Don't worry, we'll break down every part.",
+        tutorials_step6_title: "Step 6: Code Breakdown",
+        tutorials_step6_1: "<b>Local Table (M):</b> Every mod in Lua is a table. We call it `M` (for Module). All our functions (`M.start`, `M.update`) belong to this table.",
+        tutorials_step6_2: "<b>Variables:</b> We declare variables at the top to store our logo's texture, position, and speed.",
+        tutorials_step6_3: "<b>M.start():</b> Runs once when the mod loads. This is the perfect place to load assets (like `texture.load`) and set up initial values (like a random position).",
+        tutorials_step6_4: "<b>M.update():</b> Runs constantly, many times per second. This is where we update the logo's position (`dvdPos.x = dvdPos.x + dvdSpeed.x`) and check if it hit a wall.",
+        tutorials_step6_5: "<b>M.gui_update():</b> Also runs constantly. This is used *only* for drawing. We use `gui.beginArea` and `gui.box` to draw our texture at the position we calculated in `M.update`.",
+        tutorials_step6_6: "<b>return M:</b> At the end of the file, we must always return our main table `M` so the game can use it.",
+        tutorials_step7_title: "Step 7: Run it!",
+        tutorials_step7_desc: "Save all your files. Make sure `active:true` is in your `info.txt`. Launch GoreBox. If you did everything right, you should see the Vabish logo bouncing off the screen edges!",
+        tutorials_step7_desc2: "Congratulations! You've just made your first mod, learned the file structure, the lifecycle, and GUI basics. You're ready for more complex challenges.",
+
         comment_game_logic: "-- Game logic here",
         comment_camera_logic: "-- Camera logic often goes here",
         comment_physics_logic: "-- Physics logic here",
@@ -115,7 +204,24 @@ const translations = {
         comment_push_forward: "-- Push forward",
         comment_fly_mode: "-- Fly mode",
         comment_z_depth: "-- z is depth from camera",
-        comment_show_cursor: "-- Show cursor (for menu)"
+        comment_show_cursor: "-- Show cursor (for menu)",
+
+        tut_code_1: "-- 1. A table to hold our mod",
+        tut_code_2: "-- 2. Variables for our mod",
+        tut_code_3: "-- 3. Lifecycle: Start()",
+        tut_code_4: "-- Called ONCE when the mod loads",
+        tut_code_5: "-- Load our image from the 'icons' folder",
+        tut_code_6: "-- Set a random starting position",
+        tut_code_7: "-- 4. Lifecycle: Update()",
+        tut_code_8: "-- Called EVERY FRAME. All logic lives here.",
+        tut_code_9: "-- Move the logo",
+        tut_code_10: "-- Check for screen edge collision",
+        tut_code_11: "-- Flip direction",
+        tut_code_12: "-- 5. Lifecycle: Gui_Update()",
+        tut_code_13: "-- Called every frame (after Update). We DRAW here.",
+        tut_code_14: "-- If the texture hasn't loaded yet, do nothing",
+        tut_code_15: "-- Draw our image at its current position",
+        tut_code_16: "-- 6. Must return the mod table"
     }
 };
 
@@ -128,6 +234,24 @@ let blogPosts = [];
 let functionsData = [];
 let closeMobileMenu = () => { };
 let currentEffectsLevel = 2;
+
+const SECTION_ORDER = [
+    'lifecycle', 'global-functions', 'lua-gui', 'resources',
+    'gameobject', 'transform', 'physics', 'audio', 'camera', 'input'
+];
+
+const SECTION_ICONS = {
+    'lifecycle': 'fas fa-sync-alt',
+    'global-functions': 'fas fa-globe',
+    'lua-gui': 'fas fa-desktop',
+    'resources': 'fas fa-paint-brush',
+    'gameobject': 'fas fa-gamepad',
+    'transform': 'fas fa-compass',
+    'physics': 'fas fa-bowling-ball',
+    'audio': 'fas fa-headphones',
+    'camera': 'fas fa-camera',
+    'input': 'fas fa-keyboard'
+};
 
 function buildDocumentation(functions) {
     const sections = {
@@ -143,21 +267,9 @@ function buildDocumentation(functions) {
         'input': document.querySelector('#input .function-grid')
     };
 
-    const sidebarLinkContainers = {
-        'lifecycle': document.querySelectorAll('.sidebar-links[data-links-for="lifecycle"]'),
-        'global-functions': document.querySelectorAll('.sidebar-links[data-links-for="global-functions"]'),
-        'lua-gui': document.querySelectorAll('.sidebar-links[data-links-for="lua-gui"]'),
-        'resources': document.querySelectorAll('.sidebar-links[data-links-for="resources"]'),
-        'gameobject': document.querySelectorAll('.sidebar-links[data-links-for="gameobject"]'),
-        'transform': document.querySelectorAll('.sidebar-links[data-links-for="transform"]'),
-        'physics': document.querySelectorAll('.sidebar-links[data-links-for="physics"]'),
-        'audio': document.querySelectorAll('.sidebar-links[data-links-for="audio"]'),
-        'camera': document.querySelectorAll('.sidebar-links[data-links-for="camera"]'),
-        'input': document.querySelectorAll('.sidebar-links[data-links-for="input"]')
-    };
-
     Object.values(sections).forEach(s => { if (s) s.innerHTML = ''; });
-    Object.values(sidebarLinkContainers).forEach(list => list.forEach(s => { if (s) s.innerHTML = ''; }));
+
+    const groupedFunctions = {};
 
     functions.forEach(func => {
         const container = sections[func.section];
@@ -166,32 +278,68 @@ function buildDocumentation(functions) {
             return;
         }
 
+        const descHtml = func.desc[currentLang] || func.desc['en'];
+        const parts = descHtml.split(/<br\s*\/?>/);
+
+        let mainDesc = parts[0];
+        const params = [];
+        let returns = null;
+        let returnsPrefix = currentLang === 'ru' ? 'Возвращает:' : 'Returns:';
+
+        for (let i = 1; i < parts.length; i++) {
+            const part = parts[i].trim();
+            if (part.startsWith('-')) {
+                params.push(part.substring(1).trim());
+            } else if (part.includes(returnsPrefix)) {
+                returns = part.replace(/<b>.*?<\/b>/i, '').replace(returnsPrefix, '').trim();
+            } else if (part) {
+                mainDesc += ' ' + part;
+            }
+        }
+
         const cardHTML = `
         <div class="function-card" id="${func.id}">
             <div class="function-header">
                 <h3 class="function-name">${func.name}</h3>
             </div>
-            <p class="function-description" data-translate-desc="${func.id}">${func.desc[currentLang] || func.desc['en']}</p>
+            <p class="function-description" data-translate-desc="${func.id}">${mainDesc}</p>
+            
+            ${(params.length > 0 || returns) ? `
+            <div class="function-details-toggle" role="button" tabindex="0" aria-expanded="false" aria-controls="details-${func.id}">
+                <span><i class="fas fa-list-ul"></i> Parameters & Details</span>
+                <i class="fas fa-chevron-down toggle-arrow"></i>
+            </div>
+            <div class="function-details-content" id="details-${func.id}">
+                ${params.length > 0 ? `
+                    <h4 class="details-title">Parameters</h4>
+                    <ul class="param-list">
+                        ${params.map(p => `<li>${p.replace(/`- (.*?)`/, '<code>$1</code>')}</li>`).join('')}
+                    </ul>
+                ` : ''}
+                ${returns ? `
+                    <h4 class="details-title">Returns</h4>
+                    <p class="return-value">${returns}</p>
+                ` : ''}
+            </div>
+            ` : ''}
+
             <div class="code-block">
                 <button class="function-copy" title="Copy Example"><i class="far fa-copy"></i><i class="fas fa-check"></i></button>
                 <pre>${func.code}</pre>
             </div>
         </div>
         `;
+
         container.insertAdjacentHTML('beforeend', cardHTML);
 
-        const linkName = func.name.replace(/<[^>]*>?/gm, '').replace(/\(.*\)/, '').trim();
-        const linkIconMatch = func.name.match(/<i class="([^"]+)"><\/i>/);
-        const linkIcon = linkIconMatch ? linkIconMatch[0] : '<i class="fas fa-code"></i>';
-
-        const sidebarLinkHTML = `
-        <li><a href="#${func.id}" class="sidebar-link" data-function="${func.id}">${linkIcon} ${linkName}</a></li>
-        `;
-
-        const linkContainers = sidebarLinkContainers[func.section];
-        if (linkContainers) {
-            linkContainers.forEach(list => list.insertAdjacentHTML('beforeend', sidebarLinkHTML));
+        if (!groupedFunctions[func.section]) {
+            groupedFunctions[func.section] = {};
         }
+        if (!groupedFunctions[func.section][func.category]) {
+            groupedFunctions[func.section][func.category] = [];
+        }
+        groupedFunctions[func.section][func.category].push(func);
+
 
         if (func.commentKey) {
             const commentEl = container.querySelector(`#${func.id} .comment`);
@@ -213,20 +361,119 @@ function buildDocumentation(functions) {
         }
     });
 
+    buildSidebars(groupedFunctions);
+
     initCodeCopy();
     initNavigationSidebarLinks();
 }
 
+function buildSidebars(groupedFunctions) {
+    const sidebarContainer = document.getElementById('sidebar');
+    const mobileSidebarContainer = document.getElementById('mobile-sidebar-container');
+
+    if (!sidebarContainer || !mobileSidebarContainer) return;
+
+    let sidebarHTML = '';
+
+    SECTION_ORDER.forEach(sectionId => {
+        const sectionData = groupedFunctions[sectionId];
+        if (!sectionData) return;
+
+        const sectionIcon = SECTION_ICONS[sectionId] || 'fas fa-code-branch';
+        const sectionTitleKey = sectionId.replace(/-/g, '_');
+
+        sidebarHTML += `
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">
+                    <i class="${sectionIcon}"></i> 
+                    <span data-translate="${sectionTitleKey}">${translations[currentLang][sectionTitleKey] || sectionId}</span>
+                </h3>
+        `;
+
+        const categories = Object.keys(sectionData).sort();
+
+        categories.forEach(categoryName => {
+            if (categoryName !== "General") {
+                sidebarHTML += `<h4 class="sidebar-category-title">${categoryName}</h4>`;
+            }
+
+            sidebarHTML += `<ul class="sidebar-links">`;
+
+            const functions = sectionData[categoryName];
+            functions.forEach(func => {
+                const linkName = func.name.replace(/<[^>]*>?/gm, '').replace(/\(.*\)/, '').trim();
+                const linkIconMatch = func.name.match(/<i class="([^"]+)"><\/i>/);
+                const linkIcon = linkIconMatch ? linkIconMatch[0] : '<i class="fas fa-code"></i>';
+
+                sidebarHTML += `
+                    <li><a href="#${func.id}" class="sidebar-link" data-function="${func.id}">${linkIcon} ${linkName}</a></li>
+                `;
+            });
+
+            sidebarHTML += `</ul>`;
+        });
+
+        sidebarHTML += `</div>`;
+    });
+
+    sidebarContainer.innerHTML = sidebarHTML;
+    mobileSidebarContainer.innerHTML = sidebarHTML;
+}
+
+
 function updateFunctionTranslations(lang) {
     if (!functionsData) return;
     functionsData.forEach(func => {
-        const el = document.querySelector(`[data-translate-desc="${func.id}"]`);
-        if (el) {
-            el.innerHTML = func.desc[lang] || func.desc['en'];
+        const descHtml = func.desc[lang] || func.desc['en'];
+        const parts = descHtml.split(/<br\s*\/?>/);
+
+        let mainDesc = parts[0];
+        const params = [];
+        let returns = null;
+        let returnsPrefix = lang === 'ru' ? 'Возвращает:' : 'Returns:';
+
+        for (let i = 1; i < parts.length; i++) {
+            const part = parts[i].trim();
+            if (part.startsWith('-')) {
+                params.push(part.substring(1).trim());
+            } else if (part.includes(returnsPrefix)) {
+                returns = part.replace(/<b>.*?<\/b>/i, '').replace(returnsPrefix, '').trim();
+            } else if (part) {
+                mainDesc += ' ' + part;
+            }
+        }
+
+        const card = document.getElementById(func.id);
+        if (!card) return;
+
+        const descEl = card.querySelector('.function-description');
+        if (descEl) {
+            descEl.innerHTML = mainDesc;
+        }
+
+        const paramListEl = card.querySelector('.param-list');
+        if (paramListEl) {
+            paramListEl.innerHTML = params.map(p => `<li>${p.replace(/`- (.*?)`/, '<code>$1</code>')}</li>`).join('');
+        }
+
+        const returnEl = card.querySelector('.return-value');
+        if (returnEl) {
+            if (returns) {
+                returnEl.innerHTML = returns;
+                const titleEl = returnEl.previousElementSibling;
+                if (titleEl && titleEl.classList.contains('details-title')) {
+                    titleEl.style.display = '';
+                }
+            } else {
+                returnEl.innerHTML = '';
+                const titleEl = returnEl.previousElementSibling;
+                if (titleEl && titleEl.classList.contains('details-title')) {
+                    titleEl.style.display = 'none';
+                }
+            }
         }
     });
 }
-
 
 function typeAnimation(element, text) {
     if (typingTimers.has(element)) {
@@ -512,7 +759,7 @@ function initSearch() {
         if (results.length > 0) {
             searchResults.innerHTML = results.map(func => {
                 const funcName = func.name.replace(/<[^>]*>?/gm, '');
-                const funcDesc = func.desc[currentLang].replace(/<[^>]*>?/gm, '');
+                const funcDesc = func.desc[currentLang].split(/<br\s*\/?>/)[0].replace(/<[^>]*>?/gm, '');
 
                 const highlightedName = highlight(funcName, rawQuery);
                 const highlightedDesc = highlight(funcDesc, rawQuery);
@@ -577,13 +824,19 @@ function initNavigation() {
         });
     }
 
-    document.querySelectorAll('.nav-link').forEach(link => {
+    document.querySelectorAll('.nav-link[data-page]').forEach(link => {
         link.addEventListener('click', function (e) {
             e.preventDefault();
             const page = this.getAttribute('data-page');
             switchPage(page);
+
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
             this.classList.add('active');
+
+            const parentDropdown = this.closest('.has-dropdown');
+            if (parentDropdown) {
+                parentDropdown.querySelector('.nav-link.no-click').classList.add('active');
+            }
         });
     });
 
@@ -592,20 +845,37 @@ function initNavigation() {
             e.preventDefault();
             const page = this.getAttribute('data-page');
             switchPage(page);
+
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            document.querySelector(`.nav-link[data-page="${page}"]`).classList.add('active');
+            const targetLink = document.querySelector(`.nav-link[data-page="${page}"]`);
+            if (targetLink) {
+                const parentDropdown = targetLink.closest('.has-dropdown');
+                if (parentDropdown) {
+                    parentDropdown.querySelector('.nav-link.no-click').classList.add('active');
+                    targetLink.classList.add('active');
+                } else {
+                    targetLink.classList.add('active');
+                }
+            }
         });
     });
 }
 
 function initNavigationSidebarLinks() {
-    document.querySelectorAll('.sidebar-link').forEach(link => {
-        link.addEventListener('click', function (e) {
+    ['sidebar', 'mobile-sidebar-container'].forEach(containerId => {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        container.addEventListener('click', function (e) {
+            const link = e.target.closest('.sidebar-link');
+            if (!link) return;
+
             e.preventDefault();
-            const funcId = this.getAttribute('data-function');
+            const funcId = link.getAttribute('data-function');
             navigateToFunction(funcId);
 
             document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+
             document.querySelectorAll(`.sidebar-link[data-function="${funcId}"]`).forEach(l => l.classList.add('active'));
 
             if (typeof closeMobileMenu === 'function') {
@@ -622,6 +892,7 @@ function switchPage(pageId) {
     if (targetPage) {
         targetPage.classList.add('active');
         const sidebar = document.getElementById('sidebar');
+
         if (pageId === 'documentation') {
             if (window.innerWidth > 1024) { sidebar.classList.add('active'); }
         } else {
@@ -654,12 +925,7 @@ function initDocsCopy() {
             }
         });
 
-        const sectionsOrder = [
-            'lifecycle', 'global-functions', 'lua-gui', 'resources',
-            'gameobject', 'transform', 'physics', 'audio', 'camera', 'input'
-        ];
-
-        sectionsOrder.forEach(sectionId => {
+        SECTION_ORDER.forEach(sectionId => {
             const sectionFuncs = functionsData.filter(f => f.section === sectionId);
             if (sectionFuncs.length > 0 && sectionTitles[sectionId]) {
                 fullDocsText += `==============================\n${sectionTitles[sectionId]}\n==============================\n\n`;
@@ -672,8 +938,35 @@ function initDocsCopy() {
                         codeText = codeText.replace(commentTag, translations['en'][`comment_${func.commentKey}`]);
                     }
 
+                    const descHtml = func.desc['en'];
+                    const parts = descHtml.split(/<br\s*\/?>/);
+                    let mainDesc = parts[0].replace(/<[^>]*>?/gm, '');
+                    const params = [];
+                    let returns = null;
+                    let returnsPrefix = 'Returns:';
+
+                    for (let i = 1; i < parts.length; i++) {
+                        const part = parts[i].trim().replace(/<[^>]*>?/gm, '');
+                        if (part.startsWith('-')) {
+                            params.push(part);
+                        } else if (part.includes(returnsPrefix)) {
+                            returns = part.replace(returnsPrefix, '').trim();
+                        } else if (part) {
+                            mainDesc += ' ' + part;
+                        }
+                    }
+
+
                     fullDocsText += `Function: ${func.name.replace(/<[^>]*>?/gm, '')}\n`;
-                    fullDocsText += `Description: ${func.desc['en'].replace(/<[^>]*>?/gm, '')}\n`;
+                    fullDocsText += `Description: ${mainDesc}\n`;
+
+                    if (params.length > 0) {
+                        fullDocsText += `Parameters:\n${params.join('\n')}\n`;
+                    }
+                    if (returns) {
+                        fullDocsText += `Returns: ${returns}\n`;
+                    }
+
                     fullDocsText += `Example:\n${codeText}\n\n------------------------------\n\n`;
                 });
             }
@@ -699,22 +992,30 @@ function initDocsCopy() {
 
 
 function initCodeCopy() {
-    document.querySelectorAll('.function-copy').forEach(button => {
-        button.replaceWith(button.cloneNode(true));
-    });
 
-    document.querySelectorAll('.function-copy').forEach(button => {
-        button.addEventListener('click', function () {
-            if (this.classList.contains('copied')) return;
-            const textToCopy = this.nextElementSibling.textContent;
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                showNotification('Code copied to clipboard!');
-                this.classList.add('copied');
-                setTimeout(() => { this.classList.remove('copied'); }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-                showNotification('Could not copy code');
-            });
+    document.body.addEventListener('click', function (e) {
+        const target = e.target.closest('.function-copy');
+        if (!target) return;
+
+        if (target.classList.contains('copied')) return;
+
+        const codeBlock = target.closest('.code-block');
+        if (!codeBlock) return;
+
+        const pre = codeBlock.querySelector('pre');
+        if (!pre) {
+            console.error('Could not find <pre> block to copy.');
+            return;
+        }
+
+        const textToCopy = pre.textContent;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            showNotification('Code copied to clipboard!');
+            target.classList.add('copied');
+            setTimeout(() => { target.classList.remove('copied'); }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+            showNotification('Could not copy code');
         });
     });
 }
@@ -755,20 +1056,19 @@ function initMobileMenu() {
     const mobileSettingsBtn = document.getElementById('mobileSettingsBtn');
     const settingsPanel = document.getElementById('settingsPanel');
 
-    const docItem = document.querySelector('#mobileMenuPanel .mobile-nav-item.has-submenu');
-    const docLink = document.querySelector('#mobileMenuPanel .mobile-nav-link[data-page="documentation"]');
-    const docToggle = document.querySelector('#mobileMenuPanel .mobile-submenu-toggle');
-    const docSubmenu = document.getElementById('mobileSubmenuContent');
-
     if (!menuBtn || !panel || !overlay || !closeBtn) return;
 
     closeMobileMenu = function () {
         panel.classList.remove('active');
         overlay.classList.remove('active');
         document.body.style.overflow = '';
-        if (docItem) {
-            if (docSubmenu) docSubmenu.style.maxHeight = '0px';
-        }
+        panel.querySelectorAll('.mobile-nav-item.active').forEach(item => {
+            item.classList.remove('active');
+            const content = item.querySelector(':scope > .mobile-submenu-content');
+            if (content) {
+                content.style.maxHeight = '0px';
+            }
+        });
     }
 
     menuBtn.addEventListener('click', () => {
@@ -776,13 +1076,13 @@ function initMobileMenu() {
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
 
-        if (localStorage.getItem('docSubmenuOpen') === 'true') {
-            docItem.classList.add('active');
-            docSubmenu.style.maxHeight = docSubmenu.scrollHeight + 'px';
-        } else {
-            docItem.classList.remove('active');
-            docSubmenu.style.maxHeight = '0px';
-        }
+        panel.querySelectorAll('.mobile-nav-item.active').forEach(item => {
+            item.classList.remove('active');
+            const content = item.querySelector(':scope > .mobile-submenu-content');
+            if (content) {
+                content.style.maxHeight = '0px';
+            }
+        });
     });
 
     closeBtn.addEventListener('click', closeMobileMenu);
@@ -798,45 +1098,80 @@ function initMobileMenu() {
         });
     }
 
-    if (docToggle && docItem && docSubmenu) {
-        docToggle.addEventListener('click', (e) => {
+    panel.querySelectorAll('.mobile-submenu-toggle').forEach(toggle => {
+        toggle.addEventListener('click', (e) => {
             e.preventDefault();
-            const isActive = docItem.classList.toggle('active');
-            if (isActive) {
-                docSubmenu.style.maxHeight = docSubmenu.scrollHeight + "px";
-                localStorage.setItem('docSubmenuOpen', 'true');
-            } else {
-                docSubmenu.style.maxHeight = "0px";
-                localStorage.setItem('docSubmenuOpen', 'false');
-            }
-        });
-    }
+            const parentItem = e.target.closest('.mobile-nav-item');
+            const content = parentItem.querySelector(':scope > .mobile-submenu-content');
+            if (!content) return;
 
-    if (docLink) {
-        docLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            switchPage('documentation');
-            closeMobileMenu();
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            const desktopLink = document.querySelector('.nav-link[data-page="documentation"]');
-            if (desktopLink) desktopLink.classList.add('active');
+            const isOpening = !parentItem.classList.contains('active');
+
+            parentItem.classList.toggle('active');
+
+            if (isOpening) {
+                content.style.maxHeight = content.scrollHeight + "px";
+            } else {
+                content.style.maxHeight = "0px";
+            }
+
+
+            let currentParentContent = parentItem.closest('.mobile-submenu-content');
+            while (currentParentContent) {
+
+                let newParentHeight = 0;
+
+
+                Array.from(currentParentContent.children).forEach(child => {
+
+                    newParentHeight += child.offsetHeight;
+
+
+                    if (child.classList.contains('mobile-nav-item') && child.classList.contains('active')) {
+                        const childContent = child.querySelector(':scope > .mobile-submenu-content');
+                        if (childContent) {
+                            newParentHeight += childContent.scrollHeight;
+                        }
+                    }
+                });
+
+                currentParentContent.style.maxHeight = newParentHeight + "px";
+
+
+                const parentOfCurrentContent = currentParentContent.closest('.mobile-nav-item');
+                if (parentOfCurrentContent) {
+                    currentParentContent = parentOfCurrentContent.closest('.mobile-submenu-content');
+                } else {
+                    currentParentContent = null;
+                }
+            }
+
         });
-    }
+    });
+
 
     panel.querySelectorAll('.mobile-nav-link[data-page]').forEach(link => {
-        if (link.getAttribute('data-page') !== 'documentation') {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const page = link.getAttribute('data-page');
-                switchPage(page);
-                closeMobileMenu();
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                const desktopLink = document.querySelector(`.nav-link[data-page="${page}"]`);
-                if (desktopLink) desktopLink.classList.add('active');
-            });
-        }
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const page = link.getAttribute('data-page');
+            switchPage(page);
+            closeMobileMenu();
+
+
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            const desktopLink = document.querySelector(`.nav-link[data-page="${page}"]`);
+            if (desktopLink) {
+                const parentDropdown = desktopLink.closest('.has-dropdown');
+                if (parentDropdown) {
+                    parentDropdown.querySelector('.nav-link.no-click').classList.add('active');
+                } else {
+                    desktopLink.classList.add('active');
+                }
+            }
+        });
     });
 }
+
 
 function initSettings() {
     const settingsBtnDesktop = document.getElementById('settingsBtn');
@@ -924,6 +1259,7 @@ function initSettings() {
 function changeTheme(theme) {
     document.body.classList.add('theme-changing');
 
+
     document.documentElement.classList.remove('programmer-theme', 'gorebox-theme');
     if (theme === 'programmer') {
         document.documentElement.classList.add('programmer-theme');
@@ -932,12 +1268,14 @@ function changeTheme(theme) {
     }
 
     setTimeout(() => {
+
         document.body.classList.remove('programmer-theme', 'gorebox-theme');
         if (theme === 'programmer') {
             document.body.classList.add('programmer-theme');
         } else if (theme === 'gorebox') {
             document.body.classList.add('gorebox-theme');
         }
+
 
         if (currentEffectsLevel < 2) {
             document.body.classList.remove('theme-changing');
@@ -949,11 +1287,13 @@ function changeTheme(theme) {
 }
 
 function changeFont(font) {
+
     if (font === 'wes_fy_black') {
         document.documentElement.classList.add('font-wes-fy-black');
     } else {
         document.documentElement.classList.remove('font-wes-fy-black');
     }
+
 
     if (font === 'wes_fy_black') {
         document.body.classList.add('font-wes-fy-black');
@@ -977,6 +1317,7 @@ function clearAllEffectElements() {
         window.pJSDom = [];
     }
 
+
     document.body.classList.remove('effects-disabled', 'effects-static');
 }
 
@@ -984,38 +1325,46 @@ function clearAllEffectElements() {
 function toggleVisualEffects(level) {
     currentEffectsLevel = level;
 
+
     clearAllEffectElements();
+
 
     if (level === 0) {
         document.body.classList.add('effects-disabled');
     } else if (level === 1) {
         document.body.classList.add('effects-static');
     }
+
     createStars();
     createComets();
     createBloodEffect();
     initParticles();
+
 
     localStorage.setItem('visualEffectsLevel', level.toString());
 }
 
 
 function loadSettings() {
+
     const savedTheme = localStorage.getItem('theme') || 'gorebox';
     const savedFont = localStorage.getItem('font') || 'wes_fy_black';
     const savedLanguage = localStorage.getItem('language') || 'en';
     const savedLayout = localStorage.getItem('layoutColumns') || 'two';
     const savedEffectsLevel = parseInt(localStorage.getItem('visualEffectsLevel') || '1', 10);
 
+
     changeTheme(savedTheme);
     document.querySelectorAll('.theme-option').forEach(option => {
         option.classList.toggle('active', option.getAttribute('data-theme') === savedTheme);
     });
 
+
     changeFont(savedFont);
     document.querySelectorAll('.font-option').forEach(option => {
         option.classList.toggle('active', option.getAttribute('data-font') === savedFont);
     });
+
 
     const effectsSlider = document.getElementById('effectsSlider');
     if (effectsSlider) {
@@ -1023,10 +1372,12 @@ function loadSettings() {
     }
     toggleVisualEffects(savedEffectsLevel);
 
+
     changeLanguage(savedLanguage);
     document.querySelectorAll('.language-option').forEach(option => {
         option.classList.toggle('active', option.getAttribute('data-lang') === savedLanguage);
     });
+
 
     const columnToggle = document.getElementById('columnToggle');
     const docPage = document.getElementById('documentation-page');
@@ -1040,10 +1391,28 @@ function loadSettings() {
 
 document.addEventListener('DOMContentLoaded', function () {
 
+
     initNavigation();
     initBlogModal();
     initMobileMenu();
     initSettings();
+    initCodeCopy();
+
+
+    document.body.addEventListener('click', function (e) {
+        const toggle = e.target.closest('.function-details-toggle');
+        if (!toggle) return;
+
+        const content = toggle.nextElementSibling;
+        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+        toggle.setAttribute('aria-expanded', !isExpanded);
+        content.style.maxHeight = isExpanded ? '0px' : content.scrollHeight + 'px';
+        toggle.classList.toggle('active', !isExpanded);
+    });
+
+
+
 
     Promise.all([
         fetch('blog.json').then(res => {
@@ -1059,21 +1428,34 @@ document.addEventListener('DOMContentLoaded', function () {
             blogPosts = blogData;
             functionsData = funcData;
 
+
             buildDocumentation(functionsData);
+
 
             loadSettings();
 
+
             initSearch();
             initDocsCopy();
+
 
             const savedPage = localStorage.getItem('activePage') || 'home';
             if (savedPage !== 'home') {
                 switchPage(savedPage);
             }
+
+
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('data-page') === savedPage) {
-                    link.classList.add('active');
+                const linkPage = link.getAttribute('data-page');
+
+                if (linkPage === savedPage) {
+                    const parentDropdown = link.closest('.has-dropdown');
+                    if (parentDropdown) {
+                        parentDropdown.querySelector('.nav-link.no-click').classList.add('active');
+                    } else {
+                        link.classList.add('active');
+                    }
                 }
             });
         })
@@ -1081,6 +1463,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error loading essential data:', error);
             document.body.innerHTML = '<h1>Failed to load site data. Please check console.</h1>';
         });
+
 
 
     window.addEventListener('resize', () => {
@@ -1091,20 +1474,25 @@ document.addEventListener('DOMContentLoaded', function () {
             if (typeof closeMobileMenu === 'function') {
                 closeMobileMenu();
             }
+
             if (docPage && docPage.classList.contains('active')) {
                 sidebar.classList.add('active');
             }
         } else {
+
             sidebar.classList.remove('active');
         }
     });
 
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
+
             if (entry.isIntersecting && currentEffectsLevel === 2) {
                 entry.target.style.animationPlayState = 'running';
                 observer.unobserve(entry.target);
             } else if (currentEffectsLevel < 2) {
+
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'none';
             }
@@ -1112,10 +1500,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
     document.querySelectorAll('.section, .clickable-card-wrapper').forEach(el => {
+
         if (currentEffectsLevel < 2) {
             el.style.opacity = '1';
             el.style.transform = 'none';
         } else {
+
             observer.observe(el);
         }
     });

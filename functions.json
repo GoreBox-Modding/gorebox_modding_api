@@ -2,6 +2,7 @@
   {
     "id": "awake",
     "section": "lifecycle",
+    "category": "General",
     "name": "<i class=\"fas fa-eye\"></i> awake()",
     "desc": {
       "ru": "Инициализация Lua-среды перед запуском.",
@@ -13,6 +14,7 @@
   {
     "id": "start",
     "section": "lifecycle",
+    "category": "General",
     "name": "<i class=\"fas fa-play\"></i> start()",
     "desc": {
       "ru": "Вызывается при старте скрипта.",
@@ -24,6 +26,7 @@
   {
     "id": "update",
     "section": "lifecycle",
+    "category": "General",
     "name": "<i class=\"fas fa-redo\"></i> update()",
     "desc": {
       "ru": "Обновление каждый кадр.",
@@ -35,6 +38,7 @@
   {
     "id": "late_update",
     "section": "lifecycle",
+    "category": "General",
     "name": "<i class=\"fas fa-history\"></i> late_update()",
     "desc": {
       "ru": "Выполняется после update().",
@@ -46,6 +50,7 @@
   {
     "id": "fixed_update",
     "section": "lifecycle",
+    "category": "General",
     "name": "<i class=\"fas fa-cogs\"></i> fixed_update()",
     "desc": {
       "ru": "Срабатывает с фиксированным интервалом (для физики).",
@@ -57,6 +62,7 @@
   {
     "id": "gui_update",
     "section": "lifecycle",
+    "category": "General",
     "name": "<i class=\"fas fa-desktop\"></i> gui_update()",
     "desc": {
       "ru": "Используется для отрисовки GUI.",
@@ -68,6 +74,7 @@
   {
     "id": "onRPC",
     "section": "lifecycle",
+    "category": "General",
     "name": "<i class=\"fas fa-network-wired\"></i> onRPC(message)",
     "desc": {
       "ru": "Обрабатывает сетевые сообщения.",
@@ -79,10 +86,11 @@
   {
     "id": "log",
     "section": "global-functions",
+    "category": "General",
     "name": "<i class=\"fas fa-terminal\"></i> log(message)",
     "desc": {
-      "ru": "Выводит текст в консоль Unity.",
-      "en": "Prints text to the Unity console."
+      "ru": "Выводит сообщение в консоль.",
+      "en": "Prints a message to the console."
     },
     "code": "<span class=\"function-call\">log</span>(<span class=\"string\">\"Mod started!\"</span>)",
     "commentKey": null
@@ -90,10 +98,11 @@
   {
     "id": "getModRoot",
     "section": "global-functions",
+    "category": "General",
     "name": "<i class=\"fas fa-folder\"></i> getModRoot()",
     "desc": {
-      "ru": "Возвращает путь к папке мода.",
-      "en": "Returns the path to the mod's folder."
+      "ru": "Возвращает корневой путь мода.",
+      "en": "Returns the mod's root path."
     },
     "code": "<span class=\"keyword\">local</span> <span class=\"variable\">rootPath</span> = <span class=\"function-call\">getModRoot</span>()\n<span class=\"function-call\">log</span>(<span class=\"string\">\"Mod path: \"</span> .. <span class=\"variable\">rootPath</span>)",
     "commentKey": null
@@ -101,6 +110,7 @@
   {
     "id": "getDeltaTime",
     "section": "global-functions",
+    "category": "Time",
     "name": "<i class=\"fas fa-clock\"></i> getDeltaTime()",
     "desc": {
       "ru": "Возвращает время между кадрами.",
@@ -110,8 +120,9 @@
     "commentKey": null
   },
   {
-    "id": "getTime",
+    "id": "time_getTime",
     "section": "global-functions",
+    "category": "Time",
     "name": "<i class=\"fas fa-stopwatch\"></i> time.getTime()",
     "desc": {
       "ru": "Возвращает время с начала игры.",
@@ -123,285 +134,743 @@
   {
     "id": "getLocalPlayer",
     "section": "global-functions",
+    "category": "Player",
     "name": "<i class=\"fas fa-user\"></i> getLocalPlayer()",
     "desc": {
-      "ru": "Возвращает объект (ID) игрока.",
-      "en": "Returns the player's object (ID)."
+      "ru": "Получает локального игрока.<br><b>Возвращает:</b> `gameObjectId` или `nil`.",
+      "en": "Gets the local player.<br><b>Returns:</b> `gameObjectId` or `nil`."
     },
     "code": "<span class=\"keyword\">local</span> <span class=\"variable\">playerID</span> = <span class=\"function-call\">getLocalPlayer</span>()\n<span class=\"keyword\">local</span> <span class=\"variable\">playerTransform</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">getTransform</span>(<span class=\"variable\">playerID</span>)",
     "commentKey": null
   },
   {
-    "id": "gui_label",
-    "section": "lua-gui",
-    "name": "<i class=\"fas fa-tag\"></i> gui.label(text)",
+    "id": "math_lerp",
+    "section": "global-functions",
+    "category": "Math",
+    "name": "<i class=\"fas fa-chart-line\"></i> math.lerp(a, b, t)",
     "desc": {
-      "ru": "Отображает текст.",
-      "en": "Displays text."
+      "ru": "Линейная интерполяция между a и b.",
+      "en": "Linear interpolation between a and b."
     },
-    "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">label</span>(<span class=\"string\">\"Player Health: 100\"</span>)",
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">alpha</span> = <span class=\"number\">0.5</span>\n<span class=\"keyword\">local</span> <span class=\"variable\">value</span> = <span class=\"variable\">math</span>.<span class=\"function-call\">lerp</span>(<span class=\"number\">0</span>, <span class=\"number\">100</span>, <span class=\"variable\">alpha</span>)",
     "commentKey": null
   },
   {
-    "id": "gui_space",
-    "section": "lua-gui",
-    "name": "<i class=\"fas fa-ruler-vertical\"></i> gui.space(pixels)",
+    "id": "math_clamp",
+    "section": "global-functions",
+    "category": "Math",
+    "name": "<i class=\"fas fa-compress-arrows-alt\"></i> math.clamp(value, min, max)",
     "desc": {
-      "ru": "Отступ между элементами.",
-      "en": "Space between elements."
+      "ru": "Ограничивает значение между min и max.",
+      "en": "Clamps the value between min and max."
     },
-    "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">label</span>(<span class=\"string\">\"First line\"</span>)\n<span class=\"variable\">gui</span>.<span class=\"function-call\">space</span>(<span class=\"number\">10</span>)\n<span class=\"variable\">gui</span>.<span class=\"function-call\">label</span>(<span class=\"string\">\"Second line\"</span>)",
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">health</span> = <span class=\"number\">120</span>\n<span class=\"variable\">health</span> = <span class=\"variable\">math</span>.<span class=\"function-call\">clamp</span>(<span class=\"variable\">health</span>, <span class=\"number\">0</span>, <span class=\"number\">100</span>)",
     "commentKey": null
   },
   {
-    "id": "gui_box",
-    "section": "lua-gui",
-    "name": "<i class=\"fas fa-image\"></i> gui.box(textureId, ...)",
+    "id": "math_randomInt",
+    "section": "global-functions",
+    "category": "Math",
+    "name": "<i class=\"fas fa-random\"></i> math.randomInt(min, max)",
     "desc": {
-      "ru": "Отображает изображение (текстуру).",
-      "en": "Displays an image (texture)."
+      "ru": "Возвращает случайное целое число.",
+      "en": "Returns a random integer."
     },
-    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">myTexture</span> = <span class=\"variable\">texture</span>.<span class=\"function-call\">load</span>(<span class=\"string\">\"images/icon.png\"</span>)\n<span class=\"variable\">gui</span>.<span class=\"function-call\">box</span>(<span class=\"variable\">myTexture</span>, <span class=\"keyword\">true</span>)",
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">diceRoll</span> = <span class=\"variable\">math</span>.<span class=\"function-call\">randomInt</span>(<span class=\"number\">1</span>, <span class=\"number\">6</span>)",
     "commentKey": null
   },
   {
-    "id": "gui_button",
-    "section": "lua-gui",
-    "name": "<i class=\"fas fa-hand-pointer\"></i> gui.button(text)",
+    "id": "math_randomFloat",
+    "section": "global-functions",
+    "category": "Math",
+    "name": "<i class=\"fas fa-random\"></i> math.randomFloat(min, max)",
     "desc": {
-      "ru": "Кнопка, <span class=\"highlight\">возвращает true</span>, если нажата.",
-      "en": "Button, <span class=\"highlight\">returns true</span> if pressed."
+      "ru": "Возвращает случайное число с плавающей точкой.",
+      "en": "Returns a random float."
     },
-    "code": "<span class=\"keyword\">if</span> <span class=\"variable\">gui</span>.<span class=\"function-call\">button</span>(<span class=\"string\">\"Click Me!\"</span>) <span class=\"keyword\">then</span>\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Clicked!\"</span>)\n<span class=\"keyword\">end</span>",
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">chance</span> = <span class=\"variable\">math</span>.<span class=\"function-call\">randomFloat</span>(<span class=\"number\">0.0</span>, <span class=\"number\">1.0</span>)",
     "commentKey": null
   },
   {
-    "id": "gui_textField",
-    "section": "lua-gui",
-    "name": "<i class=\"fas fa-i-cursor\"></i> gui.textField(text)",
+    "id": "math_randomBool",
+    "section": "global-functions",
+    "category": "Math",
+    "name": "<i class=\"fas fa-question\"></i> math.randomBool()",
     "desc": {
-      "ru": "Поле ввода, <span class=\"highlight\">возвращает</span> измененный текст.",
-      "en": "Input field, <span class=\"highlight\">returns</span> the modified text."
+      "ru": "Возвращает случайное boolean значение.",
+      "en": "Returns a random boolean value."
     },
-    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">inputText</span> = <span class=\"string\">\"Hello\"</span>\n<span class=\"variable\">inputText</span> = <span class=\"variable\">gui</span>.<span class=\"function-call\">textField</span>(<span class=\"variable\">inputText</span>)",
+    "code": "<span class=\"keyword\">if</span> <span class=\"variable\">math</span>.<span class=\"function-call\">randomBool</span>() <span class=\"keyword\">then</span>\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Heads!\"</span>)\n<span class=\"keyword\">end</span>",
     "commentKey": null
   },
   {
-    "id": "gui_verticalSlider",
-    "section": "lua-gui",
-    "name": "<i class=\"fas fa-ellipsis-vertical\"></i> gui.verticalSlider(value, min, max)",
+    "id": "math_perlin",
+    "section": "global-functions",
+    "category": "Math",
+    "name": "<i class=\"fas fa-wave-square\"></i> math.perlin(x, y)",
     "desc": {
-      "ru": "Вертикальный слайдер.",
-      "en": "Vertical slider."
+      "ru": "Возвращает значение шума Перлина.",
+      "en": "Returns a Perlin noise value."
     },
-    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">vSlider</span> = <span class=\"number\">50</span>\n<span class=\"variable\">vSlider</span> = <span class=\"variable\">gui</span>.<span class=\"function-call\">verticalSlider</span>(<span class=\"variable\">vSlider</span>, <span class=\"number\">0</span>, <span class=\"number\">100</span>)",
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">t</span> = <span class=\"variable\">time</span>.<span class=\"function-call\">getTime</span>()\n<span class=\"keyword\">local</span> <span class=\"variable\">noise</span> = <span class=\"variable\">math</span>.<span class=\"function-call\">perlin</span>(<span class=\"variable\">t</span>, <span class=\"number\">0</span>)",
     "commentKey": null
   },
   {
-    "id": "gui_horizontalSlider",
-    "section": "lua-gui",
-    "name": "<i class=\"fas fa-sliders\"></i> gui.horizontalSlider(value, min, max)",
+    "id": "math_abs",
+    "section": "global-functions",
+    "category": "Math",
+    "name": "<i class=\"fas fa-calculator\"></i> math.abs(v)",
     "desc": {
-      "ru": "Горизонтальный слайдер.",
-      "en": "Horizontal slider."
+      "ru": "Возвращает абсолютное значение.",
+      "en": "Returns the absolute value."
     },
-    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">hSlider</span> = <span class=\"number\">0.5</span>\n<span class=\"variable\">hSlider</span> = <span class=\"variable\">gui</span>.<span class=\"function-call\">horizontalSlider</span>(<span class=\"variable\">hSlider</span>, <span class=\"number\">0.0</span>, <span class=\"number\">1.0</span>)",
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">val</span> = <span class=\"variable\">math</span>.<span class=\"function-call\">abs</span>(<span class=\"number\">-10</span>) <span class=\"comment\">-- 10</span>",
+    "commentKey": null
+  },
+  {
+    "id": "math_sqrt",
+    "section": "global-functions",
+    "category": "Math",
+    "name": "<i class=\"fas fa-calculator\"></i> math.sqrt(v)",
+    "desc": {
+      "ru": "Возвращает квадратный корень.",
+      "en": "Returns the square root."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">val</span> = <span class=\"variable\">math</span>.<span class=\"function-call\">sqrt</span>(<span class=\"number\">16</span>) <span class=\"comment\">-- 4</span>",
+    "commentKey": null
+  },
+  {
+    "id": "math_sin",
+    "section": "global-functions",
+    "category": "Math",
+    "name": "<i class=\"fas fa-calculator\"></i> math.sin(v)",
+    "desc": {
+      "ru": "Возвращает синус угла в радианах.",
+      "en": "Returns the sine of an angle in radians."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">val</span> = <span class=\"variable\">math</span>.<span class=\"function-call\">sin</span>(<span class=\"variable\">math</span>.<span class=\"variable\">pi</span> / <span class=\"number\">2</span>) <span class=\"comment\">-- 1.0</span>",
+    "commentKey": null
+  },
+  {
+    "id": "math_cos",
+    "section": "global-functions",
+    "category": "Math",
+    "name": "<i class=\"fas fa-calculator\"></i> math.cos(v)",
+    "desc": {
+      "ru": "Возвращает косинус угла в радианах.",
+      "en": "Returns the cosine of an angle in radians."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">val</span> = <span class=\"variable\">math</span>.<span class=\"function-call\">cos</span>(<span class=\"variable\">math</span>.<span class=\"variable\">pi</span>) <span class=\"comment\">-- -1.0</span>",
+    "commentKey": null
+  },
+  {
+    "id": "math_round",
+    "section": "global-functions",
+    "category": "Math",
+    "name": "<i class=\"fas fa-calculator\"></i> math.round(v)",
+    "desc": {
+      "ru": "Возвращает округленное значение.",
+      "en": "Returns the rounded value."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">val</span> = <span class=\"variable\">math</span>.<span class=\"function-call\">round</span>(<span class=\"number\">1.6</span>) <span class=\"comment\">-- 2</span>",
+    "commentKey": null
+  },
+  {
+    "id": "math_floor",
+    "section": "global-functions",
+    "category": "Math",
+    "name": "<i class=\"fas fa-calculator\"></i> math.floor(v)",
+    "desc": {
+      "ru": "Возвращает округление вниз.",
+      "en": "Returns the floor value."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">val</span> = <span class=\"variable\">math</span>.<span class=\"function-call\">floor</span>(<span class=\"number\">1.9</span>) <span class=\"comment\">-- 1</span>",
+    "commentKey": null
+  },
+  {
+    "id": "math_ceil",
+    "section": "global-functions",
+    "category": "Math",
+    "name": "<i class=\"fas fa-calculator\"></i> math.ceil(v)",
+    "desc": {
+      "ru": "Возвращает округление вверх.",
+      "en": "Returns the ceiling value."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">val</span> = <span class=\"variable\">math</span>.<span class=\"function-call\">ceil</span>(<span class=\"number\">1.1</span>) <span class=\"comment\">-- 2</span>",
     "commentKey": null
   },
   {
     "id": "gui_beginVertical",
     "section": "lua-gui",
-    "name": "<i class=\"fas fa-arrows-up-down\"></i> gui.beginVertical() / gui.endVertical()",
+    "category": "Layout",
+    "name": "<i class=\"fas fa-arrows-up-down\"></i> gui.beginVertical()",
     "desc": {
-      "ru": "Вертикальная группа элементов.",
-      "en": "Vertical group of elements."
+      "ru": "Начинает вертикальную группу элементов. Все последующие элементы будут расположены вертикально.",
+      "en": "Begins a vertical group. All subsequent elements will be arranged vertically."
     },
     "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">beginVertical</span>()\n<span class=\"variable\">gui</span>.<span class=\"function-call\">label</span>(<span class=\"string\">\"Item 1\"</span>)\n<span class=\"variable\">gui</span>.<span class=\"function-call\">label</span>(<span class=\"string\">\"Item 2\"</span>)\n<span class=\"variable\">gui</span>.<span class=\"function-call\">endVertical</span>()",
     "commentKey": null
   },
   {
+    "id": "gui_endVertical",
+    "section": "lua-gui",
+    "category": "Layout",
+    "name": "<i class=\"fas fa-arrows-up-down\"></i> gui.endVertical()",
+    "desc": {
+      "ru": "Заканчивает вертикальную группу.",
+      "en": "Ends a vertical group."
+    },
+    "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">endVertical</span>()",
+    "commentKey": null
+  },
+  {
     "id": "gui_beginHorizontal",
     "section": "lua-gui",
-    "name": "<i class=\"fas fa-arrows-left-right\"></i> gui.beginHorizontal() / gui.endHorizontal()",
+    "category": "Layout",
+    "name": "<i class=\"fas fa-arrows-left-right\"></i> gui.beginHorizontal()",
     "desc": {
-      "ru": "Горизонтальная группа элементов.",
-      "en": "Horizontal group of elements."
+      "ru": "Начинает горизонтальную группу элементов. Все последующие элементы будут расположены горизонтально.",
+      "en": "Begins a horizontal group. All subsequent elements will be arranged horizontally."
     },
     "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">beginHorizontal</span>()\n<span class=\"variable\">gui</span>.<span class=\"function-call\">label</span>(<span class=\"string\">\"Left\"</span>)\n<span class=\"variable\">gui</span>.<span class=\"function-call\">label</span>(<span class=\"string\">\"Right\"</span>)\n<span class=\"variable\">gui</span>.<span class=\"function-call\">endHorizontal</span>()",
     "commentKey": null
   },
   {
-    "id": "texture_load",
-    "section": "resources",
-    "name": "<i class=\"fas fa-image\"></i> texture.load(path)",
+    "id": "gui_endHorizontal",
+    "section": "lua-gui",
+    "category": "Layout",
+    "name": "<i class=\"fas fa-arrows-left-right\"></i> gui.endHorizontal()",
     "desc": {
-      "ru": "Загружает текстуру (<span class=\"highlight\">возвращает ID</span>).",
-      "en": "Loads a texture (<span class=\"highlight\">returns ID</span>)."
+      "ru": "Заканчивает горизонтальную группу.",
+      "en": "Ends a horizontal group."
     },
-    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">texID</span> = <span class=\"variable\">texture</span>.<span class=\"function-call\">load</span>(<span class=\"string\">\"images/my_texture.png\"</span>)",
+    "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">endHorizontal</span>()",
     "commentKey": null
   },
   {
-    "id": "material_create",
-    "section": "resources",
-    "name": "<i class=\"fas fa-palette\"></i> material.create(texturePath)",
+    "id": "gui_beginArea",
+    "section": "lua-gui",
+    "category": "Layout",
+    "name": "<i class=\"fas fa-vector-square\"></i> gui.beginArea(x, y, width, height)",
     "desc": {
-      "ru": "Создает материал с текстурой (<span class=\"highlight\">возвращает ID</span>).",
-      "en": "Creates a material with a texture (<span class=\"highlight\">returns ID</span>)."
+      "ru": "Начинает область с фиксированными координатами.<br>- `x`, `y` - координаты левого верхнего угла<br>- `width`, `height` - размеры области",
+      "en": "Begins an area with fixed coordinates.<br>- `x`, `y` - top-left corner coordinates<br>- `width`, `height` - size of the area"
     },
-    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">matID</span> = <span class=\"variable\">material</span>.<span class=\"function-call\">create</span>(<span class=\"string\">\"images/my_texture.png\"</span>)",
+    "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">beginArea</span>(<span class=\"number\">10</span>, <span class=\"number\">10</span>, <span class=\"number\">200</span>, <span class=\"number\">100</span>)\n<span class=\"variable\">gui</span>.<span class=\"function-call\">button</span>(<span class=\"string\">\"Inside Area\"</span>)\n<span class=\"variable\">gui</span>.<span class=\"function-call\">endArea</span>()",
     "commentKey": null
   },
   {
-    "id": "material_createWithShader",
-    "section": "resources",
-    "name": "<i class=\"fas fa-magic\"></i> material.createWithShader(texturePath, shaderName)",
+    "id": "gui_endArea",
+    "section": "lua-gui",
+    "category": "Layout",
+    "name": "<i class=\"fas fa-vector-square\"></i> gui.endArea()",
     "desc": {
-      "ru": "Создает материал с шейдером (<span class=\"highlight\">возвращает ID</span>).",
-      "en": "Creates a material with a shader (<span class=\"highlight\">returns ID</span>)."
+      "ru": "Заканчивает область.",
+      "en": "Ends an area."
     },
-    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">glowMat</span> = <span class=\"variable\">material</span>.<span class=\"function-call\">createWithShader</span>(<span class=\"string\">\"tex/glow.png\"</span>, <span class=\"string\">\"Legacy Shaders/Additive\"</span>)",
+    "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">endArea</span>()",
     "commentKey": null
   },
   {
-    "id": "material_setColor",
-    "section": "resources",
-    "name": "<i class=\"fas fa-fill-drip\"></i> material.setColor(id, prop, r, g, b, a)",
+    "id": "gui_beginScrollView",
+    "section": "lua-gui",
+    "category": "Layout",
+    "name": "<i class=\"fas fa-scroll\"></i> gui.beginScrollView(scrollPosX, scrollPosY, ...)",
     "desc": {
-      "ru": "Изменяет цвет материала.",
-      "en": "Changes the material's color."
+      "ru": "Начинает область с прокруткой.<br>- `scrollPosX`, `scrollPosY` - текущая позиция прокрутки<br>- `alwaysShowHorizontal` - всегда показывать горизонтальную полосу<br>- `alwaysShowVertical` - всегда показывать вертикальную полосу<br>- `[horizontalStyle]`, `[verticalStyle]`, `[backgroundStyle]` - опциональные ID стилей<br><b>Возвращает:</b> новые координаты прокрутки (x, y).",
+      "en": "Begins a scroll view area.<br>- `scrollPosX`, `scrollPosY` - current scroll position<br>- `alwaysShowHorizontal` - always show horizontal bar<br>- `alwaysShowVertical` - always show vertical bar<br>- `[horizontalStyle]`, `[verticalStyle]`, `[backgroundStyle]` - optional style IDs<br><b>Returns:</b> new scroll coordinates (x, y)."
     },
-    "code": "<span class=\"comment\">--[[comment:set_red]]</span>\n<span class=\"variable\">material</span>.<span class=\"function-call\">setColor</span>(<span class=\"variable\">matID</span>, <span class=\"string\">\"_Color\"</span>, <span class=\"number\">1</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">1</span>)",
-    "commentKey": "set_red"
-  },
-  {
-    "id": "material_getColor",
-    "section": "resources",
-    "name": "<i class=\"fas fa-eye-dropper\"></i> material.getColor(id, prop)",
-    "desc": {
-      "ru": "<span class=\"highlight\">Возвращает</span> цвет (r, g, b, a).",
-      "en": "<span class=\"highlight\">Returns</span> the color (r, g, b, a)."
-    },
-    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">r</span>, <span class=\"variable\">g</span>, <span class=\"variable\">b</span>, <span class=\"variable\">a</span> = <span class=\"variable\">material</span>.<span class=\"function-call\">getColor</span>(<span class=\"variable\">matID</span>, <span class=\"string\">\"_Color\"</span>)\n<span class=\"function-call\">log</span>(<span class=\"string\">\"Red: \"</span> .. <span class=\"variable\">r</span>)",
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">scrollX</span>, <span class=\"variable\">scrollY</span> = <span class=\"number\">0</span>, <span class=\"number\">0</span>\n<span class=\"variable\">scrollX</span>, <span class=\"variable\">scrollY</span> = <span class=\"variable\">gui</span>.<span class=\"function-call\">beginScrollView</span>(<span class=\"variable\">scrollX</span>, <span class=\"variable\">scrollY</span>, <span class=\"keyword\">false</span>, <span class=\"keyword\">true</span>)\n<span class=\"comment\">-- ... content ...</span>\n<span class=\"variable\">gui</span>.<span class=\"function-call\">endScrollView</span>()",
     "commentKey": null
   },
   {
-    "id": "model_load",
-    "section": "resources",
-    "name": "<i class=\"fas fa-cube\"></i> model.load(path)",
+    "id": "gui_endScrollView",
+    "section": "lua-gui",
+    "category": "Layout",
+    "name": "<i class=\"fas fa-scroll\"></i> gui.endScrollView()",
     "desc": {
-      "ru": "Загружает 3D-модель (<span class=\"highlight\">возвращает ID</span>).",
-      "en": "Loads a 3D model (<span class=\"highlight\">returns ID</span>)."
+      "ru": "Заканчивает область с прокруткой.",
+      "en": "Ends a scroll view area."
     },
-    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">modelID</span> = <span class=\"variable\">model</span>.<span class=\"function-call\">load</span>(<span class=\"string\">\"models/my_model.obj\"</span>)",
+    "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">endScrollView</span>()",
+    "commentKey": null
+  },
+  {
+    "id": "gui_space",
+    "section": "lua-gui",
+    "category": "Layout",
+    "name": "<i class=\"fas fa-ruler-vertical\"></i> gui.space(pixels)",
+    "desc": {
+      "ru": "Добавляет пустое пространство.<br>- `pixels` - размер в пикселях",
+      "en": "Adds empty space.<br>- `pixels` - size in pixels"
+    },
+    "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">label</span>(<span class=\"string\">\"First line\"</span>)\n<span class=\"variable\">gui</span>.<span class=\"function-call\">space</span>(<span class=\"number\">10</span>)\n<span class=\"variable\">gui</span>.<span class=\"function-call\">label</span>(<span class=\"string\">\"Second line\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gui_flexibleSpace",
+    "section": "lua-gui",
+    "category": "Layout",
+    "name": "<i class=\"fas fa-expand\"></i> gui.flexibleSpace()",
+    "desc": {
+      "ru": "Добавляет гибкое пространство, которое заполняет доступное место.",
+      "en": "Adds flexible space that fills available space."
+    },
+    "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">beginHorizontal</span>()\n<span class=\"variable\">gui</span>.<span class=\"function-call\">button</span>(<span class=\"string\">\"Left\"</span>)\n<span class=\"variable\">gui</span>.<span class=\"function-call\">flexibleSpace</span>()\n<span class=\"variable\">gui</span>.<span class=\"function-call\">button</span>(<span class=\"string\">\"Right\"</span>)\n<span class=\"variable\">gui</span>.<span class=\"function-call\">endHorizontal</span>()",
+    "commentKey": null
+  },
+  {
+    "id": "gui_label",
+    "section": "lua-gui",
+    "category": "Controls",
+    "name": "<i class=\"fas fa-tag\"></i> gui.label(text, [styleId])",
+    "desc": {
+      "ru": "Отображает текстовую метку.<br>- `text` - текст метки<br>- `styleId` - опциональный ID стиля",
+      "en": "Displays a text label.<br>- `text` - label text<br>- `styleId` - optional style ID"
+    },
+    "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">label</span>(<span class=\"string\">\"Player Health: 100\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gui_button",
+    "section": "lua-gui",
+    "category": "Controls",
+    "name": "<i class=\"fas fa-hand-pointer\"></i> gui.button(text, [styleId])",
+    "desc": {
+      "ru": "Создает кнопку.<br>- `text` - текст кнопки<br>- `styleId` - опциональный ID стиля<br><b>Возвращает:</b> `true` если кнопка была нажата.",
+      "en": "Creates a button.<br>- `text` - button text<br>- `styleId` - optional style ID<br><b>Returns:</b> `true` if the button was clicked."
+    },
+    "code": "<span class=\"keyword\">if</span> <span class=\"variable\">gui</span>.<span class=\"function-call\">button</span>(<span class=\"string\">\"Click Me!\"</span>) <span class=\"keyword\">then</span>\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Clicked!\"</span>)\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "gui_checkbox",
+    "section": "lua-gui",
+    "category": "Controls",
+    "name": "<i class=\"fas fa-check-square\"></i> gui.checkbox(state, text, [styleId])",
+    "desc": {
+      "ru": "Создает чекбокс.<br>- `state` - текущее состояние (true/false)<br>- `text` - текст рядом с чекбоксом<br>- `styleId` - опциональный ID стиля<br><b>Возвращает:</b> новое состояние.",
+      "en": "Creates a checkbox.<br>- `state` - current state (true/false)<br>- `text` - text next to the checkbox<br>- `styleId` - optional style ID<br><b>Returns:</b> new state."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">isChecked</span> = <span class=\"keyword\">true</span>\n<span class=\"variable\">isChecked</span> = <span class=\"variable\">gui</span>.<span class=\"function-call\">checkbox</span>(<span class=\"variable\">isChecked</span>, <span class=\"string\">\"Enable setting\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gui_repeatButton",
+    "section": "lua-gui",
+    "category": "Controls",
+    "name": "<i class=\"fas fa-hand-pointer\"></i> gui.repeatButton(text, [styleId])",
+    "desc": {
+      "ru": "Создает кнопку, которая возвращает true пока удерживается.<br>- `text` - текст кнопки<br>- `styleId` - опциональный ID стиля<br><b>Возвращает:</b> `true` пока кнопка удерживается.",
+      "en": "Creates a button that returns true while held down.<br>- `text` - button text<br>- `styleId` - optional style ID<br><b>Returns:</b> `true` while held down."
+    },
+    "code": "<span class=\"keyword\">if</span> <span class=\"variable\">gui</span>.<span class=\"function-call\">repeatButton</span>(<span class=\"string\">\"Hold Me!\"</span>) <span class=\"keyword\">then</span>\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Holding...\"</span>)\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "gui_textField",
+    "section": "lua-gui",
+    "category": "Controls",
+    "name": "<i class=\"fas fa-i-cursor\"></i> gui.textField(text, [maxLength], [styleId])",
+    "desc": {
+      "ru": "Создает однострочное текстовое поле.<br>- `text` - текущий текст<br>- `maxLength` - максимальная длина текста<br>- `styleId` - опциональный ID стиля<br><b>Возвращает:</b> новый текст.",
+      "en": "Creates a single-line text field.<br>- `text` - current text<br>- `maxLength` - maximum text length<br>- `styleId` - optional style ID<br><b>Returns:</b> new text."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">inputText</span> = <span class=\"string\">\"Hello\"</span>\n<span class=\"variable\">inputText</span> = <span class=\"variable\">gui</span>.<span class=\"function-call\">textField</span>(<span class=\"variable\">inputText</span>, <span class=\"number\">20</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gui_textArea",
+    "section": "lua-gui",
+    "category": "Controls",
+    "name": "<i class=\"fas fa-file-alt\"></i> gui.textArea(text, [maxLength], [styleId])",
+    "desc": {
+      "ru": "Создает многострочное текстовое поле.<br>- `text` - текущий текст<br>- `maxLength` - максимальная длина текста<br>- `styleId` - опциональный ID стиля<br><b>Возвращает:</b> новый текст.",
+      "en": "Creates a multi-line text area.<br>- `text` - current text<br>- `maxLength` - maximum text length<br>- `styleId` - optional style ID<br><b>Returns:</b> new text."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">storyText</span> = <span class=\"string\">\"Once upon a time...\"</span>\n<span class=\"variable\">storyText</span> = <span class=\"variable\">gui</span>.<span class=\"function-call\">textArea</span>(<span class=\"variable\">storyText</span>, <span class=\"number\">200</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gui_toggle",
+    "section": "lua-gui",
+    "category": "Controls",
+    "name": "<i class=\"fas fa-toggle-on\"></i> gui.toggle(value, text, [styleId])",
+    "desc": {
+      "ru": "Создает переключатель.<br>- `value` - текущее значение<br>- `text` - текст рядом с переключателем<br>- `styleId` - опциональный ID стиля<br><b>Возвращает:</b> новое значение.",
+      "en": "Creates a toggle.<br>- `value` - current value<br>- `text` - text next to the toggle<br>- `styleId` - optional style ID<br><b>Returns:</b> new value."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">isToggled</span> = <span class=\"keyword\">false</span>\n<span class=\"variable\">isToggled</span> = <span class=\"variable\">gui</span>.<span class=\"function-call\">toggle</span>(<span class=\"variable\">isToggled</span>, <span class=\"string\">\"Music On\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gui_slider",
+    "section": "lua-gui",
+    "category": "Controls",
+    "name": "<i class=\"fas fa-sliders-h\"></i> gui.slider(value, left, right, isHorizontal, [sliderType])",
+    "desc": {
+      "ru": "Создает слайдер.<br>- `value` - текущее значение<br>- `leftValue` - минимальное значение<br>- `rightValue` - максимальное значение<br>- `isHorizontal` - ориентация (true - горизонтальная)<br>- `sliderType` - тип (\"float\" или \"int\")<br><b>Возвращает:</b> новое значение.",
+      "en": "Creates a slider.<br>- `value` - current value<br>- `leftValue` - minimum value<br>- `rightValue` - maximum value<br>- `isHorizontal` - orientation (true - horizontal)<br>- `sliderType` - type (\"float\" or \"int\")<br><b>Returns:</b> new value."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">hSlider</span> = <span class=\"number\">0.5</span>\n<span class=\"variable\">hSlider</span> = <span class=\"variable\">gui</span>.<span class=\"function-call\">slider</span>(<span class=\"variable\">hSlider</span>, <span class=\"number\">0.0</span>, <span class=\"number\">1.0</span>, <span class=\"keyword\">true</span>, <span class=\"string\">\"float\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gui_selectionGrid",
+    "section": "lua-gui",
+    "category": "Controls",
+    "name": "<i class=\"fas fa-th\"></i> gui.selectionGrid(selected, itemCount, ..., xCount)",
+    "desc": {
+      "ru": "Создает сетку выбора.<br>- `selected` - индекс выбранного элемента<br>- `itemCount` - количество элементов<br>- `item1...itemN` - строки элементов<br>- `xCount` - количество колонок<br><b>Возвращает:</b> индекс выбранного элемента.",
+      "en": "Creates a selection grid.<br>- `selected` - index of selected element<br>- `itemCount` - number of elements<br>- `item1...itemN` - element strings<br>- `xCount` - number of columns<br><b>Returns:</b> index of selected element."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">sel</span> = <span class=\"number\">0</span>\n<span class=\"variable\">sel</span> = <span class=\"variable\">gui</span>.<span class=\"function-call\">selectionGrid</span>(<span class=\"variable\">sel</span>, <span class=\"number\">4</span>, <span class=\"string\">\"A\"</span>, <span class=\"string\">\"B\"</span>, <span class=\"string\">\"C\"</span>, <span class=\"string\">\"D\"</span>, <span class=\"number\">2</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gui_passwordField",
+    "section": "lua-gui",
+    "category": "Controls",
+    "name": "<i class=\"fas fa-key\"></i> gui.passwordField(password, maskChar, maxLength, [styleId])",
+    "desc": {
+      "ru": "Создает поле для ввода пароля.<br>- `password` - текущий пароль<br>- `maskChar` - символ маски<br>- `maxLength` - максимальная длина<br>- `styleId` - опциональный ID стиля<br><b>Возвращает:</b> новый пароль.",
+      "en": "Creates a password input field.<br>- `password` - current password<br>- `maskChar` - mask character<br>- `maxLength` - maximum length<br>- `styleId` - optional style ID<br><b>Returns:</b> new password."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">pass</span> = <span class=\"string\">\"\"</span>\n<span class=\"variable\">pass</span> = <span class=\"variable\">gui</span>.<span class=\"function-call\">passwordField</span>(<span class=\"variable\">pass</span>, <span class=\"string\">\"*\"</span>, <span class=\"number\">20</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gui_box",
+    "section": "lua-gui",
+    "category": "Controls",
+    "name": "<i class=\"fas fa-image\"></i> gui.box(textureId, expandWidth, [aspectRatio], ...)",
+    "desc": {
+      "ru": "Отображает текстуру как Box.<br>- `textureId` - ID текстуры<br>- `expandWidth` - растягивать по ширине<br>- `aspectRatio` - соотношение сторон<br>- `maxWidth` - максимальная ширина<br>- `maxHeight` - максимальная высота",
+      "en": "Displays a texture as a Box.<br>- `textureId` - texture ID<br>- `expandWidth` - expand width<br>- `aspectRatio` - aspect ratio<br>- `maxWidth` - maximum width<br>- `maxHeight` - maximum height"
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">myTexture</span> = <span class=\"variable\">texture</span>.<span class=\"function-call\">load</span>(<span class=\"string\">\"images/icon.png\"</span>)\n<span class=\"variable\">gui</span>.<span class=\"function-call\">box</span>(<span class=\"variable\">myTexture</span>, <span class=\"keyword\">true</span>, <span class=\"number\">1</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gui_createStyle",
+    "section": "lua-gui",
+    "category": "Styling",
+    "name": "<i class=\"fas fa-palette\"></i> gui.createStyle([baseStyleId], [r], [g], [b], [a], ...)",
+    "desc": {
+      "ru": "Создает новый стиль.<br>- `baseStyleId` - ID базового стиля для наследования<br>- `r`, `g`, `b`, `a` - цвет текста (0-1)<br>- `textureId` - ID текстуры для фона<br>- `alignment` - выравнивание текста<br><b>Возвращает:</b> ID нового стиля.",
+      "en": "Creates a new style.<br>- `baseStyleId` - ID of base style to inherit from<br>- `r`, `g`, `b`, `a` - text color (0-1)<br>- `textureId` - texture ID for background<br>- `alignment` - text alignment<br><b>Returns:</b> new style ID."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">redStyle</span> = <span class=\"variable\">gui</span>.<span class=\"function-call\">createStyle</span>(<span class=\"number\">0</span>, <span class=\"number\">1</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">1</span>)\n<span class=\"variable\">gui</span>.<span class=\"function-call\">label</span>(<span class=\"string\">\"Red Text\"</span>, <span class=\"variable\">redStyle</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gui_setStylePadding",
+    "section": "lua-gui",
+    "category": "Styling",
+    "name": "<i class=\"fas fa-expand-arrows-alt\"></i> gui.setStylePadding(styleId, left, right, top, bottom)",
+    "desc": {
+      "ru": "Устанавливает отступы (padding) для стиля.<br>- `styleId` - ID стиля<br>- `left`, `right`, `top`, `bottom` - значения отступов",
+      "en": "Sets padding for a style.<br>- `styleId` - style ID<br>- `left`, `right`, `top`, `bottom` - padding values"
+    },
+    "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">setStylePadding</span>(<span class=\"variable\">myStyle</span>, <span class=\"number\">10</span>, <span class=\"number\">10</span>, <span class=\"number\">5</span>, <span class=\"number\">5</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gui_setStyleMargin",
+    "section": "lua-gui",
+    "category": "Styling",
+    "name": "<i class=\"fas fa-arrows-alt-h\"></i> gui.setStyleMargin(styleId, left, right, top, bottom)",
+    "desc": {
+      "ru": "Устанавливает margins для стиля.",
+      "en": "Sets margins for a style."
+    },
+    "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">setStyleMargin</span>(<span class=\"variable\">myStyle</span>, <span class=\"number\">2</span>, <span class=\"number\">2</span>, <span class=\"number\">2</span>, <span class=\"number\">2</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gui_setStyleFontSize",
+    "section": "lua-gui",
+    "category": "Styling",
+    "name": "<i class=\"fas fa-font\"></i> gui.setStyleFontSize(styleId, size)",
+    "desc": {
+      "ru": "Устанавливает размер шрифта.",
+      "en": "Sets the font size."
+    },
+    "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">setStyleFontSize</span>(<span class=\"variable\">myStyle</span>, <span class=\"number\">20</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gui_setStyleFontStyle",
+    "section": "lua-gui",
+    "category": "Styling",
+    "name": "<i class=\"fas fa-bold\"></i> gui.setStyleFontStyle(styleId, fontStyle)",
+    "desc": {
+      "ru": "Устанавливает стиль шрифта (0-Normal, 1-Bold, 2-Italic, 3-BoldAndItalic).",
+      "en": "Sets the font style (0-Normal, 1-Bold, 2-Italic, 3-BoldAndItalic)."
+    },
+    "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">setStyleFontStyle</span>(<span class=\"variable\">myStyle</span>, <span class=\"number\">1</span>) <span class=\"comment\">-- Bold</span>",
+    "commentKey": null
+  },
+  {
+    "id": "gui_setColor",
+    "section": "lua-gui",
+    "category": "Global",
+    "name": "<i class=\"fas fa-tint\"></i> gui.setColor(r, g, b, a)",
+    "desc": {
+      "ru": "Устанавливает основной цвет GUI.",
+      "en": "Sets the primary GUI color."
+    },
+    "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">setColor</span>(<span class=\"number\">1</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">1</span>) <span class=\"comment\">-- Red tint</span>",
+    "commentKey": null
+  },
+  {
+    "id": "gui_setBackgroundColor",
+    "section": "lua-gui",
+    "category": "Global",
+    "name": "<i class=\"fas fa-fill\"></i> gui.setBackgroundColor(r, g, b, a)",
+    "desc": {
+      "ru": "Устанавливает цвет фона GUI.",
+      "en": "Sets the GUI background color."
+    },
+    "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">setBackgroundColor</span>(<span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">0.5</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gui_setEnabled",
+    "section": "lua-gui",
+    "category": "Global",
+    "name": "<i class=\"fas fa-toggle-off\"></i> gui.setEnabled(enabled)",
+    "desc": {
+      "ru": "Включает/выключает весь GUI.<br>- `enabled` - состояние",
+      "en": "Enables/disables the entire GUI.<br>- `enabled` - state"
+    },
+    "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">setEnabled</span>(<span class=\"keyword\">false</span>) <span class=\"comment\">-- Hide all GUI</span>",
+    "commentKey": null
+  },
+  {
+    "id": "gui_getEnabled",
+    "section": "lua-gui",
+    "category": "Global",
+    "name": "<i class=\"fas fa-toggle-on\"></i> gui.getEnabled()",
+    "desc": {
+      "ru": "Получает текущее состояние GUI.<br><b>Возвращает:</b> текущее состояние.",
+      "en": "Gets the current GUI state.<br><b>Returns:</b> current state."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">isGuiOn</span> = <span class=\"variable\">gui</span>.<span class=\"function-call\">getEnabled</span>()",
+    "commentKey": null
+  },
+  {
+    "id": "gui_getLastRect",
+    "section": "lua-gui",
+    "category": "Global",
+    "name": "<i class=\"fas fa-ruler-combined\"></i> gui.getLastRect()",
+    "desc": {
+      "ru": "Получает Rect последнего элемента.<br><b>Возвращает:</b> x, y, width, height.",
+      "en": "Gets the Rect of the last element.<br><b>Returns:</b> x, y, width, height."
+    },
+    "code": "<span class=\"variable\">gui</span>.<span class=\"function-call\">button</span>(<span class=\"string\">\"My Button\"</span>)\n<span class=\"keyword\">local</span> <span class=\"variable\">x</span>, <span class=\"variable\">y</span>, <span class=\"variable\">w</span>, <span class=\"variable\">h</span> = <span class=\"variable\">gui</span>.<span class=\"function-call\">getLastRect</span>()",
     "commentKey": null
   },
   {
     "id": "gameObject_createWithModel",
     "section": "resources",
-    "name": "<i class=\"fas fa-cubes\"></i> gameObject.createWithModel(name, model, texture)",
+    "category": "Creation",
+    "name": "<i class=\"fas fa-cubes\"></i> gameObject.createWithModel(name, modelPath, texturePath)",
     "desc": {
-      "ru": "Создает объект с моделью и текстурой (<span class=\"highlight\">возвращает ID</span>).",
-      "en": "Creates an object with a model and texture (<span class=\"highlight\">returns ID</span>)."
+      "ru": "Создает игровой объект с 3D моделью и текстурой.<br>- `name` (string) - имя игрового объекта<br>- `modelPath` (string) - путь к файлу модели<br>- `texturePath` (string) - путь к файлу текстуры<br><b>Возвращает:</b> `id` (number) - ID созданного объекта",
+      "en": "Creates a game object with a 3D model and texture.<br>- `name` (string) - name of the game object<br>- `modelPath` (string) - path to the model file<br>- `texturePath` (string) - path to the texture file<br><b>Returns:</b> `id` (number) - ID of the created object"
     },
-    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">obj</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">createWithModel</span>(<span class=\"string\">\"MyObject\"</span>, <span class=\"string\">\"models/car.obj\"</span>, <span class=\"string\">\"tex/car.png\"</span>)",
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">cubeId</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">createWithModel</span>(<span class=\"string\">\"MyCube\"</span>, <span class=\"string\">\"models/cube.obj\"</span>, <span class=\"string\">\"textures/wood.png\"</span>)",
     "commentKey": null
   },
   {
-    "id": "audioClip_load",
+    "id": "texture_load",
     "section": "resources",
-    "name": "<i class=\"fas fa-volume-up\"></i> audioClip.load(path)",
+    "category": "Loading",
+    "name": "<i class=\"fas fa-image\"></i> texture.load(texturePath)",
     "desc": {
-      "ru": "Загружает аудио (<span class=\"highlight\">возвращает ID</span>).",
-      "en": "Loads an audio clip (<span class=\"highlight\">returns ID</span>)."
+      "ru": "Загружает текстуру из файла.<br>- `texturePath` (string) - путь к файлу текстуры<br><b>Возвращает:</b> `id` (number) - ID текстуры, или `nil` при ошибке.",
+      "en": "Loads a texture from a file.<br>- `texturePath` (string) - path to the texture file<br><b>Returns:</b> `id` (number) - ID of the texture, or `nil` on error."
     },
-    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">soundID</span> = <span class=\"variable\">audioClip</span>.<span class=\"function-call\">load</span>(<span class=\"string\">\"sounds/shot.wav\"</span>)",
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">textureId</span> = <span class=\"variable\">texture</span>.<span class=\"function-call\">load</span>(<span class=\"string\">\"textures/wood.png\"</span>)",
     "commentKey": null
   },
   {
     "id": "gameObject_create",
     "section": "gameobject",
+    "category": "Creation",
     "name": "<i class=\"fas fa-plus-circle\"></i> gameObject.create(name)",
     "desc": {
-      "ru": "Создает новый пустой объект (<span class=\"highlight\">возвращает ID</span>).",
-      "en": "Creates a new empty object (<span class=\"highlight\">returns ID</span>)."
+      "ru": "Создает новый пустой игровой объект.<br>- `name` - имя создаваемого объекта<br><b>Возвращает:</b> `gameObjectId` - ID созданного объекта.",
+      "en": "Creates a new empty game object.<br>- `name` - name of the object to create<br><b>Returns:</b> `gameObjectId` - ID of the created object."
     },
     "code": "<span class=\"keyword\">local</span> <span class=\"variable\">newObj</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">create</span>(<span class=\"string\">\"EmptyHolder\"</span>)",
     "commentKey": null
   },
   {
-    "id": "gameObject_find",
-    "section": "gameobject",
-    "name": "<i class=\"fas fa-search\"></i> gameObject.find(name)",
-    "desc": {
-      "ru": "Ищет объект по имени (<span class=\"highlight\">возвращает ID</span>).",
-      "en": "Finds an object by name (<span class=\"highlight\">returns ID</span>)."
-    },
-    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">player</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">find</span>(<span class=\"string\">\"MainPlayer\"</span>)",
-    "commentKey": null
-  },
-  {
-    "id": "gameObject_destroy",
-    "section": "gameobject",
-    "name": "<i class=\"fas fa-trash-alt\"></i> gameObject.destroy(id)",
-    "desc": {
-      "ru": "Удаляет объект.",
-      "en": "Destroys an object."
-    },
-    "code": "<span class=\"variable\">gameObject</span>.<span class=\"function-call\">destroy</span>(<span class=\"variable\">newObj</span>)",
-    "commentKey": null
-  },
-  {
-    "id": "gameObject_getTransform",
-    "section": "gameobject",
-    "name": "<i class=\"fas fa-arrows-alt\"></i> gameObject.getTransform(id)",
-    "desc": {
-      "ru": "<span class=\"highlight\">Возвращает</span> Transform (ID) объекта.",
-      "en": "<span class=\"highlight\">Returns</span> the object's Transform (ID)."
-    },
-    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">player</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">find</span>(<span class=\"string\">\"MainPlayer\"</span>)\n<span class=\"keyword\">local</span> <span class=\"variable\">t</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">getTransform</span>(<span class=\"variable\">player</span>)",
-    "commentKey": null
-  },
-  {
-    "id": "gameObject_setName",
-    "section": "gameobject",
-    "name": "<i class=\"fas fa-signature\"></i> gameObject.setName(id, name)",
-    "desc": {
-      "ru": "Задает имя объекту.",
-      "en": "Sets the object's name."
-    },
-    "code": "<span class=\"variable\">gameObject</span>.<span class=\"function-call\">setName</span>(<span class=\"variable\">player</span>, <span class=\"string\">\"RenamedPlayer\"</span>)",
-    "commentKey": null
-  },
-  {
-    "id": "gameObject_setActive",
-    "section": "gameobject",
-    "name": "<i class=\"fas fa-power-off\"></i> gameObject.setActive(id, bool)",
-    "desc": {
-      "ru": "Активирует или деактивирует объект.",
-      "en": "Activates or deactivates an object."
-    },
-    "code": "<span class=\"comment\">--[[comment:hide_player]]</span>\n<span class=\"variable\">gameObject</span>.<span class=\"function-call\">setActive</span>(<span class=\"variable\">player</span>, <span class=\"keyword\">false</span>)",
-    "commentKey": "hide_player"
-  },
-  {
     "id": "gameObject_instantiate",
     "section": "gameobject",
-    "name": "<i class=\"fas fa-clone\"></i> gameObject.instantiate(id)",
+    "category": "Creation",
+    "name": "<i class=\"fas fa-clone\"></i> gameObject.instantiate(objectId)",
     "desc": {
-      "ru": "Клонирует объект (<span class=\"highlight\">возвращает ID</span> клона).",
-      "en": "Clones an object (<span class=\"highlight\">returns clone's ID</span>)."
+      "ru": "Создает копию (инстанцию) существующего игрового объекта.<br>- `objectId` - ID исходного объекта<br><b>Возвращает:</b> `newObjectId` - ID нового объекта-копии.",
+      "en": "Creates a copy (instance) of an existing game object.<br>- `objectId` - ID of the source object<br><b>Returns:</b> `newObjectId` - ID of the new copy."
     },
     "code": "<span class=\"keyword\">local</span> <span class=\"variable\">playerClone</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">instantiate</span>(<span class=\"variable\">player</span>)",
     "commentKey": null
   },
   {
+    "id": "gameObject_find",
+    "section": "gameobject",
+    "category": "Finding",
+    "name": "<i class=\"fas fa-search\"></i> gameObject.find(name)",
+    "desc": {
+      "ru": "Находит игровой объект по имени.<br>- `name` - имя искомого объекта<br><b>Возвращает:</b> `gameObjectId` - ID найденного объекта, или `nil`.",
+      "en": "Finds a game object by name.<br>- `name` - name of the object to find<br><b>Returns:</b> `gameObjectId` - ID of the found object, or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">player</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">find</span>(<span class=\"string\">\"MainPlayer\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gameObject_findWithTag",
+    "section": "gameobject",
+    "category": "Finding",
+    "name": "<i class=\"fas fa-search-plus\"></i> gameObject.findWithTag(tag)",
+    "desc": {
+      "ru": "Находит первый игровой объект с указанным тегом.<br>- `tag` - тег для поиска<br><b>Возвращает:</b> `gameObjectId` - ID найденного объекта, или `nil`.",
+      "en": "Finds the first game object with the specified tag.<br>- `tag` - tag to search for<br><b>Returns:</b> `gameObjectId` - ID of found object, or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">enemy</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">findWithTag</span>(<span class=\"string\">\"Enemy\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gameObject_destroy",
+    "section": "gameobject",
+    "category": "General",
+    "name": "<i class=\"fas fa-trash-alt\"></i> gameObject.destroy(objectId)",
+    "desc": {
+      "ru": "Уничтожает игровой объект.<br>- `objectId` - ID объекта для уничтожения",
+      "en": "Destroys a game object.<br>- `objectId` - ID of the object to destroy"
+    },
+    "code": "<span class=\"variable\">gameObject</span>.<span class=\"function-call\">destroy</span>(<span class=\"variable\">newObj</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gameObject_setName",
+    "section": "gameobject",
+    "category": "Properties",
+    "name": "<i class=\"fas fa-signature\"></i> gameObject.setName(objectId, name)",
+    "desc": {
+      "ru": "Устанавливает имя игрового объекта.<br>- `objectId` - ID объекта<br>- `name` - новое имя",
+      "en": "Sets the name of a game object.<br>- `objectId` - ID of the object<br>- `name` - new name"
+    },
+    "code": "<span class=\"variable\">gameObject</span>.<span class=\"function-call\">setName</span>(<span class=\"variable\">player</span>, <span class=\"string\">\"RenamedPlayer\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gameObject_getName",
+    "section": "gameobject",
+    "category": "Properties",
+    "name": "<i class=\"fas fa-signature\"></i> gameObject.getName(objectId)",
+    "desc": {
+      "ru": "Получает имя игрового объекта.<br><b>Возвращает:</b> `name` - имя объекта, или `nil`.",
+      "en": "Gets the name of a game object.<br><b>Returns:</b> `name` - object's name, or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">name</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">getName</span>(<span class=\"variable\">player</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gameObject_setActive",
+    "section": "gameobject",
+    "category": "Properties",
+    "name": "<i class=\"fas fa-power-off\"></i> gameObject.setActive(objectId, active)",
+    "desc": {
+      "ru": "Активирует или деактивирует игровой объект.<br>- `objectId` - ID объекта<br>- `active` - состояние (true/false)",
+      "en": "Activates or deactivates a game object.<br>- `objectId` - ID of the object<br>- `active` - state (true/false)"
+    },
+    "code": "<span class=\"comment\">--[[comment:hide_player]]</span>\n<span class=\"variable\">gameObject</span>.<span class=\"function-call\">setActive</span>(<span class=\"variable\">player</span>, <span class=\"keyword\">false</span>)",
+    "commentKey": "hide_player"
+  },
+  {
+    "id": "gameObject_isActive",
+    "section": "gameobject",
+    "category": "Properties",
+    "name": "<i class=\"fas fa-power-off\"></i> gameObject.isActive(objectId)",
+    "desc": {
+      "ru": "Проверяет, активен ли игровой объект в иерархии.<br><b>Возвращает:</b> `active` (boolean).",
+      "en": "Checks if the game object is active in the hierarchy.<br><b>Returns:</b> `active` (boolean)."
+    },
+    "code": "<span class=\"keyword\">if</span> <span class=\"variable\">gameObject</span>.<span class=\"function-call\">isActive</span>(<span class=\"variable\">player</span>) <span class=\"keyword\">then</span>\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Player is active!\"</span>)\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "gameObject_setTag",
+    "section": "gameobject",
+    "category": "Properties",
+    "name": "<i class=\"fas fa-tag\"></i> gameObject.setTag(objectId, tag)",
+    "desc": {
+      "ru": "Устанавливает тег для игрового объекта.<br>- `objectId` - ID объекта<br>- `tag` - имя тега",
+      "en": "Sets the tag for a game object.<br>- `objectId` - ID of the object<br>- `tag` - tag name"
+    },
+    "code": "<span class=\"variable\">gameObject</span>.<span class=\"function-call\">setTag</span>(<span class=\"variable\">player</span>, <span class=\"string\">\"Player\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gameObject_getTag",
+    "section": "gameobject",
+    "category": "Properties",
+    "name": "<i class=\"fas fa-tag\"></i> gameObject.getTag(objectId)",
+    "desc": {
+      "ru": "Получает тег игрового объекта.<br><b>Возвращает:</b> `tag` - тег объекта, или `nil`.",
+      "en": "Gets the tag of a game object.<br><b>Returns:</b> `tag` - object's tag, or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">tag</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">getTag</span>(<span class=\"variable\">player</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gameObject_getTransform",
+    "section": "gameobject",
+    "category": "Components",
+    "name": "<i class=\"fas fa-arrows-alt\"></i> gameObject.getTransform(objectId)",
+    "desc": {
+      "ru": "Получает трансформ игрового объекта.<br><b>Возвращает:</b> `transformId` - ID трансформа, или `nil`.",
+      "en": "Gets the transform of a game object.<br><b>Returns:</b> `transformId` - ID of the transform, or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">player</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">find</span>(<span class=\"string\">\"MainPlayer\"</span>)\n<span class=\"keyword\">local</span> <span class=\"variable\">t</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">getTransform</span>(<span class=\"variable\">player</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gameObject_addComponent",
+    "section": "gameobject",
+    "category": "Components",
+    "name": "<i class=\"fas fa-plus-square\"></i> gameObject.addComponent(objectId, componentType)",
+    "desc": {
+      "ru": "Добавляет компонент к игровому объекту.<br>- `objectId` - ID объекта<br>- `componentType` - тип (напр., \"Rigidbody\")<br><b>Возвращает:</b> `componentId` - ID компонента, или `nil`.",
+      "en": "Adds a component to a game object.<br>- `objectId` - ID of the object<br>- `componentType` - type (e.g., \"Rigidbody\")<br><b>Returns:</b> `componentId` - ID of the component, or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">rb</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">addComponent</span>(<span class=\"variable\">player</span>, <span class=\"string\">\"Rigidbody\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "gameObject_getComponent",
+    "section": "gameobject",
+    "category": "Components",
+    "name": "<i class=\"fas fa-puzzle-piece\"></i> gameObject.getComponent(objectId, componentType)",
+    "desc": {
+      "ru": "Получает компонент определенного типа.<br>- `objectId` - ID объекта<br>- `componentType` - тип компонента<br><b>Возвращает:</b> `componentId` - ID компонента, или `nil`.",
+      "en": "Gets a component of a specific type.<br>- `objectId` - ID of the object<br>- `componentType` - type of component<br><b>Returns:</b> `componentId` - ID of the component, or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">audio</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">getComponent</span>(<span class=\"variable\">player</span>, <span class=\"string\">\"AudioSource\"</span>)",
+    "commentKey": null
+  },
+  {
     "id": "transform_getPosition",
     "section": "transform",
-    "name": "<i class=\"fas fa-map-marker-alt\"></i> transform.getPosition(id)",
+    "category": "Position",
+    "name": "<i class=\"fas fa-map-marker-alt\"></i> transform.getPosition(transformId)",
     "desc": {
-      "ru": "<span class=\"highlight\">Возвращает</span> позицию (x, y, z).",
-      "en": "<span class=\"highlight\">Returns</span> the position (x, y, z)."
+      "ru": "Получает мировую позицию трансформа.<br><b>Возвращает:</b> `x, y, z` или `nil`.",
+      "en": "Gets the world position of the transform.<br><b>Returns:</b> `x, y, z` or `nil`."
     },
     "code": "<span class=\"keyword\">local</span> <span class=\"variable\">x</span>, <span class=\"variable\">y</span>, <span class=\"variable\">z</span> = <span class=\"variable\">transform</span>.<span class=\"function-call\">getPosition</span>(<span class=\"variable\">t</span>)\n<span class=\"function-call\">log</span>(<span class=\"string\">\"Y position: \"</span> .. <span class=\"variable\">y</span>)",
     "commentKey": null
@@ -409,21 +878,119 @@
   {
     "id": "transform_setPosition",
     "section": "transform",
-    "name": "<i class=\"fas fa-arrows-alt\"></i> transform.setPosition(id, x, y, z)",
+    "category": "Position",
+    "name": "<i class=\"fas fa-map-marker-alt\"></i> transform.setPosition(transformId, x, y, z)",
     "desc": {
-      "ru": "Устанавливает позицию.",
-      "en": "Sets the position."
+      "ru": "Устанавливает мировую позицию трансформа.<br>- `transformId` - ID трансформа<br>- `x, y, z` - новые координаты",
+      "en": "Sets the world position of the transform.<br>- `transformId` - ID of the transform<br>- `x, y, z` - new coordinates"
     },
     "code": "<span class=\"comment\">--[[comment:teleport_roof]]</span>\n<span class=\"variable\">transform</span>.<span class=\"function-call\">setPosition</span>(<span class=\"variable\">t</span>, <span class=\"number\">10</span>, <span class=\"number\">50</span>, <span class=\"number\">20</span>)",
     "commentKey": "teleport_roof"
   },
   {
+    "id": "transform_getLocalPosition",
+    "section": "transform",
+    "category": "Position",
+    "name": "<i class=\"fas fa-map-marker\"></i> transform.getLocalPosition(transformId)",
+    "desc": {
+      "ru": "Получает локальную позицию относительно родителя.<br><b>Возвращает:</b> `x, y, z` или `nil`.",
+      "en": "Gets the local position relative to the parent.<br><b>Returns:</b> `x, y, z` or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">lx</span>, <span class=\"variable\">ly</span>, <span class=\"variable\">lz</span> = <span class=\"variable\">transform</span>.<span class=\"function-call\">getLocalPosition</span>(<span class=\"variable\">childT</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "transform_setLocalPosition",
+    "section": "transform",
+    "category": "Position",
+    "name": "<i class=\"fas fa-map-marker\"></i> transform.setLocalPosition(transformId, x, y, z)",
+    "desc": {
+      "ru": "Устанавливает локальную позицию относительно родителя.",
+      "en": "Sets the local position relative to the parent."
+    },
+    "code": "<span class=\"variable\">transform</span>.<span class=\"function-call\">setLocalPosition</span>(<span class=\"variable\">childT</span>, <span class=\"number\">0</span>, <span class=\"number\">1</span>, <span class=\"number\">0</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "transform_getRotation",
+    "section": "transform",
+    "category": "Rotation",
+    "name": "<i class=\"fas fa-sync-alt\"></i> transform.getRotation(transformId)",
+    "desc": {
+      "ru": "Получает вращение в виде кватерниона.<br><b>Возвращает:</b> `x, y, z, w` или `nil`.",
+      "en": "Gets the rotation as a quaternion.<br><b>Returns:</b> `x, y, z, w` or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">qx</span>, <span class=\"variable\">qy</span>, <span class=\"variable\">qz</span>, <span class=\"variable\">qw</span> = <span class=\"variable\">transform</span>.<span class=\"function-call\">getRotation</span>(<span class=\"variable\">t</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "transform_setRotation",
+    "section": "transform",
+    "category": "Rotation",
+    "name": "<i class=\"fas fa-sync-alt\"></i> transform.setRotation(transformId, x, y, z, w)",
+    "desc": {
+      "ru": "Устанавливает вращение через кватернион.",
+      "en": "Sets the rotation via a quaternion."
+    },
+    "code": "<span class=\"variable\">transform</span>.<span class=\"function-call\">setRotation</span>(<span class=\"variable\">t</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">1</span>) <span class=\"comment\">-- No rotation</span>",
+    "commentKey": null
+  },
+  {
+    "id": "transform_getEulerAngles",
+    "section": "transform",
+    "category": "Rotation",
+    "name": "<i class=\"fas fa-compass\"></i> transform.getEulerAngles(transformId)",
+    "desc": {
+      "ru": "Получает углы Эйлера в градусах.<br><b>Возвращает:</b> `x, y, z` или `nil`.",
+      "en": "Gets the Euler angles in degrees.<br><b>Returns:</b> `x, y, z` or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">angleX</span>, <span class=\"variable\">angleY</span>, <span class=\"variable\">angleZ</span> = <span class=\"variable\">transform</span>.<span class=\"function-call\">getEulerAngles</span>(<span class=\"variable\">t</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "transform_setEulerAngles",
+    "section": "transform",
+    "category": "Rotation",
+    "name": "<i class=\"fas fa-compass\"></i> transform.setEulerAngles(transformId, x, y, z)",
+    "desc": {
+      "ru": "Устанавливает вращение через углы Эйлера в градусах.",
+      "en": "Sets the rotation via Euler angles in degrees."
+    },
+    "code": "<span class=\"variable\">transform</span>.<span class=\"function-call\">setEulerAngles</span>(<span class=\"variable\">t</span>, <span class=\"number\">0</span>, <span class=\"number\">45</span>, <span class=\"number\">0</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "transform_getScale",
+    "section": "transform",
+    "category": "Scale",
+    "name": "<i class=\"fas fa-expand-arrows-alt\"></i> transform.getScale(transformId)",
+    "desc": {
+      "ru": "Получает локальный масштаб.<br><b>Возвращает:</b> `x, y, z` или `nil`.",
+      "en": "Gets the local scale.<br><b>Returns:</b> `x, y, z` or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">sx</span>, <span class=\"variable\">sy</span>, <span class=\"variable\">sz</span> = <span class=\"variable\">transform</span>.<span class=\"function-call\">getScale</span>(<span class=\"variable\">t</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "transform_setScale",
+    "section": "transform",
+    "category": "Scale",
+    "name": "<i class=\"fas fa-expand-arrows-alt\"></i> transform.setScale(transformId, x, y, z)",
+    "desc": {
+      "ru": "Устанавливает локальный масштаб.",
+      "en": "Sets the local scale."
+    },
+    "code": "<span class=\"variable\">transform</span>.<span class=\"function-call\">setScale</span>(<span class=\"variable\">t</span>, <span class=\"number\">2</span>, <span class=\"number\">2</span>, <span class=\"number\">2</span>)",
+    "commentKey": null
+  },
+  {
     "id": "transform_translate",
     "section": "transform",
-    "name": "<i class=\"fas fa-arrows-alt\"></i> transform.translate(id, x, y, z)",
+    "category": "Movement",
+    "name": "<i class=\"fas fa-arrows-alt\"></i> transform.translate(transformId, x, y, z)",
     "desc": {
-      "ru": "Сдвигает объект (локально).",
-      "en": "Moves the object (locally)."
+      "ru": "Перемещает трансформ относительно его текущей позиции и ориентации.<br>- `transformId` - ID трансформа<br>- `x, y, z` - вектор перемещения",
+      "en": "Moves the transform relative to its current position and orientation.<br>- `transformId` - ID of the transform<br>- `x, y, z` - translation vector"
     },
     "code": "<span class=\"comment\">--[[comment:move_forward]]</span>\n<span class=\"variable\">transform</span>.<span class=\"function-call\">translate</span>(<span class=\"variable\">t</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">1</span> * <span class=\"function-call\">getDeltaTime</span>())",
     "commentKey": "move_forward"
@@ -431,10 +998,11 @@
   {
     "id": "transform_rotate",
     "section": "transform",
-    "name": "<i class=\"fas fa-sync-alt\"></i> transform.rotate(id, x, y, z)",
+    "category": "Movement",
+    "name": "<i class=\"fas fa-sync-alt\"></i> transform.rotate(transformId, x, y, z)",
     "desc": {
-      "ru": "Вращает объект.",
-      "en": "Rotates the object."
+      "ru": "Вращает трансформ вокруг его осей на указанные углы в градусах.",
+      "en": "Rotates the transform around its axes by the specified angles in degrees."
     },
     "code": "<span class=\"comment\">--[[comment:rotate_y]]</span>\n<span class=\"variable\">transform</span>.<span class=\"function-call\">rotate</span>(<span class=\"variable\">t</span>, <span class=\"number\">0</span>, <span class=\"number\">45</span> * <span class=\"function-call\">getDeltaTime</span>(), <span class=\"number\">0</span>)",
     "commentKey": "rotate_y"
@@ -442,10 +1010,11 @@
   {
     "id": "transform_lookAt",
     "section": "transform",
-    "name": "<i class=\"fas fa-eye\"></i> transform.lookAt(id, x, y, z)",
+    "category": "Movement",
+    "name": "<i class=\"fas fa-eye\"></i> transform.lookAt(transformId, x, y, z)",
     "desc": {
-      "ru": "Направляет объект на точку.",
-      "en": "Makes the object look at a point."
+      "ru": "Поворачивает трансформ чтобы смотреть на указанную точку в мировом пространстве.",
+      "en": "Rotates the transform to look at the specified point in world space."
     },
     "code": "<span class=\"comment\">--[[comment:look_center]]</span>\n<span class=\"variable\">transform</span>.<span class=\"function-call\">lookAt</span>(<span class=\"variable\">t</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>)",
     "commentKey": "look_center"
@@ -453,199 +1022,901 @@
   {
     "id": "transform_getForward",
     "section": "transform",
-    "name": "<i class=\"fas fa-arrow-up\"></i> transform.getForward(id)",
+    "category": "Vectors",
+    "name": "<i class=\"fas fa-arrow-up\"></i> transform.getForward(transformId)",
     "desc": {
-      "ru": "<span class=\"highlight\">Возвращает</span> направление 'вперёд' (x, y, z).",
-      "en": "<span class=\"highlight\">Returns</span> the forward direction (x, y, z)."
+      "ru": "Получает вектор \"вперед\" (синяя ось Z) в мировом пространстве.<br><b>Возвращает:</b> `x, y, z` или `nil`.",
+      "en": "Gets the \"forward\" vector (blue Z-axis) in world space.<br><b>Returns:</b> `x, y, z` or `nil`."
     },
     "code": "<span class=\"keyword\">local</span> <span class=\"variable\">fwdX</span>, <span class=\"variable\">fwdY</span>, <span class=\"variable\">fwdZ</span> = <span class=\"variable\">transform</span>.<span class=\"function-call\">getForward</span>(<span class=\"variable\">t</span>)",
     "commentKey": null
   },
   {
+    "id": "transform_getRight",
+    "section": "transform",
+    "category": "Vectors",
+    "name": "<i class=\"fas fa-arrow-right\"></i> transform.getRight(transformId)",
+    "desc": {
+      "ru": "Получает вектор \"вправо\" (красная ось X) в мировом пространстве.<br><b>Возвращает:</b> `x, y, z`.",
+      "en": "Gets the \"right\" vector (red X-axis) in world space.<br><b>Returns:</b> `x, y, z`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">rX</span>, <span class=\"variable\">rY</span>, <span class=\"variable\">rZ</span> = <span class=\"variable\">transform</span>.<span class=\"function-call\">getRight</span>(<span class=\"variable\">t</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "transform_getUp",
+    "section": "transform",
+    "category": "Vectors",
+    "name": "<i class=\"fas fa-arrow-up\"></i> transform.getUp(transformId)",
+    "desc": {
+      "ru": "Получает вектор \"вверх\" (зеленая ось Y) в мировом пространстве.<br><b>Возвращает:</b> `x, y, z`.",
+      "en": "Gets the \"up\" vector (green Y-axis) in world space.<br><b>Returns:</b> `x, y, z`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">uX</span>, <span class=\"variable\">uY</span>, <span class=\"variable\">uZ</span> = <span class=\"variable\">transform</span>.<span class=\"function-call\">getUp</span>(<span class=\"variable\">t</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "transform_setParent",
+    "section": "transform",
+    "category": "Hierarchy",
+    "name": "<i class=\"fas fa-sitemap\"></i> transform.setParent(transformId, parentTransformId, worldPositionStays)",
+    "desc": {
+      "ru": "Устанавливает родительский трансформ.<br>- `transformId` - ID дочернего трансформа<br>- `parentTransformId` - ID родителя (0 для сброса)<br>- `worldPositionStays` - (boolean) сохранять мировую позицию",
+      "en": "Sets the parent transform.<br>- `transformId` - ID of the child transform<br>- `parentTransformId` - ID of the parent (0 to reset)<br>- `worldPositionStays` - (boolean) keep world position"
+    },
+    "code": "<span class=\"variable\">transform</span>.<span class=\"function-call\">setParent</span>(<span class=\"variable\">childT</span>, <span class=\"variable\">parentT</span>, <span class=\"keyword\">true</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "transform_getChild",
+    "section": "transform",
+    "category": "Hierarchy",
+    "name": "<i class=\"fas fa-child\"></i> transform.getChild(transformId, index)",
+    "desc": {
+      "ru": "Получает дочерний трансформ по индексу.<br>- `transformId` - ID родителя<br>- `index` - индекс (0-based)<br><b>Возвращает:</b> `childId` или `nil`.",
+      "en": "Gets a child transform by index.<br>- `transformId` - ID of the parent<br>- `index` - index (0-based)<br><b>Returns:</b> `childId` or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">firstChild</span> = <span class=\"variable\">transform</span>.<span class=\"function-call\">getChild</span>(<span class=\"variable\">parentT</span>, <span class=\"number\">0</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "transform_getChildCount",
+    "section": "transform",
+    "category": "Hierarchy",
+    "name": "<i class=\"fas fa-list-ol\"></i> transform.getChildCount(transformId)",
+    "desc": {
+      "ru": "Получает количество дочерних трансформов.<br><b>Возвращает:</b> `count` (number).",
+      "en": "Gets the number of child transforms.<br><b>Returns:</b> `count` (number)."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">count</span> = <span class=\"variable\">transform</span>.<span class=\"function-call\">getChildCount</span>(<span class=\"variable\">parentT</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "transform_find",
+    "section": "transform",
+    "category": "Hierarchy",
+    "name": "<i class=\"fas fa-search\"></i> transform.find(transformId, name)",
+    "desc": {
+      "ru": "Находит дочерний трансформ по имени (рекурсивно).<br>- `transformId` - ID родителя<br>- `name` - имя искомого<br><b>Возвращает:</b> `foundId` или `nil`.",
+      "en": "Finds a child transform by name (recursively).<br>- `transformId` - ID of the parent<br>- `name` - name to find<br><b>Returns:</b> `foundId` or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">arm</span> = <span class=\"variable\">transform</span>.<span class=\"function-call\">find</span>(<span class=\"variable\">playerT</span>, <span class=\"string\">\"Arm.Hand\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "transform_detachChildren",
+    "section": "transform",
+    "category": "Hierarchy",
+    "name": "<i class=\"fas fa-unlink\"></i> transform.detachChildren(transformId)",
+    "desc": {
+      "ru": "Отсоединяет всех дочерних трансформов (делает их корневыми).",
+      "en": "Detaches all child transforms (makes them root objects)."
+    },
+    "code": "<span class=\"variable\">transform</span>.<span class=\"function-call\">detachChildren</span>(<span class=\"variable\">parentT</span>)",
+    "commentKey": null
+  },
+  {
     "id": "rigidbody_setVelocity",
     "section": "physics",
-    "name": "<i class=\"fas fa-forward\"></i> rigidbody.setVelocity(id, x, y, z)",
+    "category": "Rigidbody",
+    "name": "<i class=\"fas fa-forward\"></i> rigidbody.setVelocity(rigidbodyId, x, y, z)",
     "desc": {
-      "ru": "Устанавливает скорость (<span class=\"highlight\">ID</span> объекта, не Rigidbody).",
-      "en": "Sets the velocity (<span class=\"highlight\">Object ID</span>, not Rigidbody)."
+      "ru": "Устанавливает линейную скорость Rigidbody.",
+      "en": "Sets the linear velocity of the Rigidbody."
     },
-    "code": "<span class=\"comment\">--[[comment:jump]]</span>\n<span class=\"variable\">rigidbody</span>.<span class=\"function-call\">setVelocity</span>(<span class=\"variable\">player</span>, <span class=\"number\">0</span>, <span class=\"number\">10</span>, <span class=\"number\">0</span>)",
+    "code": "<span class=\"comment\">--[[comment:jump]]</span>\n<span class=\"variable\">rigidbody</span>.<span class=\"function-call\">setVelocity</span>(<span class=\"variable\">playerRb</span>, <span class=\"number\">0</span>, <span class=\"number\">10</span>, <span class=\"number\">0</span>)",
     "commentKey": "jump"
+  },
+  {
+    "id": "rigidbody_getVelocity",
+    "section": "physics",
+    "category": "Rigidbody",
+    "name": "<i class=\"fas fa-running\"></i> rigidbody.getVelocity(rigidbodyId)",
+    "desc": {
+      "ru": "Получает текущую линейную скорость.<br><b>Возвращает:</b> `x, y, z` или `nil`.",
+      "en": "Gets the current linear velocity.<br><b>Returns:</b> `x, y, z` or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">vx</span>, <span class=\"variable\">vy</span>, <span class=\"variable\">vz</span> = <span class=\"variable\">rigidbody</span>.<span class=\"function-call\">getVelocity</span>(<span class=\"variable\">playerRb</span>)",
+    "commentKey": null
   },
   {
     "id": "rigidbody_addForce",
     "section": "physics",
-    "name": "<i class=\"fas fa-wind\"></i> rigidbody.addForce(id, x, y, z)",
+    "category": "Rigidbody",
+    "name": "<i class=\"fas fa-wind\"></i> rigidbody.addForce(rigidbodyId, x, y, z)",
     "desc": {
-      "ru": "Прикладывает силу к объекту.",
-      "en": "Applies a force to the object."
+      "ru": "Применяет силу к Rigidbody.",
+      "en": "Applies a force to the Rigidbody."
     },
-    "code": "<span class=\"comment\">--[[comment:push_forward]]</span>\n<span class=\"variable\">rigidbody</span>.<span class=\"function-call\">addForce</span>(<span class=\"variable\">player</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">100</span>)",
+    "code": "<span class=\"comment\">--[[comment:push_forward]]</span>\n<span class=\"variable\">rigidbody</span>.<span class=\"function-call\">addForce</span>(<span class=\"variable\">playerRb</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">100</span>)",
     "commentKey": "push_forward"
   },
   {
     "id": "rigidbody_setUseGravity",
     "section": "physics",
-    "name": "<i class=\"fas fa-weight-hanging\"></i> rigidbody.setUseGravity(id, bool)",
+    "category": "Rigidbody",
+    "name": "<i class=\"fas fa-weight-hanging\"></i> rigidbody.setUseGravity(rigidbodyId, useGravity)",
     "desc": {
-      "ru": "Включает/выключает гравитацию.",
-      "en": "Enables/disables gravity."
+      "ru": "Включает/выключает гравитацию для Rigidbody.",
+      "en": "Enables/disables gravity for the Rigidbody."
     },
-    "code": "<span class=\"comment\">--[[comment:fly_mode]]</span>\n<span class=\"variable\">rigidbody</span>.<span class=\"function-call\">setUseGravity</span>(<span class=\"variable\">player</span>, <span class=\"keyword\">false</span>)",
+    "code": "<span class=\"comment\">--[[comment:fly_mode]]</span>\n<span class=\"variable\">rigidbody</span>.<span class=\"function-call\">setUseGravity</span>(<span class=\"variable\">playerRb</span>, <span class=\"keyword\">false</span>)",
     "commentKey": "fly_mode"
+  },
+  {
+    "id": "collider_setEnabled",
+    "section": "physics",
+    "category": "Collider",
+    "name": "<i class=\"fas fa-shield-alt\"></i> collider.setEnabled(colliderId, enabled)",
+    "desc": {
+      "ru": "Включает/выключает коллайдер.",
+      "en": "Enables/disables the collider."
+    },
+    "code": "<span class=\"variable\">collider</span>.<span class=\"function-call\">setEnabled</span>(<span class=\"variable\">playerCollider</span>, <span class=\"keyword\">false</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "collider_isTrigger",
+    "section": "physics",
+    "category": "Collider",
+    "name": "<i class=\"fas fa-exclamation-triangle\"></i> collider.isTrigger(colliderId)",
+    "desc": {
+      "ru": "Проверяет, является ли коллайдер триггером.<br><b>Возвращает:</b> `boolean`.",
+      "en": "Checks if the collider is a trigger.<br><b>Returns:</b> `boolean`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">isTrigger</span> = <span class=\"variable\">collider</span>.<span class=\"function-call\">isTrigger</span>(<span class=\"variable\">myCollider</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "collider_setTrigger",
+    "section": "physics",
+    "category": "Collider",
+    "name": "<i class=\"fas fa-exclamation-triangle\"></i> collider.setTrigger(colliderId, isTrigger)",
+    "desc": {
+      "ru": "Устанавливает режим триггера для коллайдера.",
+      "en": "Sets the trigger mode for the collider."
+    },
+    "code": "<span class=\"variable\">collider</span>.<span class=\"function-call\">setTrigger</span>(<span class=\"variable\">myCollider</span>, <span class=\"keyword\">true</span>)",
+    "commentKey": null
   },
   {
     "id": "physics_raycast",
     "section": "physics",
-    "name": "<i class=\"fas fa-stream\"></i> physics.raycast(x, y, z, dirX, dirY, dirZ)",
+    "category": "Raycasting",
+    "name": "<i class=\"fas fa-stream\"></i> physics.raycast(originX, originY, originZ, dirX, ...)",
     "desc": {
-      "ru": "Пускает луч, <span class=\"highlight\">возвращает bool</span> (попал или нет).",
-      "en": "Casts a ray, <span class=\"highlight\">returns bool</span> (hit or not)."
+      "ru": "Выполняет raycast (луч) запрос.<br>- `origin` - начальная точка<br>- `dir` - направление<br>- `maxDistance` - (опц.)<br>- `layerMask` - (опц.)<br>- `ignoreTriggers` - (опц.)<br><b>Возвращает:</b> `hit` (bool), `hitData` (table).",
+      "en": "Performs a raycast.<br>- `origin` - start point<br>- `dir` - direction<br>- `maxDistance` - (opt.)<br>- `layerMask` - (opt.)<br>- `ignoreTriggers` - (opt.)<br><b>Returns:</b> `hit` (bool), `hitData` (table)."
     },
-    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">didHit</span> = <span class=\"variable\">physics</span>.<span class=\"function-call\">raycast</span>(<span class=\"number\">0</span>, <span class=\"number\">1</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">-1</span>, <span class=\"number\">0</span>)\n<span class=\"keyword\">if</span> <span class=\"variable\">didHit</span> <span class=\"keyword\">then</span> <span class=\"function-call\">log</span>(<span class=\"string\">\"Hit ground\"</span>) <span class=\"keyword\">end</span>",
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">hit</span>, <span class=\"variable\">data</span> = <span class=\"variable\">physics</span>.<span class=\"function-call\">raycast</span>(<span class=\"number\">0</span>, <span class=\"number\">1</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">-1</span>, <span class=\"number\">0</span>)\n<span class=\"keyword\">if</span> <span class=\"variable\">hit</span> <span class=\"keyword\">then</span> <span class=\"function-call\">log</span>(<span class=\"string\">\"Hit: \"</span> .. <span class=\"variable\">data</span>.<span class=\"variable\">distance</span>) <span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "physics_raycastAll",
+    "section": "physics",
+    "category": "Raycasting",
+    "name": "<i class=\"fas fa-stream\"></i> physics.raycastAll(originX, originY, originZ, dirX, ...)",
+    "desc": {
+      "ru": "Выполняет raycast и возвращает все попадания.<br><b>Возвращает:</b> таблицу с `hitData` для всех попаданий.",
+      "en": "Performs a raycast and returns all hits.<br><b>Returns:</b> a table with `hitData` for all hits."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">allHits</span> = <span class=\"variable\">physics</span>.<span class=\"function-call\">raycastAll</span>(<span class=\"number\">0</span>, <span class=\"number\">1</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">-1</span>, <span class=\"number\">0</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "physics_sphereCast",
+    "section": "physics",
+    "category": "Raycasting",
+    "name": "<i class=\"fas fa-circle-notch\"></i> physics.sphereCast(originX, originY, originZ, radius, ...)",
+    "desc": {
+      "ru": "Выполняет сферический raycast запрос.",
+      "en": "Performs a sphere cast."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">hit</span>, <span class=\"variable\">data</span> = <span class=\"variable\">physics</span>.<span class=\"function-call\">sphereCast</span>(<span class=\"number\">0</span>, <span class=\"number\">1</span>, <span class=\"number\">0</span>, <span class=\"number\">0.5</span>, <span class=\"number\">0</span>, <span class=\"number\">-1</span>, <span class=\"number\">0</span>)",
     "commentKey": null
   },
   {
     "id": "physics_overlapSphere",
     "section": "physics",
-    "name": "<i class=\"fas fa-circle-notch\"></i> physics.overlapSphere(x, y, z, r)",
+    "category": "Overlapping",
+    "name": "<i class=\"fas fa-broadcast-tower\"></i> physics.overlapSphere(centerX, centerY, centerZ, radius, ...)",
     "desc": {
-      "ru": "<span class=\"highlight\">Возвращает таблицу ID</span> объектов в сфере.",
-      "en": "<span class=\"highlight\">Returns a table of object IDs</span> within a sphere."
+      "ru": "Находит все коллайдеры в сфере.<br><b>Возвращает:</b> таблицу с ID коллайдеров.",
+      "en": "Finds all colliders in a sphere.<br><b>Returns:</b> a table with collider IDs."
     },
-    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">targets</span> = <span class=\"variable\">physics</span>.<span class=\"function-call\">overlapSphere</span>(<span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">10</span>)\n<span class=\"keyword\">for</span> <span class=\"variable\">_</span>, <span class=\"variable\">id</span> <span class=\"keyword\">in</span> <span class=\"function-call\">pairs</span>(<span class=\"variable\">targets</span>) <span class=\"keyword\">do</span>\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Found: \"</span> .. <span class=\"variable\">id</span>)\n<span class=\"keyword\">end</span>",
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">colliders</span> = <span class=\"variable\">physics</span>.<span class=\"function-call\">overlapSphere</span>(<span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">5.0</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "physics_checkSphere",
+    "section": "physics",
+    "category": "Overlapping",
+    "name": "<i class=\"fas fa-check-circle\"></i> physics.checkSphere(centerX, centerY, centerZ, radius, ...)",
+    "desc": {
+      "ru": "Проверяет, есть ли коллайдеры в сфере.<br><b>Возвращает:</b> `boolean`.",
+      "en": "Checks if there are any colliders in a sphere.<br><b>Returns:</b> `boolean`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">isHit</span> = <span class=\"variable\">physics</span>.<span class=\"function-call\">checkSphere</span>(<span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">5.0</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "physics_getLayerName",
+    "section": "physics",
+    "category": "Layers",
+    "name": "<i class=\"fas fa-layer-group\"></i> physics.getLayerName(layer)",
+    "desc": {
+      "ru": "Получает имя слоя по номеру.<br><b>Возвращает:</b> `layerName` или `nil`.",
+      "en": "Gets the layer name by number.<br><b>Returns:</b> `layerName` or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">name</span> = <span class=\"variable\">physics</span>.<span class=\"function-call\">getLayerName</span>(<span class=\"number\">8</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "physics_getLayerFromName",
+    "section": "physics",
+    "category": "Layers",
+    "name": "<i class=\"fas fa-layer-group\"></i> physics.getLayerFromName(layerName)",
+    "desc": {
+      "ru": "Получает номер слоя по имени.<br><b>Возвращает:</b> `layer`.",
+      "en": "Gets the layer number by name.<br><b>Returns:</b> `layer`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">layer</span> = <span class=\"variable\">physics</span>.<span class=\"function-call\">getLayerFromName</span>(<span class=\"string\">\"Player\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "physics_layerMask",
+    "section": "physics",
+    "category": "Layers",
+    "name": "<i class=\"fas fa-layer-group\"></i> physics.layerMask(layer1, layer2, ...)",
+    "desc": {
+      "ru": "Создает маску слоев из номеров или имен.<br><b>Возвращает:</b> `layerMask`.",
+      "en": "Creates a layer mask from layer numbers or names.<br><b>Returns:</b> `layerMask`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">mask</span> = <span class=\"variable\">physics</span>.<span class=\"function-call\">layerMask</span>(<span class=\"string\">\"Player\"</span>, <span class=\"string\">\"Environment\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "physics_layerMaskInverse",
+    "section": "physics",
+    "category": "Layers",
+    "name": "<i class=\"fas fa-layer-group\"></i> physics.layerMaskInverse(layer1, layer2, ...)",
+    "desc": {
+      "ru": "Создает инвертированную маску слоев.<br><b>Возвращает:</b> `inverseLayerMask`.",
+      "en": "Creates an inverted layer mask.<br><b>Returns:</b> `inverseLayerMask`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">mask</span> = <span class=\"variable\">physics</span>.<span class=\"function-call\">layerMaskInverse</span>(<span class=\"string\">\"Player\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "physics_setLayer",
+    "section": "physics",
+    "category": "Layers",
+    "name": "<i class=\"fas fa-layer-group\"></i> physics.setLayer(gameObjectId, layer)",
+    "desc": {
+      "ru": "Устанавливает слой для игрового объекта.",
+      "en": "Sets the layer for a game object."
+    },
+    "code": "<span class=\"variable\">physics</span>.<span class=\"function-call\">setLayer</span>(<span class=\"variable\">player</span>, <span class=\"number\">8</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "physics_getLayer",
+    "section": "physics",
+    "category": "Layers",
+    "name": "<i class=\"fas fa-layer-group\"></i> physics.getLayer(gameObjectId)",
+    "desc": {
+      "ru": "Получает слой игрового объекта.<br><b>Возвращает:</b> `layer` или `nil`.",
+      "en": "Gets the layer of a game object.<br><b>Returns:</b> `layer` or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">layer</span> = <span class=\"variable\">physics</span>.<span class=\"function-call\">getLayer</span>(<span class=\"variable\">player</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "physics_setLayersRecursively",
+    "section": "physics",
+    "category": "Layers",
+    "name": "<i class=\"fas fa-layer-group\"></i> physics.setLayersRecursively(gameObjectId, layer)",
+    "desc": {
+      "ru": "Рекурсивно устанавливает слой для объекта и всех его детей.",
+      "en": "Recursively sets the layer for an object and all its children."
+    },
+    "code": "<span class=\"variable\">physics</span>.<span class=\"function-call\">setLayersRecursively</span>(<span class=\"variable\">playerModel</span>, <span class=\"number\">8</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "physics_layerMaskAll",
+    "section": "physics",
+    "category": "Layers",
+    "name": "<i class=\"fas fa-layer-group\"></i> physics.layerMaskAll()",
+    "desc": {
+      "ru": "Возвращает маску всех слоев (-1).",
+      "en": "Returns a mask for all layers (-1)."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">mask</span> = <span class=\"variable\">physics</span>.<span class=\"function-call\">layerMaskAll</span>()",
+    "commentKey": null
+  },
+  {
+    "id": "physics_layerMaskNone",
+    "section": "physics",
+    "category": "Layers",
+    "name": "<i class=\"fas fa-layer-group\"></i> physics.layerMaskNone()",
+    "desc": {
+      "ru": "Возвращает пустую маску слоев (0).",
+      "en": "Returns an empty layer mask (0)."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">mask</span> = <span class=\"variable\">physics</span>.<span class=\"function-call\">layerMaskNone</span>()",
+    "commentKey": null
+  },
+  {
+    "id": "audioClip_load",
+    "section": "audio",
+    "category": "AudioClip",
+    "name": "<i class=\"fas fa-file-audio\"></i> audioClip.load(filePath)",
+    "desc": {
+      "ru": "Загружает аудиофайл.<br>- `filePath` (string) - путь к аудиофайлу<br><b>Возвращает:</b> `audioClipId` (number) или `nil, errorMessage`.",
+      "en": "Loads an audio clip.<br>- `filePath` (string) - path to the audio file<br><b>Returns:</b> `audioClipId` (number) or `nil, errorMessage`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">soundId</span>, <span class=\"variable\">err</span> = <span class=\"variable\">audioClip</span>.<span class=\"function-call\">load</span>(<span class=\"string\">\"sounds/shot.wav\"</span>)\n<span class=\"keyword\">if</span> <span class=\"keyword\">not</span> <span class=\"variable\">soundId</span> <span class=\"keyword\">then</span> <span class=\"function-call\">log</span>(<span class=\"string\">\"Error: \"</span> .. <span class=\"variable\">err</span>) <span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "audioClip_getLength",
+    "section": "audio",
+    "category": "AudioClip",
+    "name": "<i class=\"fas fa-clock\"></i> audioClip.getLength(audioClipId)",
+    "desc": {
+      "ru": "Получает длительность аудиоклипа в секундах.<br><b>Возвращает:</b> `length` или `nil`.",
+      "en": "Gets the length of the audio clip in seconds.<br><b>Returns:</b> `length` or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">len</span> = <span class=\"variable\">audioClip</span>.<span class=\"function-call\">getLength</span>(<span class=\"variable\">clipId</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "audioSource_add",
+    "section": "audio",
+    "category": "AudioSource",
+    "name": "<i class=\"fas fa-plus-circle\"></i> audioSource.add(gameObjectId)",
+    "desc": {
+      "ru": "Добавляет компонент AudioSource к игровому объекту.<br><b>Возвращает:</b> `audioSourceId`.",
+      "en": "Adds an AudioSource component to a game object.<br><b>Returns:</b> `audioSourceId`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">audioId</span> = <span class=\"variable\">audioSource</span>.<span class=\"function-call\">add</span>(<span class=\"variable\">myGameObjectId</span>)",
     "commentKey": null
   },
   {
     "id": "audioSource_play",
     "section": "audio",
-    "name": "<i class=\"fas fa-play-circle\"></i> audioSource.play(id)",
+    "category": "AudioSource",
+    "name": "<i class=\"fas fa-play\"></i> audioSource.play(audioSourceId)",
     "desc": {
-      "ru": "Воспроизводит звук (<span class=\"highlight\">ID</span> объекта с AudioSource).",
-      "en": "Plays a sound (<span class=\"highlight\">ID</span> of object with AudioSource)."
+      "ru": "Начинает воспроизведение звука.",
+      "en": "Starts playing the sound."
     },
-    "code": "<span class=\"variable\">audioSource</span>.<span class=\"function-call\">play</span>(<span class=\"variable\">player</span>)",
+    "code": "<span class=\"variable\">audioSource</span>.<span class=\"function-call\">play</span>(<span class=\"variable\">audioId</span>)",
     "commentKey": null
   },
   {
     "id": "audioSource_stop",
     "section": "audio",
-    "name": "<i class=\"fas fa-stop-circle\"></i> audioSource.stop(id)",
+    "category": "AudioSource",
+    "name": "<i class=\"fas fa-stop\"></i> audioSource.stop(audioSourceId)",
     "desc": {
-      "ru": "Останавливает звук.",
-      "en": "Stops the sound."
+      "ru": "Останавливает воспроизведение звука.",
+      "en": "Stops playing the sound."
     },
-    "code": "<span class=\"variable\">audioSource</span>.<span class=\"function-call\">stop</span>(<span class=\"variable\">player</span>)",
+    "code": "<span class=\"variable\">audioSource</span>.<span class=\"function-call\">stop</span>(<span class=\"variable\">audioId</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "audioSource_pause",
+    "section": "audio",
+    "category": "AudioSource",
+    "name": "<i class=\"fas fa-pause\"></i> audioSource.pause(audioSourceId)",
+    "desc": {
+      "ru": "Приостанавливает воспроизведение звука.",
+      "en": "Pauses the sound."
+    },
+    "code": "<span class=\"variable\">audioSource</span>.<span class=\"function-call\">pause</span>(<span class=\"variable\">audioId</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "audioSource_setClip",
+    "section": "audio",
+    "category": "AudioSource",
+    "name": "<i class=\"fas fa-paperclip\"></i> audioSource.setClip(audioSourceId, audioClipId)",
+    "desc": {
+      "ru": "Устанавливает аудиоклип для воспроизведения.",
+      "en": "Sets the audio clip to be played."
+    },
+    "code": "<span class=\"variable\">audioSource</span>.<span class=\"function-call\">setClip</span>(<span class=\"variable\">audioId</span>, <span class=\"variable\">clipId</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "audioSource_getVolume",
+    "section": "audio",
+    "category": "AudioSource",
+    "name": "<i class=\"fas fa-volume-up\"></i> audioSource.getVolume(audioSourceId)",
+    "desc": {
+      "ru": "Получает текущую громкость (0.0 - 1.0).<br><b>Возвращает:</b> `volume` или `nil`.",
+      "en": "Gets the current volume (0.0 - 1.0).<br><b>Returns:</b> `volume` or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">vol</span> = <span class=\"variable\">audioSource</span>.<span class=\"function-call\">getVolume</span>(<span class=\"variable\">audioId</span>)",
     "commentKey": null
   },
   {
     "id": "audioSource_setVolume",
     "section": "audio",
-    "name": "<i class=\"fas fa-volume-down\"></i> audioSource.setVolume(id, v)",
+    "category": "AudioSource",
+    "name": "<i class=\"fas fa-volume-up\"></i> audioSource.setVolume(audioSourceId, volume)",
     "desc": {
-      "ru": "Устанавливает громкость (0.0 - 1.0).",
-      "en": "Sets the volume (0.0 - 1.0)."
+      "ru": "Устанавливает громкость звука (0.0 - 1.0).",
+      "en": "Sets the volume of the sound (0.0 - 1.0)."
     },
-    "code": "<span class=\"variable\">audioSource</span>.<span class=\"function-call\">setVolume</span>(<span class=\"variable\">player</span>, <span class=\"number\">0.5</span>)",
+    "code": "<span class=\"variable\">audioSource</span>.<span class=\"function-call\">setVolume</span>(<span class=\"variable\">audioId</span>, <span class=\"number\">0.5</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "audioSource_setLoop",
+    "section": "audio",
+    "category": "AudioSource",
+    "name": "<i class=\"fas fa-sync-alt\"></i> audioSource.setLoop(audioSourceId, state)",
+    "desc": {
+      "ru": "Включает или выключает зацикливание звука.",
+      "en": "Enables or disables looping of the sound."
+    },
+    "code": "<span class=\"variable\">audioSource</span>.<span class=\"function-call\">setLoop</span>(<span class=\"variable\">audioId</span>, <span class=\"keyword\">true</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "audioSource_getLoop",
+    "section": "audio",
+    "category": "AudioSource",
+    "name": "<i class=\"fas fa-sync-alt\"></i> audioSource.getLoop(audioSourceId)",
+    "desc": {
+      "ru": "Проверяет, зациклен ли звук.<br><b>Возвращает:</b> `boolean`.",
+      "en": "Checks if the sound is set to loop.<br><b>Returns:</b> `boolean`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">isLooping</span> = <span class=\"variable\">audioSource</span>.<span class=\"function-call\">getLoop</span>(<span class=\"variable\">audioId</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "audioSource_setSpatial",
+    "section": "audio",
+    "category": "AudioSource",
+    "name": "<i class=\"fas fa-map-marker-alt\"></i> audioSource.setSpatial(audioSourceId, value)",
+    "desc": {
+      "ru": "Устанавливает пространственное смешение (0.0 = 2D, 1.0 = 3D).",
+      "en": "Sets the spatial blend (0.0 = 2D, 1.0 = 3D)."
+    },
+    "code": "<span class=\"variable\">audioSource</span>.<span class=\"function-call\">setSpatial</span>(<span class=\"variable\">audioId</span>, <span class=\"number\">1.0</span>) <span class=\"comment\">-- Make sound 3D</span>",
+    "commentKey": null
+  },
+  {
+    "id": "audioSource_getSpatial",
+    "section": "audio",
+    "category": "AudioSource",
+    "name": "<i class=\"fas fa-map-marker-alt\"></i> audioSource.getSpatial(audioSourceId)",
+    "desc": {
+      "ru": "Получает значение пространственного смешения.<br><b>Возвращает:</b> `value` (0.0 - 1.0).",
+      "en": "Gets the spatial blend value.<br><b>Returns:</b> `value` (0.0 - 1.0)."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">blend</span> = <span class=\"variable\">audioSource</span>.<span class=\"function-call\">getSpatial</span>(<span class=\"variable\">audioId</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "audioSource_setPitch",
+    "section": "audio",
+    "category": "AudioSource",
+    "name": "<i class=\"fas fa-sliders-h\"></i> audioSource.setPitch(audioSourceId, pitch)",
+    "desc": {
+      "ru": "Устанавливает высоту тона звука (1.0 - нормальная).",
+      "en": "Sets the pitch of the sound (1.0 = normal)."
+    },
+    "code": "<span class=\"variable\">audioSource</span>.<span class=\"function-call\">setPitch</span>(<span class=\"variable\">audioId</span>, <span class=\"number\">1.5</span>) <span class=\"comment\">-- 1.5x speed</span>",
     "commentKey": null
   },
   {
     "id": "audioSource_isPlaying",
     "section": "audio",
-    "name": "<i class=\"fas fa-question-circle\"></i> audioSource.isPlaying(id)",
+    "category": "AudioSource",
+    "name": "<i class=\"fas fa-play-circle\"></i> audioSource.isPlaying(audioSourceId)",
     "desc": {
-      "ru": "Проверяет, воспроизводится ли звук (<span class=\"highlight\">возвращает bool</span>).",
-      "en": "Checks if the sound is playing (<span class=\"highlight\">returns bool</span>)."
+      "ru": "Проверяет, воспроизводится ли звук.<br><b>Возвращает:</b> `boolean`.",
+      "en": "Checks if the sound is currently playing.<br><b>Returns:</b> `boolean`."
     },
-    "code": "<span class=\"keyword\">if</span> <span class=\"variable\">audioSource</span>.<span class=\"function-call\">isPlaying</span>(<span class=\"variable\">player</span>) <span class=\"keyword\">then</span>\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Music is playing\"</span>)\n<span class=\"keyword\">end</span>",
+    "code": "<span class=\"keyword\">if</span> <span class=\"keyword\">not</span> <span class=\"variable\">audioSource</span>.<span class=\"function-call\">isPlaying</span>(<span class=\"variable\">audioId</span>) <span class=\"keyword\">then</span>\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Sound finished!\"</span>)\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "camera_getMain",
+    "section": "camera",
+    "category": "General",
+    "name": "<i class=\"fas fa-camera\"></i> camera.getMain()",
+    "desc": {
+      "ru": "Получает главную камеру сцены.<br><b>Возвращает:</b> `cameraId` или `nil`.",
+      "en": "Gets the main camera in the scene.<br><b>Returns:</b> `cameraId` or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">mainCam</span> = <span class=\"variable\">camera</span>.<span class=\"function-call\">getMain</span>()",
+    "commentKey": null
+  },
+  {
+    "id": "camera_getTransform",
+    "section": "camera",
+    "category": "General",
+    "name": "<i class=\"fas fa-arrows-alt\"></i> camera.getTransform(cameraId)",
+    "desc": {
+      "ru": "Получает трансформ камеры.<br><b>Возвращает:</b> `transformId` или `nil`.",
+      "en": "Gets the transform of the camera.<br><b>Returns:</b> `transformId` or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">camTransform</span> = <span class=\"variable\">camera</span>.<span class=\"function-call\">getTransform</span>(<span class=\"variable\">mainCam</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "camera_setBackgroundColor",
+    "section": "camera",
+    "category": "Properties",
+    "name": "<i class=\"fas fa-fill\"></i> camera.setBackgroundColor(cameraId, r, g, b, a)",
+    "desc": {
+      "ru": "Устанавливает цвет фона камеры (0.0 - 1.0).",
+      "en": "Sets the background color of the camera (0.0 - 1.0)."
+    },
+    "code": "<span class=\"variable\">camera</span>.<span class=\"function-call\">setBackgroundColor</span>(<span class=\"variable\">mainCam</span>, <span class=\"number\">0.1</span>, <span class=\"number\">0.1</span>, <span class=\"number\">0.2</span>, <span class=\"number\">1.0</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "camera_getBackgroundColor",
+    "section": "camera",
+    "category": "Properties",
+    "name": "<i class=\"fas fa-eye-dropper\"></i> camera.getBackgroundColor(cameraId)",
+    "desc": {
+      "ru": "Получает цвет фона камеры.<br><b>Возвращает:</b> `r, g, b, a` или `nil`.",
+      "en": "Gets the background color of the camera.<br><b>Returns:</b> `r, g, b, a` or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">r</span>, <span class=\"variable\">g</span>, <span class=\"variable\">b</span>, <span class=\"variable\">a</span> = <span class=\"variable\">camera</span>.<span class=\"function-call\">getBackgroundColor</span>(<span class=\"variable\">mainCam</span>)",
     "commentKey": null
   },
   {
     "id": "camera_setFieldOfView",
     "section": "camera",
-    "name": "<i class=\"fas fa-expand-arrows-alt\"></i> camera.setFieldOfView(id, fov)",
+    "category": "Properties",
+    "name": "<i class=\"fas fa-expand\"></i> camera.setFieldOfView(cameraId, fov)",
     "desc": {
-      "ru": "Устанавливает угол обзора (FOV).",
-      "en": "Sets the field of view (FOV)."
+      "ru": "Устанавливает поле зрения камеры (в градусах).",
+      "en": "Sets the field of view of the camera (in degrees)."
     },
-    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">cam</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">find</span>(<span class=\"string\">\"MainCamera\"</span>)\n<span class=\"variable\">camera</span>.<span class=\"function-call\">setFieldOfView</span>(<span class=\"variable\">cam</span>, <span class=\"number\">90</span>)",
+    "code": "<span class=\"variable\">camera</span>.<span class=\"function-call\">setFieldOfView</span>(<span class=\"variable\">mainCam</span>, <span class=\"number\">90</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "camera_getFieldOfView",
+    "section": "camera",
+    "category": "Properties",
+    "name": "<i class=\"fas fa-expand\"></i> camera.getFieldOfView(cameraId)",
+    "desc": {
+      "ru": "Получает поле зрения камеры.<br><b>Возвращает:</b> `fov` или `nil`.",
+      "en": "Gets the field of view of the camera.<br><b>Returns:</b> `fov` or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">fov</span> = <span class=\"variable\">camera</span>.<span class=\"function-call\">getFieldOfView</span>(<span class=\"variable\">mainCam</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "camera_setOrthographic",
+    "section": "camera",
+    "category": "Properties",
+    "name": "<i class=\"fas fa-square\"></i> camera.setOrthographic(cameraId, orthographic)",
+    "desc": {
+      "ru": "Устанавливает ортографический режим камеры.",
+      "en": "Sets the orthographic mode of the camera."
+    },
+    "code": "<span class=\"variable\">camera</span>.<span class=\"function-call\">setOrthographic</span>(<span class=\"variable\">mainCam</span>, <span class=\"keyword\">true</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "camera_isOrthographic",
+    "section": "camera",
+    "category": "Properties",
+    "name": "<i class=\"fas fa-square\"></i> camera.isOrthographic(cameraId)",
+    "desc": {
+      "ru": "Проверяет, является ли камера ортографической.<br><b>Возвращает:</b> `boolean`.",
+      "en": "Checks if the camera is orthographic.<br><b>Returns:</b> `boolean`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">isOrtho</span> = <span class=\"variable\">camera</span>.<span class=\"function-call\">isOrthographic</span>(<span class=\"variable\">mainCam</span>)",
     "commentKey": null
   },
   {
     "id": "camera_worldToScreenPoint",
     "section": "camera",
-    "name": "<i class=\"fas fa-compress-arrows-alt\"></i> camera.worldToScreenPoint(id, x, y, z)",
+    "category": "Conversion",
+    "name": "<i class=\"fas fa-compress-arrows-alt\"></i> camera.worldToScreenPoint(cameraId, x, y, z)",
     "desc": {
-      "ru": "Мировые → экранные координаты (<span class=\"highlight\">возвращает</span> x, y, z).",
-      "en": "World → screen coordinates (<span class=\"highlight\">returns</span> x, y, z)."
+      "ru": "Преобразует мировые координаты в экранные.<br><b>Возвращает:</b> `screenX, screenY, screenZ` или `nil`.",
+      "en": "Converts world coordinates to screen coordinates.<br><b>Returns:</b> `screenX, screenY, screenZ` or `nil`."
     },
-    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">x</span>, <span class=\"variable\">y</span>, <span class=\"variable\">z</span> = <span class=\"variable\">camera</span>.<span class=\"function-call\">worldToScreenPoint</span>(<span class=\"variable\">cam</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>)\n<span class=\"function-call\">log</span>(<span class=\"string\">\"Center on screen: \"</span> .. <span class=\"variable\">x</span>)",
-    "commentKey": null
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">sx</span>, <span class=\"variable\">sy</span>, <span class=\"variable\">sz</span> = <span class=\"variable\">camera</span>.<span class=\"function-call\">worldToScreenPoint</span>(<span class=\"variable\">mainCam</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>, <span class=\"number\">0</span>)\n<span class=\"comment\">--[[comment:z_depth]]</span>",
+    "commentKey": "z_depth"
   },
   {
     "id": "camera_screenToWorldPoint",
     "section": "camera",
-    "name": "<i class=\"fas fa-external-link-alt\"></i> camera.screenToWorldPoint(id, x, y, z)",
+    "category": "Conversion",
+    "name": "<i class=\"fas fa-expand-arrows-alt\"></i> camera.screenToWorldPoint(cameraId, x, y, z)",
     "desc": {
-      "ru": "Экранные → мировые координаты (<span class=\"highlight\">возвращает</span> x, y, z).",
-      "en": "Screen → world coordinates (<span class=\"highlight\">returns</span> x, y, z)."
+      "ru": "Преобразует экранные координаты в мировые.<br><b>Возвращает:</b> `worldX, worldY, worldZ` или `nil`.",
+      "en": "Converts screen coordinates to world coordinates.<br><b>Returns:</b> `worldX, worldY, worldZ` or `nil`."
     },
-    "code": "<span class=\"comment\">--[[comment:z_depth]]</span>\n<span class=\"keyword\">local</span> <span class=\"variable\">worldX</span>, <span class=\"variable\">_</span>, <span class=\"variable\">_</span> = <span class=\"variable\">camera</span>.<span class=\"function-call\">screenToWorldPoint</span>(<span class \"variable\">cam</span>, <span class=\"number\">100</span>, <span class=\"number\">100</span>, <span class=\"number\">10</span>)",
-    "commentKey": "z_depth"
-  },
-  {
-    "id": "input_getKey",
-    "section": "input",
-    "name": "<i class=\"fas fa-key\"></i> input.getKey(name)",
-    "desc": {
-      "ru": "Проверка, зажата ли клавиша (<span class=\"highlight\">возвращает bool</span>).",
-      "en": "Checks if a key is held down (<span class=\"highlight\">returns bool</span>)."
-    },
-    "code": "<span class=\"keyword\">if</span> <span class=\"variable\">input</span>.<span class=\"function-call\">getKey</span>(<span class=\"string\">\"Space\"</span>) <span class=\"keyword\">then</span>\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Space is held down\"</span>)\n<span class=\"keyword\">end</span>",
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">wx</span>, <span class=\"variable\">wy</span>, <span class=\"variable\">wz</span> = <span class=\"variable\">camera</span>.<span class=\"function-call\">screenToWorldPoint</span>(<span class=\"variable\">mainCam</span>, <span class=\"number\">100</span>, <span class=\"number\">100</span>, <span class=\"number\">10</span>)",
     "commentKey": null
   },
   {
-    "id": "input_getKeyDown",
+    "id": "input_registerConsoleCommand",
     "section": "input",
-    "name": "<i class=\"fas fa-caret-square-down\"></i> input.getKeyDown(name)",
+    "category": "Console",
+    "name": "<i class=\"fas fa-terminal\"></i> registerConsoleCommand(commandName, callback)",
     "desc": {
-      "ru": "Проверка нажатия клавиши (<span class=\"highlight\">возвращает bool</span>, срабатывает 1 раз).",
-      "en": "Checks if a key was pressed down (<span class=\"highlight\">returns bool</span>, triggers once)."
+      "ru": "Регистрирует новую консольную команду.<br><b>Возвращает:</b> `success, errorMessage`.",
+      "en": "Registers a new console command.<br><b>Returns:</b> `success, errorMessage`."
     },
-    "code": "<span class=\"keyword\">if</span> <span class=\"variable\">input</span>.<span class=\"function-call\">getKeyDown</span>(<span class=\"string\">\"F\"</span>) <span class=\"keyword\">then</span>\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Toggled flashlight\"</span>)\n<span class=\"keyword\">end</span>",
+    "code": "<span class=\"keyword\">function</span> <span class=\"function-call\">MyHealCommand</span>(<span class=\"variable\">args</span>)\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Healed!\"</span>)\n<span class=\"keyword\">end</span>\n<span class=\"function-call\">registerConsoleCommand</span>(<span class=\"string\">\"heal\"</span>, <span class=\"variable\">MyHealCommand</span>)",
     "commentKey": null
   },
   {
-    "id": "input_getMouse",
+    "id": "input_executeConsoleCommand",
     "section": "input",
-    "name": "<i class=\"fas fa-mouse-pointer\"></i> input.getMouse(button)",
+    "category": "Console",
+    "name": "<i class=\"fas fa-terminal\"></i> executeConsoleCommand(command)",
     "desc": {
-      "ru": "Нажатие кнопки мыши (<span class=\"highlight\">0=LMB, 1=RMB, 2=MMB</span>).",
-      "en": "Mouse button press (<span class=\"highlight\">0=LMB, 1=RMB, 2=MMB</span>)."
+      "ru": "Выполняет консольную команду.<br><b>Возвращает:</b> `success`.",
+      "en": "Executes a console command.<br><b>Returns:</b> `success`."
     },
-    "code": "<span class=\"keyword\">if</span> <span class=\"variable\">input</span>.<span class=\"function-call\">getMouse</span>(<span class=\"number\">0</span>) <span class=\"keyword\">then</span>\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Left mouse button pressed\"</span>)\n<span class=\"keyword\">end</span>",
+    "code": "<span class=\"function-call\">executeConsoleCommand</span>(<span class=\"string\">\"heal\"</span>)",
     "commentKey": null
   },
   {
-    "id": "input_getAxis",
+    "id": "input_getScreenWidth",
     "section": "input",
-    "name": "<i class=\"fas fa-gamepad\"></i> input.getAxis(name)",
+    "category": "Screen",
+    "name": "<i class=\"fas fa-arrows-alt-h\"></i> input.getScreenWidth()",
     "desc": {
-      "ru": "<span class=\"highlight\">Возвращает</span> значение оси (напр., 'Mouse X', 'Vertical').",
-      "en": "<span class=\"highlight\">Returns</span> the value of an axis (e.g., 'Mouse X', 'Vertical')."
+      "ru": "<b>Возвращает:</b> ширину экрана.",
+      "en": "<b>Returns:</b> the screen width."
     },
-    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">v</span> = <span class=\"variable\">input</span>.<span class=\"function-call\">getAxis</span>(<span class=\"string\">\"Vertical\"</span>)\n<span class=\"keyword\">if</span> <span class=\"variable\">v</span> > <span class=\"number\">0</span> <span class=\"keyword\">then</span> <span class=\"function-call\">log</span>(<span class=\"string\">\"Moving forward\"</span>) <span class=\"keyword\">end</span>",
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">w</span> = <span class=\"variable\">input</span>.<span class=\"function-call\">getScreenWidth</span>()",
+    "commentKey": null
+  },
+  {
+    "id": "input_getScreenHeight",
+    "section": "input",
+    "category": "Screen",
+    "name": "<i class=\"fas fa-arrows-alt-v\"></i> input.getScreenHeight()",
+    "desc": {
+      "ru": "<b>Возвращает:</b> высоту экрана.",
+      "en": "<b>Returns:</b> the screen height."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">h</span> = <span class=\"variable\">input</span>.<span class=\"function-call\">getScreenHeight</span>()",
+    "commentKey": null
+  },
+  {
+    "id": "input_getMousePosition",
+    "section": "input",
+    "category": "Mouse",
+    "name": "<i class=\"fas fa-mouse-pointer\"></i> input.getMousePosition()",
+    "desc": {
+      "ru": "<b>Возвращает:</b> `x, y, z` - позицию мыши.",
+      "en": "<b>Returns:</b> `x, y, z` - the mouse position."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">x</span>, <span class=\"variable\">y</span>, <span class=\"variable\">z</span> = <span class=\"variable\">input</span>.<span class=\"function-call\">getMousePosition</span>()",
+    "commentKey": null
+  },
+  {
+    "id": "input_getMouseX",
+    "section": "input",
+    "category": "Mouse",
+    "name": "<i class=\"fas fa-mouse-pointer\"></i> input.getMouseX()",
+    "desc": {
+      "ru": "<b>Возвращает:</b> X координату мыши.",
+      "en": "<b>Returns:</b> the X coordinate of the mouse."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">x</span> = <span class=\"variable\">input</span>.<span class=\"function-call\">getMouseX</span>()",
+    "commentKey": null
+  },
+  {
+    "id": "input_getMouseY",
+    "section": "input",
+    "category": "Mouse",
+    "name": "<i class=\"fas fa-mouse-pointer\"></i> input.getMouseY()",
+    "desc": {
+      "ru": "<b>Возвращает:</b> Y координату мыши.",
+      "en": "<b>Returns:</b> the Y coordinate of the mouse."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">y</span> = <span class=\"variable\">input</span>.<span class=\"function-call\">getMouseY</span>()",
     "commentKey": null
   },
   {
     "id": "input_setMouseLock",
     "section": "input",
-    "name": "<i class=\"fas fa-lock\"></i> input.setMouseLock(bool)",
+    "category": "Mouse",
+    "name": "<i class=\"fas fa-lock\"></i> input.setMouseLock(state)",
     "desc": {
-      "ru": "Управление блокировкой курсора.",
-      "en": "Controls the cursor lock state."
+      "ru": "Блокирует/разблокирует курсор мыши.",
+      "en": "Locks/unlocks the mouse cursor."
     },
-    "code": "<span class=\"comment\">--[[comment:show_cursor]]</span>\n<span class=\"variable\">input</span>.<span class=\"function-call\">setMouseLock</span>(<span class=\"keyword\">false</span>)",
-    "commentKey": "show_cursor"
+    "code": "<span class=\"variable\">input</span>.<span class=\"function-call\">setMouseLock</span>(<span class=\"keyword\">true</span>) <span class=\"comment\">-- Lock cursor</span>",
+    "commentKey": null
+  },
+  {
+    "id": "input_getMouseLock",
+    "section": "input",
+    "category": "Mouse",
+    "name": "<i class=\"fas fa-lock\"></i> input.getMouseLock()",
+    "desc": {
+      "ru": "<b>Возвращает:</b> состояние блокировки мыши (boolean).",
+      "en": "<b>Returns:</b> the mouse lock state (boolean)."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">isLocked</span> = <span class=\"variable\">input</span>.<span class=\"function-call\">getMouseLock</span>()",
+    "commentKey": null
+  },
+  {
+    "id": "input_getMouse",
+    "section": "input",
+    "category": "Mouse",
+    "name": "<i class=\"fas fa-hand-pointer\"></i> input.getMouse(button)",
+    "desc": {
+      "ru": "<b>Возвращает:</b> `true` если кнопка мыши нажата (0-левая, 1-правая, 2-средняя).",
+      "en": "<b>Returns:</b> `true` if the mouse button is held down (0-left, 1-right, 2-middle)."
+    },
+    "code": "<span class=\"keyword\">if</span> <span class=\"variable\">input</span>.<span class=\"function-call\">getMouse</span>(<span class=\"number\">0</span>) <span class=\"keyword\">then</span> <span class=\"function-call\">log</span>(<span class=\"string\">\"Left click held\"</span>) <span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "input_getMouseDown",
+    "section": "input",
+    "category": "Mouse",
+    "name": "<i class=\"fas fa-hand-pointer\"></i> input.getMouseDown(button)",
+    "desc": {
+      "ru": "<b>Возвращает:</b> `true` в кадре, когда кнопка мыши была нажата.",
+      "en": "<b>Returns:</b> `true` during the frame the mouse button was pressed."
+    },
+    "code": "<span class=\"keyword\">if</span> <span class=\"variable\">input</span>.<span class=\"function-call\">getMouseDown</span>(<span class=\"number\">1</span>) <span class=\"keyword\">then</span> <span class=\"function-call\">log</span>(<span class=\"string\">\"Right clicked!\"</span>) <span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "input_getMouseUp",
+    "section": "input",
+    "category": "Mouse",
+    "name": "<i class=\"fas fa-hand-pointer\"></i> input.getMouseUp(button)",
+    "desc": {
+      "ru": "<b>Возвращает:</b> `true` в кадре, когда кнопка мыши была отпущена.",
+      "en": "<b>Returns:</b> `true` during the frame the mouse button was released."
+    },
+    "code": "<span class=\"keyword\">if</span> <span class=\"variable\">input</span>.<span class=\"function-call\">getMouseUp</span>(<span class=\"number\">0</span>) <span class=\"keyword\">then</span> <span class=\"function-call\">log</span>(<span class=\"string\">\"Left click released\"</span>) <span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "input_getAxis",
+    "section": "input",
+    "category": "Axis/Button",
+    "name": "<i class=\"fas fa-gamepad\"></i> input.getAxis(axisName)",
+    "desc": {
+      "ru": "<b>Возвращает:</b> значение оси ввода (-1 до 1) (напр., \"Horizontal\", \"Vertical\").",
+      "en": "<b>Returns:</b> the value of the input axis (-1 to 1) (e.g., \"Horizontal\", \"Vertical\")."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">h</span> = <span class=\"variable\">input</span>.<span class=\"function-call\">getAxis</span>(<span class=\"string\">\"Horizontal\"</span>)\n<span class=\"keyword\">local</span> <span class=\"variable\">v</span> = <span class=\"variable\">input</span>.<span class=\"function-call\">getAxis</span>(<span class=\"string\">\"Vertical\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "input_getButton",
+    "section": "input",
+    "category": "Axis/Button",
+    "name": "<i class=\"fas fa-gamepad\"></i> input.getButton(buttonName)",
+    "desc": {
+      "ru": "<b>Возвращает:</b> `true` если кнопка нажата (напр., \"Jump\").",
+      "en": "<b>Returns:</b> `true` if the button is held down (e.g., \"Jump\")."
+    },
+    "code": "<span class=\"keyword\">if</span> <span class=\"variable\">input</span>.<span class=\"function-call\">getButton</span>(<span class=\"string\">\"Fire1\"</span>) <span class=\"keyword\">then</span> <span class=\"function-call\">log</span>(<span class=\"string\">\"Firing!\"</span>) <span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "input_getButtonDown",
+    "section": "input",
+    "category": "Axis/Button",
+    "name": "<i class=\"fas fa-gamepad\"></i> input.getButtonDown(buttonName)",
+    "desc": {
+      "ru": "<b>Возвращает:</b> `true` в кадре, когда кнопка была нажата.",
+      "en": "<b>Returns:</b> `true` during the frame the button was pressed."
+    },
+    "code": "<span class=\"keyword\">if</span> <span class=\"variable\">input</span>.<span class=\"function-call\">getButtonDown</span>(<span class=\"string\">\"Jump\"</span>) <span class=\"keyword\">then</span> <span class=\"function-call\">log</span>(<span class=\"string\">\"Jump pressed!\"</span>) <span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "input_getButtonUp",
+    "section": "input",
+    "category": "Axis/Button",
+    "name": "<i class=\"fas fa-gamepad\"></i> input.getButtonUp(buttonName)",
+    "desc": {
+      "ru": "<b>Возвращает:</b> `true` в кадре, когда кнопка была отпущена.",
+      "en": "<b>Returns:</b> `true` during the frame the button was released."
+    },
+    "code": "<span class=\"keyword\">if</span> <span class=\"variable\">input</span>.<span class=\"function-call\">getButtonUp</span>(<span class=\"string\">\"Jump\"</span>) <span class=\"keyword\">then</span> <span class=\"function-call\">log</span>(<span class=\"string\">\"Jump released!\"</span>) <span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "input_getKey",
+    "section": "input",
+    "category": "Keyboard",
+    "name": "<i class=\"fas fa-keyboard\"></i> input.getKey(keyName)",
+    "desc": {
+      "ru": "<b>Возвращает:</b> `true` если клавиша нажата (напр., \"Space\", \"W\", \"Escape\").",
+      "en": "<b>Returns:</b> `true` if the key is held down (e.g., \"Space\", \"W\", \"Escape\")."
+    },
+    "code": "<span class=\"keyword\">if</span> <span class=\"variable\">input</span>.<span class=\"function-call\">getKey</span>(<span class=\"string\">\"W\"</span>) <span class=\"keyword\">then</span> <span class=\"function-call\">log</span>(<span class=\"string\">\"Moving forward\"</span>) <span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "input_getKeyDown",
+    "section": "input",
+    "category": "Keyboard",
+    "name": "<i class=\"fas fa-keyboard\"></i> input.getKeyDown(keyName)",
+    "desc": {
+      "ru": "<b>Возвращает:</b> `true` в кадре, когда клавиша была нажата.",
+      "en": "<b>Returns:</b> `true` during the frame the key was pressed."
+    },
+    "code": "<span class=\"keyword\">if</span> <span class=\"variable\">input</span>.<span class=\"function-call\">getKeyDown</span>(<span class=\"string\">\"Space\"</span>) <span class=\"keyword\">then</span> <span class=\"function-call\">log</span>(<span class=\"string\">\"Space pressed!\"</span>) <span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "input_getKeyUp",
+    "section": "input",
+    "category": "Keyboard",
+    "name": "<i class=\"fas fa-keyboard\"></i> input.getKeyUp(keyName)",
+    "desc": {
+      "ru": "<b>Возвращает:</b> `true` в кадре, когда клавиша была отпущена.",
+      "en": "<b>Returns:</b> `true` during the frame the key was released."
+    },
+    "code": "<span class=\"keyword\">if</span> <span class=\"variable\">input</span>.<span class=\"function-call\">getKeyUp</span>(<span class=\"string\">\"Escape\"</span>) <span class=\"keyword\">then</span> <span class=\"function-call\">log</span>(<span class=\"string\">\"Escape released!\"</span>) <span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "input_getKeyName",
+    "section": "input",
+    "category": "Keyboard",
+    "name": "<i class=\"fas fa-keyboard\"></i> input.getKeyName()",
+    "desc": {
+      "ru": "<b>Возвращает:</b> имя последней нажатой клавиши (string).",
+      "en": "<b>Returns:</b> the name of the last pressed key (string)."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">key</span> = <span class=\"variable\">input</span>.<span class=\"function-call\">getKeyName</span>()",
+    "commentKey": null
+  },
+  {
+    "id": "input_getAllPressedKeys",
+    "section": "input",
+    "category": "Keyboard",
+    "name": "<i class=\"fas fa-keyboard\"></i> input.getAllPressedKeys()",
+    "desc": {
+      "ru": "<b>Возвращает:</b> таблицу с именами всех нажатых клавиш.",
+      "en": "<b>Returns:</b> a table with the names of all pressed keys."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">keys</span> = <span class=\"variable\">input</span>.<span class=\"function-call\">getAllPressedKeys</span>()\n<span class=\"keyword\">for</span> <span class=\"variable\">i</span>, <span class=\"variable\">key</span> <span class=\"keyword\">in</span> <span class=\"function-call\">ipairs</span>(<span class=\"variable\">keys</span>) <span class=\"keyword\">do</span> <span class=\"function-call\">log</span>(<span class=\"variable\">key</span>) <span class=\"keyword\">end</span>",
+    "commentKey": null
   }
 ]

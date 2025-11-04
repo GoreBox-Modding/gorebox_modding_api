@@ -71,73 +71,32 @@
 
             <div class="mobile-nav-item has-submenu">
                 <div class="mobile-nav-item-header">
-                    <a href="#" class="mobile-nav-link" data-page="documentation">
+                    <a href="#" class="mobile-nav-link no-click">
                         <i class="fas fa-book"></i> <span data-translate="documentation">Документация</span>
                     </a>
                     <button class="mobile-submenu-toggle">
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
-                <div class="mobile-submenu-content" id="mobileSubmenuContent">
-                    <div class="sidebar-section">
-                        <h3 class="sidebar-title"><i class="fas fa-sync-alt"></i> <span
-                                data-translate="lifecycle">Жизненный цикл</span></h3>
-                        <ul class="sidebar-links" data-links-for="lifecycle"></ul>
+                <div class="mobile-submenu-content">
+                    
+                    <div class="mobile-nav-item has-submenu">
+                        <div class="mobile-nav-item-header">
+                             <a href="#" class="mobile-nav-link no-click">
+                                <i class="fas fa-list-ul"></i> <span data-translate="api_reference">API Справочник</span>
+                            </a>
+                            <button class="mobile-submenu-toggle nested">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="mobile-submenu-content nested-content" id="mobile-sidebar-container">
+                        </div>
                     </div>
+                    
+                    <a href="#" class="mobile-nav-link submenu-link" data-page="tutorial">
+                        <i class="fas fa-graduation-cap"></i> <span data-translate="tutorials">Уроки</span>
+                    </a>
 
-                    <div class="sidebar-section">
-                        <h3 class="sidebar-title"><i class="fas fa-globe"></i> <span
-                                data-translate="global_functions">Основные функции</span></h3>
-                        <ul class="sidebar-links" data-links-for="global-functions"></ul>
-                    </div>
-
-                    <div class="sidebar-section">
-                        <h3 class="sidebar-title"><i class="fas fa-desktop"></i> <span
-                                data-translate="gui_functions">Функции GUI</span></h3>
-                        <ul class="sidebar-links" data-links-for="lua-gui"></ul>
-                    </div>
-
-                    <div class="sidebar-section">
-                        <h3 class="sidebar-title"><i class="fas fa-paint-brush"></i> <span
-                                data-translate="resources">Ресурсы</span></h3>
-                        <ul class="sidebar-links" data-links-for="resources"></ul>
-                    </div>
-
-                    <div class="sidebar-section">
-                        <h3 class="sidebar-title"><i class="fas fa-gamepad"></i> <span
-                                data-translate="gameobject">Объекты</span></h3>
-                        <ul class="sidebar-links" data-links-for="gameobject"></ul>
-                    </div>
-
-                    <div class="sidebar-section">
-                        <h3 class="sidebar-title"><i class="fas fa-compass"></i> <span
-                                data-translate="transform">Трансформы</span></h3>
-                        <ul class="sidebar-links" data-links-for="transform"></ul>
-                    </div>
-
-                    <div class="sidebar-section">
-                        <h3 class="sidebar-title"><i class="fas fa-bowling-ball"></i> <span
-                                data-translate="physics">Физика</span></h3>
-                        <ul class="sidebar-links" data-links-for="physics"></ul>
-                    </div>
-
-                    <div class="sidebar-section">
-                        <h3 class="sidebar-title"><i class="fas fa-headphones"></i> <span
-                                data-translate="audio">Аудио</span></h3>
-                        <ul class="sidebar-links" data-links-for="audio"></ul>
-                    </div>
-
-                    <div class="sidebar-section">
-                        <h3 class="sidebar-title"><i class="fas fa-camera"></i> <span
-                                data-translate="camera">Камера</span></h3>
-                        <ul class="sidebar-links" data-links-for="camera"></ul>
-                    </div>
-
-                    <div class="sidebar-section">
-                        <h3 class="sidebar-title"><i class="fas fa-keyboard"></i> <span
-                                data-translate="input">Ввод</span></h3>
-                        <ul class="sidebar-links" data-links-for="input"></ul>
-                    </div>
                 </div>
             </div>
 
@@ -163,7 +122,7 @@
                 <i class="logo-icon"><span class="logo-icon-inner"></span></i>
                 <span class="logo-text-wrapper">
                     <span>GoreBox Modding API</span>
-                    <span class="version-badge">v1.1</span>
+                    <span class="version-badge">v1.5</span>
                 </span>
             </a>
 
@@ -182,8 +141,22 @@
                 <nav class="nav-links">
                     <a href="#" class="nav-link" data-page="home"><i class="fas fa-home"></i> <span
                             data-translate="home">Главная</span></a>
-                    <a href="#" class="nav-link" data-page="documentation"><i class="fas fa-book"></i> <span
-                            data-translate="documentation">Документация</span></a>
+                    
+                    <div class="nav-item has-dropdown">
+                        <a href="#" class="nav-link no-click">
+                            <i class="fas fa-book"></i> <span data-translate="documentation">Документация</span>
+                            <i class="fas fa-chevron-down dropdown-arrow"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="nav-link dropdown-link" data-page="documentation">
+                                <i class="fas fa-list-ul"></i> <span data-translate="api_reference">API Справочник</span>
+                            </a>
+                            <a href="#" class="nav-link dropdown-link" data-page="tutorial">
+                                <i class="fas fa-graduation-cap"></i> <span data-translate="tutorials">Уроки</span>
+                            </a>
+                        </div>
+                    </div>
+
                     <a href="#" class="nav-link" data-page="blog"><i class="fas fa-newspaper"></i> <span
                             data-translate="blog">Блог</span></a>
                 </nav>
@@ -292,65 +265,7 @@
     </div>
 
     <div class="container">
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-section">
-                <h3 class="sidebar-title"><i class="fas fa-sync-alt"></i> <span data-translate="lifecycle">Жизненный
-                        цикл</span></h3>
-                <ul class="sidebar-links" data-links-for="lifecycle"></ul>
-            </div>
-
-            <div class="sidebar-section">
-                <h3 class="sidebar-title"><i class="fas fa-globe"></i> <span data-translate="global_functions">Основные
-                        функции</span></h3>
-                <ul class="sidebar-links" data-links-for="global-functions"></ul>
-            </div>
-
-            <div class="sidebar-section">
-                <h3 class="sidebar-title"><i class="fas fa-desktop"></i> <span data-translate="gui_functions">Функции
-                        GUI</span></h3>
-                <ul class="sidebar-links" data-links-for="lua-gui"></ul>
-            </div>
-
-            <div class="sidebar-section">
-                <h3 class="sidebar-title"><i class="fas fa-paint-brush"></i> <span
-                        data-translate="resources">Ресурсы</span></h3>
-                <ul class="sidebar-links" data-links-for="resources"></ul>
-            </div>
-
-            <div class="sidebar-section">
-                <h3 class="sidebar-title"><i class="fas fa-gamepad"></i> <span
-                        data-translate="gameobject">Объекты</span></h3>
-                <ul class="sidebar-links" data-links-for="gameobject"></ul>
-            </div>
-
-            <div class="sidebar-section">
-                <h3 class="sidebar-title"><i class="fas fa-compass"></i> <span
-                        data-translate="transform">Трансформы</span></h3>
-                <ul class="sidebar-links" data-links-for="transform"></ul>
-            </div>
-
-            <div class="sidebar-section">
-                <h3 class="sidebar-title"><i class="fas fa-bowling-ball"></i> <span
-                        data-translate="physics">Физика</span></h3>
-                <ul class="sidebar-links" data-links-for="physics"></ul>
-            </div>
-
-            <div class="sidebar-section">
-                <h3 class="sidebar-title"><i class="fas fa-headphones"></i> <span data-translate="audio">Аудио</span>
-                </h3>
-                <ul class="sidebar-links" data-links-for="audio"></ul>
-            </div>
-
-            <div class="sidebar-section">
-                <h3 class="sidebar-title"><i class="fas fa-camera"></i> <span data-translate="camera">Камера</span></h3>
-                <ul class="sidebar-links" data-links-for="camera"></ul>
-            </div>
-
-            <div class="sidebar-section">
-                <h3 class="sidebar-title"><i class="fas fa-keyboard"></i> <span data-translate="input">Ввод</span></h3>
-                <ul class="sidebar-links" data-links-for="input"></ul>
-            </div>
-        </aside>
+        <aside class="sidebar" id="sidebar"></aside>
 
         <main class="main-content">
             <div class="page active" id="home-page">
@@ -382,8 +297,7 @@
                             </div>
                             <p class="function-description" data-translate="first_script_desc">Начните с создания
                                 простого Lua модуля для управления объектами в игре.</p>
-                            <div class="code-block">
-                                <button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i
+                            <div class="code-block code-block-tutorial"> <button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i
                                         class="fas fa-check"></i></button>
                                 <pre><span class="keyword">local</span> M = {}
 
@@ -401,8 +315,7 @@
                             </div>
                             <p class="function-description" data-translate="working_objects_desc">Используйте функции
                                 для поиска и изменения игровых объектов.</p>
-                            <div class="code-block">
-                                <button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i
+                            <div class="code-block code-block-tutorial"> <button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i
                                         class="fas fa-check"></i></button>
                                 <pre><span class="keyword">local</span> <span class="variable">playerID</span> = <span class="function-call">getLocalPlayer</span>()
 <span class="keyword">if</span> <span class="variable">playerID</span> <span class="keyword">then</span>
@@ -522,6 +435,176 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="page" id="tutorial-page">
+                <section class="section tutorial-section">
+                    <div class="section-header">
+                        <div class="section-icon"> <i class="fas fa-graduation-cap"></i> </div>
+                        <h2 class="section-title" data-translate="tutorials_header">Начало работы: Ваш первый мод</h2>
+                    </div>
+                    <p class="tutorial-intro" data-translate="tutorials_intro">
+                        Добро пожаловать в мир моддинга GoreBox! Это пошаговое руководство проведет вас от создания пустого файла до полностью рабочего мода "Bouncing DVD Logo". К концу этого урока вы поймете структуру мода, жизненный цикл и как использовать GUI.
+                    </p>
+
+                    <h3 class="tutorial-step" data-translate="tutorials_step1_title">Шаг 1: Где должны находиться моды?</h3>
+                    <p data-translate="tutorials_step1_desc">
+                        Игра ищет моды в специальной папке в вашем компьютере. Прежде чем что-либо создавать, вам нужно найти или создать эту папку.
+                    </p>
+                    <p data-translate="tutorials_step1_desc2">
+                        Нажмите <kbd>Win + R</kbd>, вставьте этот путь и нажмите Enter:
+                    </p>
+                    <div class="path-display">%AppData%/../LocalLow/F2Games/GoreBox/Mods</div>
+                    <p data-translate="tutorials_step1_desc3">
+                        Если папки `Mods` не существует, просто создайте ее. Каждый мод, который вы создаете, будет отдельной папкой внутри этой папки `Mods`.
+                    </p>
+
+                    <h3 class="tutorial-step" data-translate="tutorials_step2_title">Шаг 2: Структура папки мода</h3>
+                    <p data-translate="tutorials_step2_desc">
+                        Каждый мод — это папка. Давайте создадим наш мод. Внутри папки `Mods` создайте новую папку с именем `MyMod`. Внутри нее должны лежать 4 обязательных элемента:
+                    </p>
+                    
+                    <div class="file-tree">
+                        <i class="fas fa-folder"></i> MyMod
+                        <ul>
+                            <li><i class="fas fa-file-code"></i> main.lua</li>
+                            <li><i class="fas fa-file-alt"></i> info.txt</li>
+                            <li><i class="fas fa-image"></i> icon.jpg</li>
+                            <li><i class="fas fa-folder"></i> icons</li>
+                        </ul>
+                    </div>
+
+                    <ul class="file-desc-list">
+                        <li>
+                            <code class="file-name">main.lua</code>
+                            <span data-translate="tutorials_file_main"> — Это "мозг" вашего мода. Весь ваш Lua-код будет здесь.</span>
+                        </li>
+                        <li>
+                            <code class="file-name">info.txt</code>
+                            <span data-translate="tutorials_file_info"> — Информация о вашем моде, которую игра показывает в меню.</span>
+                        </li>
+                        <li>
+                            <code class="file-name">icon.jpg</code>
+                            <span data-translate="tutorials_file_icon"> — Иконка 256x256, которую игра показывает в меню.</span>
+                        </li>
+                         <li>
+                            <code class="file-name">icons</code>
+                            <span data-translate="tutorials_file_icons"> — (Необязательно) Папка для наших собственных изображений, которые мы будем использовать в моде.</span>
+                        </li>
+                    </ul>
+
+                    <h3 class="tutorial-step" data-translate="tutorials_step3_title">Шаг 3: Файл info.txt</h3>
+                    <p data-translate="tutorials_step3_desc">
+                        Это простой текстовый файл. Создайте `info.txt` внутри папки `MyMod` и вставьте в него следующее:
+                    </p>
+                    <div class="code-block-tutorial">
+                        <button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button>
+<pre>name: My First Mod
+description: A simple bouncing DVD logo mod.
+version: 1.0.0
+active:true</pre>
+                    </div>
+                    <ul class="file-desc-list">
+                        <li><code class="file-name">name</code><span data-translate="tutorials_info_name">: Название мода.</span></li>
+                        <li><code class="file-name">description</code><span data-translate="tutorials_info_desc">: Описание в меню.</span></li>
+                        <li><code class="file-name">version</code><span data-translate="tutorials_info_ver">: Ваша версия мода.</span></li>
+                        <li><code class="file-name">active</code><span data-translate="tutorials_info_active">: `true` или `false`. Определяет, включен ли мод при запуске.</span></li>
+                    </ul>
+                    
+                    <h3 class="tutorial-step" data-translate="tutorials_step4_title">Шаг 4: Иконки</h3>
+                    <p data-translate="tutorials_step4_desc">
+                        Вам понадобятся изображения. Вы можете использовать свои собственные или скачать готовый набор, который мы будем использовать в этом уроке.
+                    </p>
+                    <p data-translate="tutorials_step4_desc2">
+                        1. Скачайте `icon.jpg` (иконка мода) и `vabish.jpg` (лого DVD) по ссылкам ниже.<br>
+                        2. Поместите `icon.jpg` в корень папки `MyMod`.<br>
+                        3. Создайте папку `icons` внутри `MyMod`.<br>
+                        4. Поместите `vabish.jpg` внутрь папки `icons`.
+                    </p>
+                    <p><i>(В реальном моде вы бы также добавили `GDev.png` и `Gubzor.png` в папку `icons`, но для этого урока нам нужен только один.)</i></p>
+
+                    <h3 class="tutorial-step" data-translate="tutorials_step5_title">Шаг 5: Код (main.lua)</h3>
+                    <p data-translate="tutorials_step5_desc">
+                        Настало время для "мозга". Создайте `main.lua` и вставьте в него этот код. Не волнуйтесь, мы разберем каждую часть.
+                    </p>
+                    
+                    <div class="code-block-tutorial lua-code">
+                        <button class="function-copy" title="Копировать пример"><i class="far fa-copy"></i><i class="fas fa-check"></i></button>
+<pre><span class="keyword">local</span> M = {} <span class="comment" data-translate="tut_code_1">-- 1. Таблица, в которой будет храниться наш мод</span>
+
+<span class="comment" data-translate="tut_code_2">-- 2. Переменные для нашего мода</span>
+<span class="keyword">local</span> dvdTexture = <span class="keyword">nil</span>
+<span class="keyword">local</span> dvdPos = { x = 0, y = 0 }
+<span class="keyword">local</span> dvdSpeed = { x = 2.0, y = 2.0 }
+<span class="keyword">local</span> windowWidth, windowHeight = 150, 150
+
+<span class="comment" data-translate="tut_code_3">-- 3. Жизненный цикл: Start()</span>
+<span class="comment" data-translate="tut_code_4">-- Вызывается ОДИН РАЗ при загрузке мода</span>
+<span class="keyword">function</span> <span class="variable">M</span>.<span class="function-call">start</span>()
+    <span class="comment" data-translate="tut_code_5">-- Загружаем наше изображение из папки 'icons'</span>
+    dvdTexture = <span class="variable">texture</span>.<span class="function-call">load</span>(<span class="string">"icons/vabish.jpg"</span>)
+    
+    <span class="comment" data-translate="tut_code_6">-- Устанавливаем случайную начальную позицию</span>
+    <span class="keyword">local</span> screenWidth = <span class="variable">input</span>.<span class="function-call">getScreenWidth</span>()
+    <span class="keyword">local</span> screenHeight = <span class="variable">input</span>.<span class="function-call">getScreenHeight</span>()
+    dvdPos.x = <span class="variable">math</span>.<span class="function-call">randomFloat</span>(0, screenWidth - windowWidth)
+    dvdPos.y = <span class="variable">math</span>.<span class="function-call">randomFloat</span>(0, screenHeight - windowHeight)
+<span class="keyword">end</span>
+
+<span class="comment" data-translate="tut_code_7">-- 4. Жизненный цикл: Update()</span>
+<span class="comment" data-translate="tut_code_8">-- Вызывается КАЖДЫЙ КАДР. Здесь живет вся логика.</span>
+<span class="keyword">function</span> <span class="variable">M</span>.<span class="function-call">update</span>()
+    <span class="keyword">local</span> screenWidth = <span class="variable">input</span>.<span class="function-call">getScreenWidth</span>()
+    <span class="keyword">local</span> screenHeight = <span class="variable">input</span>.<span class="function-call">getScreenHeight</span>()
+    
+    <span class="comment" data-translate="tut_code_9">-- Двигаем логотип</span>
+    dvdPos.x = dvdPos.x + dvdSpeed.x
+    dvdPos.y = dvdPos.y + dvdSpeed.y
+    
+    <span class="comment" data-translate="tut_code_10">-- Проверка столкновений с краями экрана</span>
+    <span class="keyword">if</span> dvdPos.x <= 0 <span class="keyword">or</span> dvdPos.x + windowWidth >= screenWidth <span class="keyword">then</span>
+        dvdSpeed.x = -dvdSpeed.x <span class="comment" data-translate="tut_code_11">-- Меняем направление</span>
+    <span class="keyword">end</span>
+    
+    <span class="keyword">if</span> dvdPos.y <= 0 <span class="keyword">or</span> dvdPos.y + windowHeight >= screenHeight <span class="keyword">then</span>
+        dvdSpeed.y = -dvdSpeed.y <span class="comment" data-translate="tut_code_11">-- Меняем направление</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment" data-translate="tut_code_12">-- 5. Жизненный цикл: Gui_Update()</span>
+<span class="comment" data-translate="tut_code_13">-- Вызывается каждый кадр (после Update). Здесь мы РИСУЕМ.</span>
+<span class="keyword">function</span> <span class="variable">M</span>.<span class="function-call">gui_update</span>()
+    <span class="comment" data-translate="tut_code_14">-- Если текстура еще не загрузилась, ничего не делаем</span>
+    <span class="keyword">if</span> dvdTexture == <span class="keyword">nil</span> <span class="keyword">then</span> <span class="keyword">return</span> <span class="keyword">end</span>
+    
+    <span class="comment" data-translate="tut_code_15">-- Рисуем наше изображение в его текущей позиции</span>
+    <span class="variable">gui</span>.<span class="function-call">beginArea</span>(dvdPos.x, dvdPos.y, windowWidth, windowHeight)
+    <span class="variable">gui</span>.<span class="function-call">box</span>(dvdTexture, <span class="keyword">false</span>, 1, windowWidth, windowHeight)
+    <span class="variable">gui</span>.<span class="function-call">endArea</span>()
+<span class="keyword">end</span>
+
+<span class="keyword">return</span> M <span class="comment" data-translate="tut_code_16">-- 6. Обязательно возвращаем таблицу мода</span></pre>
+                    </div>
+                    
+                    <h3 class="tutorial-step" data-translate="tutorials_step6_title">Шаг 6: Разбор кода</h3>
+                    <ol class="tutorial-steps-list">
+                        <li data-translate="tutorials_step6_1"><b>Локальная таблица (M):</b> Каждый мод в Lua - это таблица. Мы называем ее `M` (сокращение от Module). Все наши функции (`M.start`, `M.update`) принадлежат этой таблице.</li>
+                        <li data-translate="tutorials_step6_2"><b>Переменные:</b> Мы объявляем переменные вверху, чтобы хранить текстуру, позицию и скорость нашего логотипа.</li>
+                        <li data-translate="tutorials_step6_3"><b>M.start():</b> Срабатывает один раз при запуске игры. Идеальное место для загрузки ресурсов (как `texture.load`) и установки начальных значений (как случайная позиция).</li>
+                        <li data-translate="tutorials_step6_4"><b>M.update():</b> Срабатывает постоянно, много раз в секунду. Здесь мы обновляем позицию логотипа (`dvdPos.x = dvdPos.x + dvdSpeed.x`) и проверяем, не ударился ли он о стену.</li>
+                        <li data-translate="tutorials_step6_5"><b>M.gui_update():</b> Тоже срабатывает постоянно. Используется *только* для рисования. Мы используем `gui.beginArea` и `gui.box`, чтобы нарисовать нашу текстуру в позиции, которую мы рассчитали в `M.update`.</li>
+                        <li data-translate="tutorials_step6_6"><b>return M:</b> В конце файла мы всегда должны возвращать нашу главную таблицу `M`, чтобы игра могла ее использовать.</li>
+                    </ol>
+
+                    <h3 class="tutorial-step" data-translate="tutorials_step7_title">Шаг 7: Запуск!</h3>
+                    <p data-translate="tutorials_step7_desc">
+                        Сохраните все файлы. Убедитесь, что `active:true` в вашем `info.txt`. Запустите GoreBox. Если вы все сделали правильно, вы увидите логотип Vabish, отскакивающий от краев экрана!
+                    </p>
+                    <p data-translate="tutorials_step7_desc2">
+                        Поздравляем! Вы только что создали свой первый мод, изучив файловую структуру, жизненный цикл и основы GUI. Теперь вы готовы к более сложным задачам.
+                    </p>
+                </section>
+            </div>
+
 
             <div class="page" id="blog-page">
                 <section class="section">
@@ -552,7 +635,7 @@
             <div class="logo">
                 <i class="logo-icon"><span class="logo-icon-inner"></span></i>
                 <span>GoreBox Modding API</span>
-                <span class="version-badge">v1.1</span>
+                <span class="version-badge">v1.5</span>
             </div>
             <div class="footer-links">
                 <a href="https://discord.gg/q4uQ646z3P" target="_blank"> <i class="fab fa-discord"></i> Discord </a>
