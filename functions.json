@@ -36,39 +36,39 @@
     "commentKey": "game_logic"
   },
   {
-    "id": "late_update",
+    "id": "lateUpdate",
     "section": "lifecycle",
     "category": "General",
-    "name": "<i class=\"fas fa-history\"></i> late_update()",
+    "name": "<i class=\"fas fa-history\"></i> lateUpdate()",
     "desc": {
       "ru": "Выполняется после update().",
       "en": "Executes after update()."
     },
-    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">late_update</span>()\n    <span class=\"comment\">--[[comment:camera_logic]]</span>\n<span class=\"keyword\">end</span>",
+    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">lateUpdate</span>()\n    <span class=\"comment\">--[[comment:camera_logic]]</span>\n<span class=\"keyword\">end</span>",
     "commentKey": "camera_logic"
   },
   {
-    "id": "fixed_update",
+    "id": "fixedUpdate",
     "section": "lifecycle",
     "category": "General",
-    "name": "<i class=\"fas fa-cogs\"></i> fixed_update()",
+    "name": "<i class=\"fas fa-cogs\"></i> fixedUpdate()",
     "desc": {
       "ru": "Срабатывает с фиксированным интервалом (для физики).",
       "en": "Triggers at a fixed interval (for physics)."
     },
-    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">fixed_update</span>()\n    <span class=\"comment\">--[[comment:physics_logic]]</span>\n<span class=\"keyword\">end</span>",
+    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">fixedUpdate</span>()\n    <span class=\"comment\">--[[comment:physics_logic]]</span>\n<span class=\"keyword\">end</span>",
     "commentKey": "physics_logic"
   },
   {
-    "id": "gui_update",
+    "id": "guiUpdate",
     "section": "lifecycle",
     "category": "General",
-    "name": "<i class=\"fas fa-desktop\"></i> gui_update()",
+    "name": "<i class=\"fas fa-desktop\"></i> guiUpdate()",
     "desc": {
       "ru": "Используется для отрисовки GUI.",
       "en": "Used for rendering GUI."
     },
-    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">gui_update</span>()\n    <span class=\"variable\">gui</span>.<span class=\"function-call\">label</span>(<span class=\"string\">\"Hello from GUI!\"</span>)\n<span class=\"keyword\">end</span>",
+    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">guiUpdate</span>()\n    <span class=\"variable\">gui</span>.<span class=\"function-call\">label</span>(<span class=\"string\">\"Hello from GUI!\"</span>)\n<span class=\"keyword\">end</span>",
     "commentKey": null
   },
   {
@@ -81,6 +81,174 @@
       "en": "Handles network messages."
     },
     "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">onRPC</span>(<span class=\"variable\">message</span>)\n    <span class=\"keyword\">if</span> <span class=\"variable\">message</span> == <span class=\"string\">\"Heal\"</span> <span class=\"keyword\">then</span>\n        <span class=\"function-call\">log</span>(<span class=\"string\">\"Received Heal RPC\"</span>)\n    <span class=\"keyword\">end</span>\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "onEmote",
+    "section": "lifecycle",
+    "category": "Player Events",
+    "name": "<i class=\"fas fa-grin-beam\"></i> onEmote(emoteName)",
+    "desc": {
+      "ru": "Вызывается, когда игрок использует эмоцию.",
+      "en": "Called when a player uses an emote."
+    },
+    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">onEmote</span>(<span class=\"variable\">emoteName</span>)\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Emote: \"</span> .. <span class=\"variable\">emoteName</span>)\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "onEndEmote",
+    "section": "lifecycle",
+    "category": "Player Events",
+    "name": "<i class=\"fas fa-meh\"></i> onEndEmote()",
+    "desc": {
+      "ru": "Вызывается, когда игрок заканчивает эмоцию.",
+      "en": "Called when a player ends an emote."
+    },
+    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">onEndEmote</span>()\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Emote ended\"</span>)\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "onChatMessage",
+    "section": "lifecycle",
+    "category": "Player Events",
+    "name": "<i class=\"fas fa-comment\"></i> onChatMessage(message, player)",
+    "desc": {
+      "ru": "Вызывается при получении сообщения в чате.<br>- `player` - объект игрока",
+      "en": "Called when a chat message is received.<br>- `player` - player object"
+    },
+    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">onChatMessage</span>(<span class=\"variable\">message</span>, <span class=\"variable\">player</span>)\n    <span class=\"keyword\">local</span> <span class=\"variable\">name</span> = <span class=\"variable\">player</span>.<span class=\"function-call\">getName</span>(<span class=\"variable\">player</span>)\n    <span class=\"function-call\">log</span>(<span class=\"variable\">name</span> .. <span class=\"string\">\": \"</span> .. <span class=\"variable\">message</span>)\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "onLocalGetUp",
+    "section": "lifecycle",
+    "category": "Local Player",
+    "name": "<i class=\"fas fa-user-check\"></i> onLocalGetUp()",
+    "desc": {
+      "ru": "Локальный игрок встал (после рэгдолла).",
+      "en": "Local player got up (from ragdoll)."
+    },
+    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">onLocalGetUp</span>()\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Player got up\"</span>)\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "onLocalRagdoll",
+    "section": "lifecycle",
+    "category": "Local Player",
+    "name": "<i class=\"fas fa-user-injured\"></i> onLocalRagdoll()",
+    "desc": {
+      "ru": "Локальный игрок перешел в рэгдолл.",
+      "en": "Local player started ragdolling."
+    },
+    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">onLocalRagdoll</span>()\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Player is ragdolled\"</span>)\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "onLocalSpawned",
+    "section": "lifecycle",
+    "category": "Local Player",
+    "name": "<i class=\"fas fa-user-plus\"></i> onLocalSpawned()",
+    "desc": {
+      "ru": "Локальный игрок заспавнился.",
+      "en": "Local player spawned."
+    },
+    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">onLocalSpawned</span>()\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Player spawned\"</span>)\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "onLocalKnockout",
+    "section": "lifecycle",
+    "category": "Local Player",
+    "name": "<i class=\"fa-solid fa-face-dizzy\"></i> onLocalKnockout()",
+    "desc": {
+      "ru": "Локальный игрок был нокаутирован.",
+      "en": "Local player was knocked out."
+    },
+    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">onLocalKnockout</span>()\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Player knocked out\"</span>)\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "onLocalWakeUp",
+    "section": "lifecycle",
+    "category": "Local Player",
+    "name": "<i class=\"fas fa-user-clock\"></i> onLocalWakeUp()",
+    "desc": {
+      "ru": "Локальный игрок очнулся (после нокаута).",
+      "en": "Local player woke up (from knockout)."
+    },
+    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">onLocalWakeUp</span>()\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Player woke up\"</span>)\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "onLocalHealed",
+    "section": "lifecycle",
+    "category": "Local Player",
+    "name": "<i class=\"fas fa-user-shield\"></i> onLocalHealed()",
+    "desc": {
+      "ru": "Локальный игрок излечился.",
+      "en": "Local player was healed."
+    },
+    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">onLocalHealed</span>()\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Player healed\"</span>)\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "onLocalInfected",
+    "section": "lifecycle",
+    "category": "Local Player",
+    "name": "<i class=\"fa-solid fa-virus\"></i>onLocalInfected()",
+    "desc": {
+      "ru": "Локальный игрок был заражен.",
+      "en": "Local player was infected."
+    },
+    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">onLocalInfected</span>()\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Player infected\"</span>)\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "onKilledSelf",
+    "section": "lifecycle",
+    "category": "Local Player",
+    "name": "<i class=\"fas fa-user-times\"></i> onKilledSelf()",
+    "desc": {
+      "ru": "Локальный игрок убил себя.",
+      "en": "Local player killed themselves."
+    },
+    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">onKilledSelf</span>()\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Player killed self\"</span>)\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "onLocalDied",
+    "section": "lifecycle",
+    "category": "Local Player",
+    "name": "<i class=\"fas fa-user-slash\"></i> onLocalDied()",
+    "desc": {
+      "ru": "Локальный игрок умер.",
+      "en": "Local player died."
+    },
+    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">onLocalDied</span>()\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Player died\"</span>)\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "onKilledPlayer",
+    "section": "lifecycle",
+    "category": "Player Events",
+    "name": "<i class=\"fas fa-skull-crossbones\"></i> onKilledPlayer(player)",
+    "desc": {
+      "ru": "Локальный игрок убил другого игрока.<br>- `player` - объект убитого игрока",
+      "en": "Local player killed another player.<br>- `player` - the killed player object"
+    },
+    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">onKilledPlayer</span>(<span class=\"variable\">player</span>)\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Killed \"</span> .. <span class=\"variable\">player</span>.<span class=\"function-call\">getName</span>(<span class=\"variable\">player</span>))\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "onPlayerJoined",
+    "section": "lifecycle",
+    "category": "Player Events",
+    "name": "<i class=\"fas fa-user-friends\"></i> onPlayerJoined(player)",
+    "desc": {
+      "ru": "Другой игрок присоединился к игре.<br>- `player` - объект присоединившегося игрока",
+      "en": "Another player joined the game.<br>- `player` - the joined player object"
+    },
+    "code": "<span class=\"keyword\">function</span> <span class=\"variable\">M</span>.<span class=\"function-call\">onPlayerJoined</span>(<span class=\"variable\">player</span>)\n    <span class=\"function-call\">log</span>(<span class=\"variable\">player</span>.<span class=\"function-call\">getName</span>(<span class=\"variable\">player</span>) .. <span class=\"string\">\" joined\"</span>)\n<span class=\"keyword\">end</span>",
     "commentKey": null
   },
   {
@@ -108,6 +276,18 @@
     "commentKey": null
   },
   {
+    "id": "getLocalPlayer",
+    "section": "global-functions",
+    "category": "Player",
+    "name": "<i class=\"fas fa-user\"></i> getLocalPlayer()",
+    "desc": {
+      "ru": "Получает локального игрока.<br><b>Возвращает:</b> `gameObjectId` или `nil`.",
+      "en": "Gets the local player.<br><b>Returns:</b> `gameObjectId` or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">playerID</span> = <span class=\"function-call\">getLocalPlayer</span>()\n<span class=\"keyword\">local</span> <span class=\"variable\">playerTransform</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">getTransform</span>(<span class=\"variable\">playerID</span>)",
+    "commentKey": null
+  },
+  {
     "id": "getDeltaTime",
     "section": "global-functions",
     "category": "Time",
@@ -132,15 +312,39 @@
     "commentKey": null
   },
   {
-    "id": "getLocalPlayer",
+    "id": "time_getTimeScale",
     "section": "global-functions",
-    "category": "Player",
-    "name": "<i class=\"fas fa-user\"></i> getLocalPlayer()",
+    "category": "Time",
+    "name": "<i class=\"fas fa-forward\"></i> getTimeScale()",
     "desc": {
-      "ru": "Получает локального игрока.<br><b>Возвращает:</b> `gameObjectId` или `nil`.",
-      "en": "Gets the local player.<br><b>Returns:</b> `gameObjectId` or `nil`."
+      "ru": "Возвращает текущую скорость времени.",
+      "en": "Returns the current time scale."
     },
-    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">playerID</span> = <span class=\"function-call\">getLocalPlayer</span>()\n<span class=\"keyword\">local</span> <span class=\"variable\">playerTransform</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">getTransform</span>(<span class=\"variable\">playerID</span>)",
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">ts</span> = <span class=\"function-call\">getTimeScale</span>()",
+    "commentKey": null
+  },
+  {
+    "id": "time_setTimeScale",
+    "section": "global-functions",
+    "category": "Time",
+    "name": "<i class=\"fas fa-forward\"></i> setTimeScale(scale)",
+    "desc": {
+      "ru": "Устанавливает скорость времени.<br>- `scale` (number) - новая скорость (1.0 = норма)",
+      "en": "Sets the time scale.<br>- `scale` (number) - new speed (1.0 = normal)"
+    },
+    "code": "<span class=\"function-call\">setTimeScale</span>(<span class=\"number\">0.5</span>) <span class=\"comment\">-- Slow motion</span>",
+    "commentKey": null
+  },
+  {
+    "id": "scene_getCurrent",
+    "section": "global-functions",
+    "category": "Scene",
+    "name": "<i class=\"fas fa-map\"></i> getCurrentScene()",
+    "desc": {
+      "ru": "Возвращает имя текущей сцены.",
+      "en": "Returns the name of the current scene."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">sceneName</span> = <span class=\"function-call\">getCurrentScene</span>()\n<span class=\"function-call\">log</span>(<span class=\"string\">\"Current scene: \"</span> .. <span class=\"variable\">sceneName</span>)",
     "commentKey": null
   },
   {
@@ -696,6 +900,78 @@
     "commentKey": null
   },
   {
+    "id": "file_read",
+    "section": "resources",
+    "category": "File System",
+    "name": "<i class=\"fas fa-file-alt\"></i> file.read(filePath)",
+    "desc": {
+      "ru": "Читает содержимое текстового файла.<br>- `filePath` (string) - путь к файлу<br><b>Возвращает:</b> `content` (string) или `nil`.",
+      "en": "Reads the content of a text file.<br>- `filePath` (string) - path to the file<br><b>Returns:</b> `content` (string) or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">data</span> = <span class=\"variable\">file</span>.<span class=\"function-call\">read</span>(<span class=\"string\">\"data/config.txt\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "file_write",
+    "section": "resources",
+    "category": "File System",
+    "name": "<i class=\"fas fa-file-signature\"></i> file.write(filePath, content)",
+    "desc": {
+      "ru": "Записывает текст в файл, перезаписывая его.<br>- `filePath` (string) - путь к файлу<br>- `content` (string) - содержимое для записи",
+      "en": "Writes text to a file, overwriting it.<br>- `filePath` (string) - path to the file<br>- `content` (string) - content to write"
+    },
+    "code": "<span class=\"variable\">file</span>.<span class=\"function-call\">write</span>(<span class=\"string\">\"data/save.txt\"</span>, <span class=\"string\">\"PlayerHealth:100\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "file_exists",
+    "section": "resources",
+    "category": "File System",
+    "name": "<i class=\"fas fa-file-excel\"></i> file.exists(filePath)",
+    "desc": {
+      "ru": "Проверяет существование файла.<br>- `filePath` (string) - путь к файлу<br><b>Возвращает:</b> `boolean`.",
+      "en": "Checks if a file exists.<br>- `filePath` (string) - path to the file<br><b>Returns:</b> `boolean`."
+    },
+    "code": "<span class=\"keyword\">if</span> <span class=\"variable\">file</span>.<span class=\"function-call\">exists</span>(<span class=\"string\">\"data/config.txt\"</span>) <span class=\"keyword\">then</span>\n    <span class=\"function-call\">log</span>(<span class=\"string\">\"Config exists!\"</span>)\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "file_existsFolder",
+    "section": "resources",
+    "category": "File System",
+    "name": "<i class=\"fas fa-folder-open\"></i> file.existsFolder(folderPath)",
+    "desc": {
+      "ru": "Проверяет существование папки.<br>- `folderPath` (string) - путь к папке<br><b>Возвращает:</b> `boolean`.",
+      "en": "Checks if a folder exists.<br>- `folderPath` (string) - path to the folder<br><b>Returns:</b> `boolean`."
+    },
+    "code": "<span class=\"keyword\">if</span> <span class=\"keyword\">not</span> <span class=\"variable\">file</span>.<span class=\"function-call\">existsFolder</span>(<span class=\"string\">\"data\"</span>) <span class=\"keyword\">then</span>\n    <span class=\"variable\">file</span>.<span class=\"function-call\">createFolder</span>(<span class=\"string\">\"data\"</span>)\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "file_create",
+    "section": "resources",
+    "category": "File System",
+    "name": "<i class=\"fas fa-file-medical\"></i> file.create(filePath)",
+    "desc": {
+      "ru": "Создает пустой файл.<br>- `filePath` (string) - путь к файлу",
+      "en": "Creates an empty file.<br>- `filePath` (string) - path to the file"
+    },
+    "code": "<span class=\"variable\">file</span>.<span class=\"function-call\">create</span>(<span class=\"string\">\"data/new_file.txt\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "file_createFolder",
+    "section": "resources",
+    "category": "File System",
+    "name": "<i class=\"fas fa-folder-plus\"></i> file.createFolder(folderPath)",
+    "desc": {
+      "ru": "Создает новую папку.<br>- `folderPath` (string) - путь к папке",
+      "en": "Creates a new folder.<br>- `folderPath` (string) - path to the folder"
+    },
+    "code": "<span class=\"variable\">file</span>.<span class=\"function-call\">createFolder</span>(<span class=\"string\">\"data/saves\"</span>)",
+    "commentKey": null
+  },
+  {
     "id": "gameObject_create",
     "section": "gameobject",
     "category": "Creation",
@@ -861,6 +1137,138 @@
       "en": "Gets a component of a specific type.<br>- `objectId` - ID of the object<br>- `componentType` - type of component<br><b>Returns:</b> `componentId` - ID of the component, or `nil`."
     },
     "code": "<span class=\"keyword\">local</span> <span class=\"variable\">audio</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">getComponent</span>(<span class=\"variable\">player</span>, <span class=\"string\">\"AudioSource\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "player_getLocal",
+    "section": "gameobject",
+    "category": "Player",
+    "name": "<i class=\"fas fa-user-circle\"></i> player.getLocal()",
+    "desc": {
+      "ru": "Получает объект локального игрока.<br><b>Возвращает:</b> `player` - объект игрока, или `nil`.",
+      "en": "Gets the local player object.<br><b>Returns:</b> `player` - player object, or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">localPlayer</span> = <span class=\"variable\">player</span>.<span class=\"function-call\">getLocal</span>()",
+    "commentKey": null
+  },
+  {
+    "id": "player_getById",
+    "section": "gameobject",
+    "category": "Player",
+    "name": "<i class=\"fas fa-id-badge\"></i> player.getById(id)",
+    "desc": {
+      "ru": "Получает объект игрока по его ID.<br>- `id` (number) - ID игрока<br><b>Возвращает:</b> `player` - объект игрока, или `nil`.",
+      "en": "Gets a player object by its ID.<br>- `id` (number) - player ID<br><b>Returns:</b> `player` - player object, or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">somePlayer</span> = <span class=\"variable\">player</span>.<span class=\"function-call\">getById</span>(<span class=\"number\">2</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "player_getByName",
+    "section": "gameobject",
+    "category": "Player",
+    "name": "<i class=\"fas fa-user-tag\"></i> player.getByName(name)",
+    "desc": {
+      "ru": "Получает объект игрока по его имени.<br>- `name` (string) - имя игрока<br><b>Возвращает:</b> `player` - объект игрока, или `nil`.",
+      "en": "Gets a player object by its name.<br>- `name` (string) - player name<br><b>Returns:</b> `player` - player object, or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">targetPlayer</span> = <span class=\"variable\">player</span>.<span class=\"function-call\">getByName</span>(<span class=\"string\">\"Player123\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "player_getId",
+    "section": "gameobject",
+    "category": "Player",
+    "name": "<i class=\"fas fa-id-card\"></i> player.getId(player)",
+    "desc": {
+      "ru": "Получает ID игрового объекта, к которому привязан игрок.<br>- `player` - объект игрока<br><b>Возвращает:</b> `gameObjectId` (number) или `nil`.",
+      "en": "Gets the game object ID associated with the player.<br>- `player` - player object<br><b>Returns:</b> `gameObjectId` (number) or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">playerId</span> = <span class=\"variable\">player</span>.<span class=\"function-call\">getId</span>(<span class=\"variable\">localPlayer</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "player_getName",
+    "section": "gameobject",
+    "category": "Player",
+    "name": "<i class=\"fas fa-signature\"></i> player.getName(player)",
+    "desc": {
+      "ru": "Получает имя игрока.<br>- `player` - объект игрока<br><b>Возвращает:</b> `name` (string) или `nil`.",
+      "en": "Gets the name of the player.<br>- `player` - player object<br><b>Returns:</b> `name` (string) or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">playerName</span> = <span class=\"variable\">player</span>.<span class=\"function-call\">getName</span>(<span class=\"variable\">localPlayer</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "component_get",
+    "section": "gameobject",
+    "category": "Components",
+    "name": "<i class=\"fas fa-puzzle-piece\"></i> component.get(gameObjectId, componentType)",
+    "desc": {
+      "ru": "Получает компонент определенного типа с игрового объекта.<br>- `gameObjectId` (number) - ID игрового объекта<br>- `componentType` (string) - тип компонента (напр., \"Rigidbody\")<br><b>Возвращает:</b> `componentId` (number) - ID компонента, или `nil`.",
+      "en": "Gets a component of a specific type from a game object.<br>- `gameObjectId` (number) - ID of the game object<br>- `componentType` (string) - type of component (e.g., \"Rigidbody\")<br><b>Returns:</b> `componentId` (number) - ID of the component, or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">player</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">find</span>(<span class=\"string\">\"Player\"</span>)\n<span class=\"keyword\">local</span> <span class=\"variable\">rigidbody</span> = <span class=\"variable\">component</span>.<span class=\"function-call\">get</span>(<span class=\"variable\">player</span>, <span class=\"string\">\"Rigidbody\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "component_add",
+    "section": "gameobject",
+    "category": "Components",
+    "name": "<i class=\"fas fa-plus-square\"></i> component.add(gameObjectId, componentType)",
+    "desc": {
+      "ru": "Добавляет новый компонент к игровому объекту.<br>- `gameObjectId` (number) - ID игрового объекта<br>- `componentType` (string) - тип добавляемого компонента<br><b>Возвращает:</b> `componentId` (number) - ID созданного компонента, или `nil`.",
+      "en": "Adds a new component to a game object.<br>- `gameObjectId` (number) - ID of the game object<br>- `componentType` (string) - type of component to add<br><b>Returns:</b> `componentId` (number) - ID of the created component, or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">obj</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">create</span>(<span class=\"string\">\"NewObject\"</span>)\n<span class=\"keyword\">local</span> <span class=\"variable\">audioSource</span> = <span class=\"variable\">component</span>.<span class=\"function-call\">add</span>(<span class=\"variable\">obj</span>, <span class=\"string\">\"AudioSource\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "component_getAll",
+    "section": "gameobject",
+    "category": "Components",
+    "name": "<i class=\"fas fa-list-ul\"></i> component.getAll(gameObjectId)",
+    "desc": {
+      "ru": "Получает все компоненты, прикрепленные к игровому объекту.<br>- `gameObjectId` (number) - ID игрового объекта<br><b>Возвращает:</b> `componentsTable` (table) - таблица с ID всех компонентов, или `nil`.",
+      "en": "Gets all components attached to a game object.<br>- `gameObjectId` (number) - ID of the game object<br><b>Returns:</b> `componentsTable` (table) - a table with all component IDs, or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">obj</span> = <span class=\"variable\">gameObject</span>.<span class=\"function-call\">find</span>(<span class=\"string\">\"ComplexObject\"</span>)\n<span class=\"keyword\">local</span> <span class=\"variable\">allComponents</span> = <span class=\"variable\">component</span>.<span class=\"function-call\">getAll</span>(<span class=\"variable\">obj</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "component_fields",
+    "section": "gameobject",
+    "category": "Reflection",
+    "name": "<i class=\"fas fa-search-dollar\"></i> component.fields(componentId)",
+    "desc": {
+      "ru": "Получает все публичные поля компонента и их значения.<br>- `componentId` (number) - ID компонента<br><b>Возвращает:</b> `fieldsTable` (table) - таблица с именами полей и их значениями, или `nil`.",
+      "en": "Gets all public fields of a component and their values.<br>- `componentId` (number) - ID of the component<br><b>Returns:</b> `fieldsTable` (table) - a table with field names and values, or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">rigidbody</span> = <span class=\"variable\">component</span>.<span class=\"function-call\">get</span>(<span class=\"variable\">player</span>, <span class=\"string\">\"Rigidbody\"</span>)\n<span class=\"keyword\">local</span> <span class=\"variable\">fields</span> = <span class=\"variable\">component</span>.<span class=\"function-call\">fields</span>(<span class=\"variable\">rigidbody</span>)\n<span class=\"keyword\">for</span> <span class=\"variable\">fieldName</span>, <span class=\"variable\">value</span> <span class=\"keyword\">in</span> <span class=\"function-call\">pairs</span>(<span class=\"variable\">fields</span>) <span class=\"keyword\">do</span>\n    <span class=\"function-call\">log</span>(<span class=\"variable\">fieldName</span> .. <span class=\"string\">\" = \"</span> .. <span class=\"function-call\">tostring</span>(<span class=\"variable\">value</span>))\n<span class=\"keyword\">end</span>",
+    "commentKey": null
+  },
+  {
+    "id": "component_getField",
+    "section": "gameobject",
+    "category": "Reflection",
+    "name": "<i class=\"fas fa-search-location\"></i> component.getField(componentId, fieldName)",
+    "desc": {
+      "ru": "Получает значение конкретного поля компонента.<br>- `componentId` (number) - ID компонента<br>- `fieldName` (string) - имя поля<br><b>Возвращает:</b> `value` - значение поля, или `nil`.",
+      "en": "Gets the value of a specific component field.<br>- `componentId` (number) - ID of the component<br>- `fieldName` (string) - name of the field<br><b>Returns:</b> `value` - the field's value, or `nil`."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">rigidbody</span> = <span class=\"variable\">component</span>.<span class=\"function-call\">get</span>(<span class=\"variable\">player</span>, <span class=\"string\">\"Rigidbody\"</span>)\n<span class=\"keyword\">local</span> <span class=\"variable\">mass</span> = <span class=\"variable\">component</span>.<span class=\"function-call\">getField</span>(<span class=\"variable\">rigidbody</span>, <span class=\"string\">\"mass\"</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "component_setField",
+    "section": "gameobject",
+    "category": "Reflection",
+    "name": "<i class=\"fas fa-edit\"></i> component.setField(componentId, fieldName, value)",
+    "desc": {
+      "ru": "Устанавливает значение поля компонента.<br>- `componentId` (number) - ID компонента<br>- `fieldName` (string) - имя поля<br>- `value` - новое значение<br><b>Возвращает:</b> `success` (boolean).",
+      "en": "Sets the value of a component field.<br>- `componentId` (number) - ID of the component<br>- `fieldName` (string) - name of the field<br>- `value` - new value<br><b>Returns:</b> `success` (boolean)."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">rigidbody</span> = <span class=\"variable\">component</span>.<span class=\"function-call\">get</span>(<span class=\"variable\">player</span>, <span class=\"string\">\"Rigidbody\"</span>)\n<span class=\"variable\">component</span>.<span class=\"function-call\">setField</span>(<span class=\"variable\">rigidbody</span>, <span class=\"string\">\"mass\"</span>, <span class=\"number\">2.5</span>)\n<span class=\"variable\">component</span>.<span class=\"function-call\">setField</span>(<span class=\"variable\">rigidbody</span>, <span class=\"string\">\"useGravity\"</span>, <span class=\"keyword\">false</span>)",
     "commentKey": null
   },
   {
@@ -1113,6 +1521,18 @@
       "en": "Detaches all child transforms (makes them root objects)."
     },
     "code": "<span class=\"variable\">transform</span>.<span class=\"function-call\">detachChildren</span>(<span class=\"variable\">parentT</span>)",
+    "commentKey": null
+  },
+  {
+    "id": "transform_getRootObjects",
+    "section": "transform",
+    "category": "Hierarchy",
+    "name": "<i class=\"fas fa-sitemap\"></i> transform.getRootObjects()",
+    "desc": {
+      "ru": "Получает таблицу всех корневых игровых объектов на сцене.",
+      "en": "Gets a table of all root game objects in the scene."
+    },
+    "code": "<span class=\"keyword\">local</span> <span class=\"variable\">rootObjects</span> = <span class=\"variable\">transform</span>.<span class=\"function-call\">getRootObjects</span>()",
     "commentKey": null
   },
   {
