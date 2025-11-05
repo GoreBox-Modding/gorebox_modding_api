@@ -1390,124 +1390,124 @@ function loadSettings() {
 
 
 document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(function () {
+
+        initNavigation();
+        initBlogModal();
+        initMobileMenu();
+        initSettings();
+        initCodeCopy();
 
 
-    initNavigation();
-    initBlogModal();
-    initMobileMenu();
-    initSettings();
-    initCodeCopy();
+        document.body.addEventListener('click', function (e) {
+            const toggle = e.target.closest('.function-details-toggle');
+            if (!toggle) return;
 
+            const content = toggle.nextElementSibling;
+            const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
 
-    document.body.addEventListener('click', function (e) {
-        const toggle = e.target.closest('.function-details-toggle');
-        if (!toggle) return;
-
-        const content = toggle.nextElementSibling;
-        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
-
-        toggle.setAttribute('aria-expanded', !isExpanded);
-        content.style.maxHeight = isExpanded ? '0px' : content.scrollHeight + 'px';
-        toggle.classList.toggle('active', !isExpanded);
-    });
+            toggle.setAttribute('aria-expanded', !isExpanded);
+            content.style.maxHeight = isExpanded ? '0px' : content.scrollHeight + 'px';
+            toggle.classList.toggle('active', !isExpanded);
+        });
 
 
 
 
-    Promise.all([
-        fetch('blog.json').then(res => {
-            if (!res.ok) throw new Error('Failed to load blog.json');
-            return res.json();
-        }),
-        fetch('functions.json').then(res => {
-            if (!res.ok) throw new Error('Failed to load functions.json');
-            return res.json();
-        })
-    ])
-        .then(([blogData, funcData]) => {
-            blogPosts = blogData;
-            functionsData = funcData;
+        Promise.all([
+            fetch('blog.json').then(res => {
+                if (!res.ok) throw new Error('Failed to load blog.json');
+                return res.json();
+            }),
+            fetch('functions.json').then(res => {
+                if (!res.ok) throw new Error('Failed to load functions.json');
+                return res.json();
+            })
+        ])
+            .then(([blogData, funcData]) => {
+                blogPosts = blogData;
+                functionsData = funcData;
 
 
-            buildDocumentation(functionsData);
+                buildDocumentation(functionsData);
 
 
-            loadSettings();
+                loadSettings();
 
 
-            initSearch();
-            initDocsCopy();
+                initSearch();
+                initDocsCopy();
 
 
-            const savedPage = localStorage.getItem('activePage') || 'home';
-            if (savedPage !== 'home') {
-                switchPage(savedPage);
-            }
+                const savedPage = localStorage.getItem('activePage') || 'home';
+                if (savedPage !== 'home') {
+                    switchPage(savedPage);
+                }
 
 
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-                const linkPage = link.getAttribute('data-page');
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    const linkPage = link.getAttribute('data-page');
 
-                if (linkPage === savedPage) {
-                    const parentDropdown = link.closest('.has-dropdown');
-                    if (parentDropdown) {
-                        parentDropdown.querySelector('.nav-link.no-click').classList.add('active');
-                    } else {
-                        link.classList.add('active');
+                    if (linkPage === savedPage) {
+                        const parentDropdown = link.closest('.has-dropdown');
+                        if (parentDropdown) {
+                            parentDropdown.querySelector('.nav-link.no-click').classList.add('active');
+                        } else {
+                            link.classList.add('active');
+                        }
                     }
+                });
+            })
+            .catch(error => {
+                console.error('Error loading essential data:', error);
+                document.body.innerHTML = '<h1>Failed to load site data. Please check console.</h1>';
+            });
+
+
+
+        window.addEventListener('resize', () => {
+            const sidebar = document.getElementById('sidebar');
+            const docPage = document.getElementById('documentation-page');
+
+            if (window.innerWidth > 1024) {
+                if (typeof closeMobileMenu === 'function') {
+                    closeMobileMenu();
+                }
+
+                if (docPage && docPage.classList.contains('active')) {
+                    sidebar.classList.add('active');
+                }
+            } else {
+
+                sidebar.classList.remove('active');
+            }
+        });
+
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting && currentEffectsLevel === 2) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                } else if (currentEffectsLevel < 2) {
+
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'none';
                 }
             });
-        })
-        .catch(error => {
-            console.error('Error loading essential data:', error);
-            document.body.innerHTML = '<h1>Failed to load site data. Please check console.</h1>';
-        });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
+        document.querySelectorAll('.section, .clickable-card-wrapper').forEach(el => {
 
+            if (currentEffectsLevel < 2) {
+                el.style.opacity = '1';
+                el.style.transform = 'none';
+            } else {
 
-    window.addEventListener('resize', () => {
-        const sidebar = document.getElementById('sidebar');
-        const docPage = document.getElementById('documentation-page');
-
-        if (window.innerWidth > 1024) {
-            if (typeof closeMobileMenu === 'function') {
-                closeMobileMenu();
-            }
-
-            if (docPage && docPage.classList.contains('active')) {
-                sidebar.classList.add('active');
-            }
-        } else {
-
-            sidebar.classList.remove('active');
-        }
-    });
-
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-
-            if (entry.isIntersecting && currentEffectsLevel === 2) {
-                entry.target.style.animationPlayState = 'running';
-                observer.unobserve(entry.target);
-            } else if (currentEffectsLevel < 2) {
-
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'none';
+                observer.observe(el);
             }
         });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-    document.querySelectorAll('.section, .clickable-card-wrapper').forEach(el => {
-
-        if (currentEffectsLevel < 2) {
-            el.style.opacity = '1';
-            el.style.transform = 'none';
-        } else {
-
-            observer.observe(el);
-        }
-    });
-
+    }, 0);
 });
