@@ -893,11 +893,14 @@ function switchPage(pageId) {
         targetPage.classList.add('active');
         const sidebar = document.getElementById('sidebar');
 
-        if (pageId === 'documentation') {
-            if (window.innerWidth > 1024) { sidebar.classList.add('active'); }
-        } else {
-            sidebar.classList.remove('active');
+        if (sidebar) {
+            if (pageId === 'documentation') {
+                if (window.innerWidth > 1024) { sidebar.classList.add('active'); }
+            } else {
+                sidebar.classList.remove('active');
+            }
         }
+
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
         localStorage.setItem('activePage', pageId);
@@ -1475,6 +1478,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (typeof closeMobileMenu === 'function') {
                         closeMobileMenu();
                     }
+
                     if (docPage.classList.contains('active')) {
                         sidebar.classList.add('active');
                     }
