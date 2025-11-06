@@ -1470,17 +1470,17 @@ document.addEventListener('DOMContentLoaded', function () {
             const sidebar = document.getElementById('sidebar');
             const docPage = document.getElementById('documentation-page');
 
-            if (window.innerWidth > 1024) {
-                if (typeof closeMobileMenu === 'function') {
-                    closeMobileMenu();
+            if (sidebar && docPage) {
+                if (window.innerWidth > 1024) {
+                    if (typeof closeMobileMenu === 'function') {
+                        closeMobileMenu();
+                    }
+                    if (docPage.classList.contains('active')) {
+                        sidebar.classList.add('active');
+                    }
+                } else {
+                    sidebar.classList.remove('active');
                 }
-
-                if (docPage && docPage.classList.contains('active')) {
-                    sidebar.classList.add('active');
-                }
-            } else {
-
-                sidebar.classList.remove('active');
             }
         });
 
