@@ -892,7 +892,6 @@ function switchPage(pageId) {
     if (targetPage) {
         targetPage.classList.add('active');
         const sidebar = document.getElementById('sidebar');
-
         if (sidebar) {
             if (pageId === 'documentation') {
                 if (window.innerWidth > 1024) { sidebar.classList.add('active'); }
@@ -1417,16 +1416,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-Promise.all([
-    fetch('/gorebox_modding_api/blog.json').then(res => {
-        if (!res.ok) throw new Error('Failed to load blog.json');
-        return res.json();
-    }),
-    fetch('/gorebox_modding_api/functions.json').then(res => {
-        if (!res.ok) throw new Error('Failed to load functions.json');
-        return res.json();
-    })
-])
+        Promise.all([
+            fetch('blog.json').then(res => {
+                if (!res.ok) throw new Error('Failed to load blog.json');
+                return res.json();
+            }),
+            fetch('functions.json').then(res => {
+                if (!res.ok) throw new Error('Failed to load functions.json');
+                return res.json();
+            })
+        ])
             .then(([blogData, funcData]) => {
                 blogPosts = blogData;
                 functionsData = funcData;
@@ -1473,18 +1472,17 @@ Promise.all([
             const sidebar = document.getElementById('sidebar');
             const docPage = document.getElementById('documentation-page');
 
-            if (sidebar && docPage) {
-                if (window.innerWidth > 1024) {
-                    if (typeof closeMobileMenu === 'function') {
-                        closeMobileMenu();
-                    }
-
-                    if (docPage.classList.contains('active')) {
-                        sidebar.classList.add('active');
-                    }
-                } else {
-                    sidebar.classList.remove('active');
+            if (window.innerWidth > 1024) {
+                if (typeof closeMobileMenu === 'function') {
+                    closeMobileMenu();
                 }
+
+                if (docPage && docPage.classList.contains('active')) {
+                    sidebar.classList.add('active');
+                }
+            } else {
+
+                sidebar.classList.remove('active');
             }
         });
 
