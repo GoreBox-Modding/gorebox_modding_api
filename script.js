@@ -1417,16 +1417,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-        Promise.all([
-            fetch('blog.json').then(res => {
-                if (!res.ok) throw new Error('Failed to load blog.json');
-                return res.json();
-            }),
-            fetch('functions.json').then(res => {
-                if (!res.ok) throw new Error('Failed to load functions.json');
-                return res.json();
-            })
-        ])
+Promise.all([
+    fetch('/gorebox_modding_api/blog.json').then(res => {
+        if (!res.ok) throw new Error('Failed to load blog.json');
+        return res.json();
+    }),
+    fetch('/gorebox_modding_api/functions.json').then(res => {
+        if (!res.ok) throw new Error('Failed to load functions.json');
+        return res.json();
+    })
+])
             .then(([blogData, funcData]) => {
                 blogPosts = blogData;
                 functionsData = funcData;
