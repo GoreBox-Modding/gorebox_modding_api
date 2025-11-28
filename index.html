@@ -1,162 +1,162 @@
-<!DOCTYPE html>
-<html lang="en" class="dark">
+    <!DOCTYPE html>
+    <html lang="en" class="dark">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoreBox Modding API</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="/gorebox_modding_api/favicon_32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/gorebox_modding_api/favicon_16x16.png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        background: 'var(--bg-main)',
-                        surface: 'var(--bg-sidebar)',
-                        surfaceHighlight: 'var(--bg-element)',
-                        border: 'var(--border-color)',
-                        text: {
-                            primary: 'var(--text-primary)',
-                            secondary: 'var(--text-secondary)',
-                            muted: 'var(--text-muted)',
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GoreBox Modding API</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="/gorebox_modding_api/favicon_32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/gorebox_modding_api/favicon_16x16.png">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+            rel="stylesheet">
+        <script>
+            tailwind.config = {
+                darkMode: 'class',
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ['Inter', 'sans-serif'],
+                            mono: ['JetBrains Mono', 'monospace'],
                         },
-                        accent: {
-                            DEFAULT: 'var(--accent-color)',
-                            hover: 'var(--accent-hover)',
-                            dim: 'var(--accent-dim)',
-                            text: 'var(--accent-text)'
-                        }
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                        'slide-up': 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
+                        colors: {
+                            background: 'var(--bg-main)',
+                            surface: 'var(--bg-sidebar)',
+                            surfaceHighlight: 'var(--bg-element)',
+                            border: 'var(--border-color)',
+                            text: {
+                                primary: 'var(--text-primary)',
+                                secondary: 'var(--text-secondary)',
+                                muted: 'var(--text-muted)',
+                            },
+                            accent: {
+                                DEFAULT: 'var(--accent-color)',
+                                hover: 'var(--accent-hover)',
+                                dim: 'var(--accent-dim)',
+                                text: 'var(--accent-text)'
+                            }
                         },
-                        slideUp: {
-                            '0%': { opacity: '0', transform: 'translateY(15px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        animation: {
+                            'fade-in': 'fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                            'slide-up': 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        },
+                        keyframes: {
+                            fadeIn: {
+                                '0%': { opacity: '0' },
+                                '100%': { opacity: '1' },
+                            },
+                            slideUp: {
+                                '0%': { opacity: '0', transform: 'translateY(15px)' },
+                                '100%': { opacity: '1', transform: 'translateY(0)' },
+                            }
                         }
                     }
                 }
             }
-        }
+        </script>
+        <style>
+            :root {
+                --bg-main: #18181b;
+                --bg-sidebar: #202022;
+                --bg-element: #27272a;
+                --border-color: rgba(255, 255, 255, 0.08);
+                --text-primary: #f4f4f5;
+                --text-secondary: #a1a1aa;
+                --text-muted: #52525b;
+
+                --accent-color: #3b82f6;
+                --accent-hover: #60a5fa;
+                --accent-dim: rgba(59, 130, 246, 0.15);
+                --accent-text: #ffffff;
+            }
+
+            .custom-scrollbar::-webkit-scrollbar {
+                width: 6px;
+                height: 6px;
+            }
+
+            .custom-scrollbar::-webkit-scrollbar-track {
+                background: transparent;
+            }
+
+            .custom-scrollbar::-webkit-scrollbar-thumb {
+                background: #3f3f46;
+                border-radius: 10px;
+            }
+
+            .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                background: #52525b;
+            }
+
+            body {
+                background-color: var(--bg-main);
+                color: var(--text-primary);
+                -webkit-font-smoothing: antialiased;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            .token-string {
+                color: #86efac;
+            }
+
+            .token-keyword {
+                color: #c084fc;
+                font-weight: 600;
+            }
+
+            .token-comment {
+                color: #71717a;
+                font-style: italic;
+            }
+
+            .token-number {
+                color: #fb923c;
+            }
+
+            .token-function {
+                color: #60a5fa;
+            }
+
+            .token-type {
+                color: #fcd34d;
+            }
+
+            .token-operator {
+                color: #22d3ee;
+            }
+
+            .token-class {
+                color: #fde047;
+            }
+        </style>
+        <script>
+            window.addEventListener('error', function (e) {
+                const err = document.createElement('div');
+                err.style.cssText = 'position:fixed;top:0;left:0;width:100%;background:#7f1d1d;color:white;padding:20px;z-index:9999;font-family:monospace;';
+                err.textContent = 'Runtime Error: ' + (e.message || 'Unknown error');
+                document.body.appendChild(err);
+            });
+        </script>
+
+        <script type="importmap">
+    {
+    "imports": {
+        "react": "https://aistudiocdn.com/react@^19.2.0",
+        "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+        "react/": "https://aistudiocdn.com/react@^19.2.0/",
+        "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0"
+    }
+    }
     </script>
-    <style>
-        :root {
-            --bg-main: #18181b;
-            --bg-sidebar: #202022;
-            --bg-element: #27272a;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --text-primary: #f4f4f5;
-            --text-secondary: #a1a1aa;
-            --text-muted: #52525b;
+      <script type="module" crossorigin src="/gorebox_modding_api/assets/index-Dv5_9b8-.js"></script>
+    </head>
 
-            --accent-color: #3b82f6;
-            --accent-hover: #60a5fa;
-            --accent-dim: rgba(59, 130, 246, 0.15);
-            --accent-text: #ffffff;
-        }
+    <body>
+        <div id="root"></div>
+    </body>
 
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #3f3f46;
-            border-radius: 10px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #52525b;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            -webkit-font-smoothing: antialiased;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .token-string {
-            color: #86efac;
-        }
-
-        .token-keyword {
-            color: #c084fc;
-            font-weight: 600;
-        }
-
-        .token-comment {
-            color: #71717a;
-            font-style: italic;
-        }
-
-        .token-number {
-            color: #fb923c;
-        }
-
-        .token-function {
-            color: #60a5fa;
-        }
-
-        .token-type {
-            color: #fcd34d;
-        }
-
-        .token-operator {
-            color: #22d3ee;
-        }
-
-        .token-class {
-            color: #fde047;
-        }
-    </style>
-    <script>
-        window.addEventListener('error', function (e) {
-            const err = document.createElement('div');
-            err.style.cssText = 'position:fixed;top:0;left:0;width:100%;background:#7f1d1d;color:white;padding:20px;z-index:9999;font-family:monospace;';
-            err.textContent = 'Runtime Error: ' + (e.message || 'Unknown error');
-            document.body.appendChild(err);
-        });
-    </script>
-
-    <script type="importmap">
-{
-  "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0"
-  }
-}
-</script>
-  <script type="module" crossorigin src="/gorebox_modding_api/assets/index-ElHcatRJ.js"></script>
-</head>
-
-<body>
-    <div id="root"></div>
-</body>
-
-</html>
+    </html>
