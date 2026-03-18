@@ -1,162 +1,235 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
-
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoreBox Modding API</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="/gorebox_modding_api/favicon_32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/gorebox_modding_api/favicon_16x16.png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        background: 'var(--bg-main)',
-                        surface: 'var(--bg-sidebar)',
-                        surfaceHighlight: 'var(--bg-element)',
-                        border: 'var(--border-color)',
-                        text: {
-                            primary: 'var(--text-primary)',
-                            secondary: 'var(--text-secondary)',
-                            muted: 'var(--text-muted)',
-                        },
-                        accent: {
-                            DEFAULT: 'var(--accent-color)',
-                            hover: 'var(--accent-hover)',
-                            dim: 'var(--accent-dim)',
-                            text: 'var(--accent-text)'
-                        }
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                        'slide-up': 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
-                        },
-                        slideUp: {
-                            '0%': { opacity: '0', transform: 'translateY(15px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <title>GoreBox Modding API — Переезд</title>
+    <link rel="icon" type="image/png" href="favicon_32x32.png">
+    <meta http-equiv="refresh" content="5;url=https://gorebox-modding-api.web.app/" />
     <style>
-        :root {
-            --bg-main: #18181b;
-            --bg-sidebar: #202022;
-            --bg-element: #27272a;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --text-primary: #f4f4f5;
-            --text-secondary: #a1a1aa;
-            --text-muted: #52525b;
-
-            --accent-color: #3b82f6;
-            --accent-hover: #60a5fa;
-            --accent-dim: rgba(59, 130, 246, 0.15);
-            --accent-text: #ffffff;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #3f3f46;
-            border-radius: 10px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #52525b;
-        }
-
         body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #18181b;
+            color: #f4f4f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             -webkit-font-smoothing: antialiased;
-            transition: background-color 0.3s, color 0.3s;
         }
 
-        .token-string {
-            color: #86efac;
+        .card {
+            background-color: #27272a;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 440px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .token-keyword {
-            color: #c084fc;
+        h1 {
+            margin: 0 0 8px;
+            font-size: 22px;
             font-weight: 600;
+            color: #ffffff;
         }
 
-        .token-comment {
+        p {
+            margin: 0 0 32px;
+            font-size: 14px;
+            color: #a1a1aa;
+            line-height: 1.6;
+        }
+
+        .migration-stage {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 32px;
+            padding: 0 10px;
+        }
+
+        .server-box {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background-color: #18181b;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            z-index: 2;
+        }
+
+        .server-box.new {
+            border-color: #3b82f6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            animation: pulse-glow 2s infinite alternate;
+        }
+
+        .server-box svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .server-box.old svg {
             color: #71717a;
-            font-style: italic;
         }
 
-        .token-number {
-            color: #fb923c;
+        .server-box.new svg {
+            color: #3b82f6;
         }
 
-        .token-function {
-            color: #60a5fa;
+        .track-container {
+            flex: 1;
+            height: 2px;
+            background-image: linear-gradient(90deg, #3f3f46 50%, transparent 50%);
+            background-size: 12px 2px;
+            margin: 0 15px;
+            position: relative;
+            display: flex;
+            align-items: center;
         }
 
-        .token-type {
-            color: #fcd34d;
+        .data-packet {
+            position: absolute;
+            width: 35px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #3b82f6, #ffffff);
+            border-radius: 2px;
+            filter: drop-shadow(0 0 6px #3b82f6);
+            animation: transfer 1.2s infinite linear;
         }
 
-        .token-operator {
-            color: #22d3ee;
+        .data-packet:nth-child(2) {
+            animation-delay: 0.6s;
         }
 
-        .token-class {
-            color: #fde047;
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #3b82f6;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+            animation: loadProgress 5s linear forwards;
+        }
+
+        .timer-text {
+            font-size: 13px;
+            color: #71717a;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 14px 0;
+            background-color: #ffffff;
+            color: #000000;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #e4e4e7;
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes transfer {
+            0% { left: -35px; opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { left: 100%; opacity: 0; }
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 10px rgba(59, 130, 246, 0.2); }
+            100% { box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); }
+        }
+
+        @keyframes loadProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
         }
     </style>
-    <script>
-        window.addEventListener('error', function (e) {
-            const err = document.createElement('div');
-            err.style.cssText = 'position:fixed;top:0;left:0;width:100%;background:#7f1d1d;color:white;padding:20px;z-index:9999;font-family:monospace;';
-            err.textContent = 'Runtime Error: ' + (e.message || 'Unknown error');
-            document.body.appendChild(err);
-        });
-    </script>
-
-    <script type="importmap">
-    {
-    "imports": {
-        "react": "https://aistudiocdn.com/react@^19.2.0",
-        "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-        "react/": "https://aistudiocdn.com/react@^19.2.0/",
-        "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0"
-    }
-    }
-    </script>
-  <script type="module" crossorigin src="/gorebox_modding_api/assets/index-Co52hblh.js"></script>
 </head>
-
 <body>
-    <div id="root"></div>
-</body>
+    <div class="card">
+        
+        <div class="migration-stage">
+            <div class="server-box old">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                    <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                    <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                    <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                </svg>
+            </div>
+            
+            <div class="track-container">
+                <div class="data-packet"></div>
+                <div class="data-packet"></div>
+            </div>
+            
+            <div class="server-box new">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+                </svg>
+            </div>
+        </div>
 
+        <h1>Сайт переехал</h1>
+        <p>Документация GoreBox Modding API доступна по новому адресу. Вы будете перенаправлены автоматически.</p>
+        
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+        <div class="timer-text">Автоматический переход через 5 секунд...</div>
+        
+        <a href="https://gorebox-modding-api.web.app/" class="btn">
+            Перейти на новый сайт
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+            </svg>
+        </a>
+    </div>
+</body>
 </html>
